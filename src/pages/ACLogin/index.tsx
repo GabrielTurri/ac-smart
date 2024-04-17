@@ -1,5 +1,5 @@
 import LogoImg from '../../assets/main-logo.svg'
-import { LoginContainer, LoginInput, LoginNavLink } from './styles'
+import { LoginContainer, LoginInput, LoginNavLink, OuStyle } from './styles'
 
 export function ACLogin() {
   return (
@@ -10,13 +10,18 @@ export function ACLogin() {
       <LoginInput placeholder='E-mail'/>
       <LoginInput placeholder='Senha'/>
 
-      <div>
-        <a href="">Cadastre-se</a>
-        <a href="">Esqueci minha senha</a>
-      </div>
-      <LoginNavLink to='/dashboard' title='Fazer Login'>
+      <LoginNavLink to='/dashboard' title='Fazer Login' $primary>
         <button>
-          ENTRAR
+          Entrar
+        </button>
+      </LoginNavLink>
+      <div>
+        <a href="">Esqueci minha senha</a>
+        <span>ou</span>
+      </div>
+      <LoginNavLink to='/' title='Cadastre-se'>
+        <button>
+          Criar uma conta
         </button>
       </LoginNavLink>
     </LoginContainer>
