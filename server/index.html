@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+
+        <h1>Testando Backend PI</h1>
+        <form action="server.php" method="post">
+            <p>Primeiro, tem que fazer o login no app, para obter os dados do usuario logado.</p>
+            <p> Login vai pegar o email do input e vai tentar procurar no banco de dados, se encontrar alguma linha usando aquele email como parametro, então quer dizer que o email está correto e já cadastrado no banco.</p>
+            <p>Se estiver tudo correto, os dados do usuario serão salvos no ARRAY GLOBAL $SESSION, e ele será redirecionado para dentro do app.</p>
+            <input type="submit" value="Login" name="login">
+
+            <p>Login do Professor/Coordenador</p>
+            
+            <input type="submit" value="Login coordenador" name="login_coordenador">
+
+            
+    
+            </form>
+    </div>
+</body>
+</html>
+
