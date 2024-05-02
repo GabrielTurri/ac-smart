@@ -1,0 +1,95 @@
+<!-- export function Activities() {
+  const aprovadas = document.getElementById("aprovadas");
+  const pendentes = document.getElementById("pendentes");
+
+  function showApproved() {
+    pendentes.style.display = "none";
+    aprovadas.style.display = "block";
+  }
+  function showPendent() {
+    aprovadas.style.display = "none";
+    pendentes.style.display = "block";
+  } -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="styles/styles-activities.css">
+  <link rel="stylesheet" href="styles/global.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activities</title>
+</head>
+<body>
+  
+  <div class="headerContainer">
+    <a href="dashboard.html">
+      <img src="assets/icons/arrow-left.svg" alt="">
+    </a>
+    <div>
+      <h2>Minhas AC'S</h2>
+    </div>
+    <div></div>
+  </div>
+  
+  <div class="activityTabs">
+    <button onClick={showApproved}>Aprovadas</button>
+    <button onClick={showPendent}>Pendentes</button>
+  </div>
+
+  <div class="activityList" id="aprovadas">
+    <h2>Atividades Aprovadas</h2>
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+  
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+    
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+    
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+    
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+    
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+  </div>    
+  
+  <div class="activityList" id="pendentes">
+    <h2>Atividades Pendentes</h2>
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+  
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+    
+    <div class="activityContainer">
+      <span>Certificado: Python Básico</span>
+      <strong>4H</strong>
+    </div>
+    
+  </div>
+ 
+</body>
+</html>

@@ -1,0 +1,62 @@
+.headerContainer {
+  display: flex;
+  gap: 16px;
+  padding: 8px;
+  margin: 0;
+
+  justify-content: space-between;
+  
+  background-color: #043565;
+  color: #fff;
+}
+  
+.headerContainer h2 {
+    font-weight: 400;
+    /* font-family: Montserrat, sans-serif; */ 
+  }
+  
+.headerContainer a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+.activityTabs { 
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin: 8px 0;
+  justify-content: center;
+}
+
+.activityTabs button {
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  max-width: 70%;
+  gap: 8px;
+
+  margin: 16px auto;
+}
+
+.activityList #pendentes {
+  display: none;
+}
+
+.activityContainer {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+
+  width: 100%;
+  
+  gap: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #043565;
+}
