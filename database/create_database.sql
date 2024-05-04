@@ -7,7 +7,8 @@ CREATE TABLE coordenador (
     cod_coordenador INT PRIMARY KEY AUTO_INCREMENT,
     nome_coordenador VARCHAR(50),
     sobrenome_coordenador VARCHAR(50),
-    email_coordenador VARCHAR(60)
+    email_coordenador VARCHAR(60),
+    senha_coordenador VARCHAR(60)
 );
 
 -- Criação da tabela Curso
@@ -25,6 +26,7 @@ CREATE TABLE aluno (
     nome_aluno VARCHAR(50),
     sobrenome_aluno VARCHAR(50),
     email_aluno VARCHAR(60),
+    senha_aluno VARCHAR(60),
     cod_curso INT,
     FOREIGN KEY (cod_curso) REFERENCES curso(cod_curso)
 );
@@ -47,7 +49,7 @@ CREATE TABLE atividade_complementar (
     horas_solicitadas SMALLINT UNSIGNED,
     data DATE,
     status ENUM('Aprovado', 'Reprovado', 'Pendente') DEFAULT 'Pendente',
-    horas_aprovadas INT,
+    horas_aprovadas SMALLINT DEFAULT 0,
     RA_aluno INT,
     FOREIGN KEY (RA_aluno) REFERENCES aluno(RA_aluno)
 );
