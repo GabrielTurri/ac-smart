@@ -13,15 +13,15 @@ session_start();
 // PARA USAR AS SEGUINTES VARIAVEIS GLOBAIS, É NECESSARIO USAR $GLOBALS['x']
 $server = "ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com";
 $usuario = "felipe";
-$senha = "abcd=1234";
+$senha = "abcd=1234";   
 $banco = "humanitae_db";
 
 
 function login_aluno(){
-    // $email = $_POST ['email'];
+    $email = $_POST ['email'];
     // $senha = $_POST ['senha'];
 
-    $email = 'clara.barbosa@aluno.humanitae.edu.br';
+    // $email = 'clara.barbosa@aluno.humanitae.edu.br';
     // joao.pereira@aluno.humanitae.edu.br
     // lucas.martins@aluno.humanitae.edu.br
     // clara.barbosa@aluno.humanitae.edu.br
@@ -37,7 +37,7 @@ function login_aluno(){
     if ($result -> num_rows == 0) {
         // se não achar, vai retornar para a página de login
         
-        header("Location: index.html");
+        header("Location: ../src/login.html");
         
     } else {
         // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
@@ -47,7 +47,9 @@ function login_aluno(){
             $_SESSION['sobrenome_aluno'] = $row['sobrenome_aluno'];
             $_SESSION['email_aluno'] = $row['email_aluno'];
         }
-        header("Location: botoes.php");
+        
+
+        header("Location: ../src/dashboard.php");
         
     }
 
@@ -154,7 +156,8 @@ function sair(){
     session_unset();
     session_destroy();
     // redirecionar para a página inicial sem os dados do usuario que estava logado
-    header("Location: index.html");
+    header("Location: ../src/login.html");
+
 }
 
 // só o aluno pode deletar a atividade dele mesmo, e só pode fazer isso se o status estiver REPROVADA

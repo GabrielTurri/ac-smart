@@ -1,3 +1,26 @@
+<?php
+  session_start();
+    // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
+  if($_SESSION['ra_aluno'] or $_SESSION['cod_coordenador']){
+  } else {
+    header("Location: login.html");
+  } 
+
+// conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
+  $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+
+  // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
+  // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
+  $sql = "SELECT * FROM atividade_complementar WHERE RA_aluno = '".$_SESSION['ra_aluno']."'";
+  $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
+  
+  foreach($result as $row){
+    if($row["horas_aprovadas"] == 0) {  
+      echo "{$row["titulo"]}<br>";
+    }
+  }  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +41,9 @@
 <body>
     <div class="appHeader">
       <img src="assets/icons/menu.svg" alt="">
+      <form action="../server/server.php" method="post">
+        <input type="submit" value="sair" name="sair" id="sair">
+      </form>
     </div>
 
     <div class="dashboardContainer">
@@ -72,6 +98,7 @@
         </a>
       </div>
     </div>
+    
     
 </body>
 </html>

@@ -20,15 +20,18 @@
   <div class="loginContainer">
     <img src="assets/main-logo.svg" alt="" />
     <h1>Fazer Login</h1>
-    <input class="loginInput" placeholder='E-mail'/>
-    <input class="loginInput" placeholder='Senha'/>
-  
-
-    <a href="dashboard.html" class="loginNavLink">
-      <button>
-        Entrar
-      </button>
-    </a>
+    
+    <form action="../server/server.php" method="post">
+      <input class="loginInput" placeholder='E-mail' type="text" name="email"/>
+      <input class="loginInput" placeholder='Senha' type="password" name="senha"/>
+      
+      <!-- <a href="dashboard.html" class="loginNavLink">  -->
+      <input type="submit" name="login" class="botao-login" id="login" value="Entrar">       
+        <!-- <button>
+          Entrar
+        </button> -->
+      <!-- </a> -->
+    </form>
 
     <div>
       <a class="forget" href="">Esqueci minha senha</a>
