@@ -19,12 +19,7 @@ $banco = "humanitae_db";
 
 function login_aluno(){
     $email = $_POST ['email'];
-    // $senha = $_POST ['senha'];
-
-    // $email = 'clara.barbosa@aluno.humanitae.edu.br';
-    // joao.pereira@aluno.humanitae.edu.br
-    // lucas.martins@aluno.humanitae.edu.br
-    // clara.barbosa@aluno.humanitae.edu.br
+    $senha = $_POST ['senha'];
     
     // conexão com o banco de dados
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
@@ -36,23 +31,25 @@ function login_aluno(){
     // validação para ver se encontrou o email inserido
     if ($result -> num_rows == 0) {
         // se não achar, vai retornar para a página de login
-        
         header("Location: ../src/login.html");
-        
+
     } else {
-        // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
-        while ($row = $result->fetch_assoc()){
-            $_SESSION['ra_aluno'] = $row['RA_aluno'];
-            $_SESSION['nome_aluno'] = $row['nome_aluno'];
-            $_SESSION['sobrenome_aluno'] = $row['sobrenome_aluno'];
-            $_SESSION['email_aluno'] = $row['email_aluno'];
-        }
-        
+        // fazer a comparação das senhas, se estiver errado, ir para login.html, senão ir para dashboard
+        $linha = mysqli_fetch_array($result);
+        $verify = password_verify($senha, $linha["senha_aluno"]); 
+        if ($verify == 0) {
+            header("Location: ../src/login.html");
+        } else {
+            // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
+            $_SESSION['ra_aluno'] = $linha['RA_aluno'];
+            $_SESSION['nome_aluno'] = $linha['nome_aluno'];
+            $_SESSION['sobrenome_aluno'] = $linha['sobrenome_aluno'];
+            $_SESSION['email_aluno'] = $linha['email_aluno'];
+            $_SESSION['curso'] = $linha['cod_curso'];
 
-        header("Location: ../src/dashboard.php");
-        
+            header("Location: ..\src\dashboard.php");
+        }        
     }
-
 }
 
 function login_coordenador(){
@@ -78,6 +75,8 @@ function login_coordenador(){
         
     } else {
         // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
+        session_unset();
+        session_destroy();
         while ($row = $result->fetch_assoc()){
             $_SESSION['cod_coordenador'] = $row['cod_coordenador'];
             $_SESSION['nome_coordenador'] = $row['nome_coordenador'];
@@ -85,7 +84,7 @@ function login_coordenador(){
             $_SESSION['email_coordenador'] = $row['email_coordenador'];
         }
 
-        header("Location: test.html");
+        header("Location: ");
     }
 }
 

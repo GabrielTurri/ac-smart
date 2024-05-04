@@ -10,6 +10,14 @@
     aprovadas.style.display = "none";
     pendentes.style.display = "block";
   } -->
+<?php
+  session_start();
+  // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
+  if($_SESSION['ra_aluno'] or $_SESSION['cod_coordenador']){
+  } else {
+    header("Location: login.html");
+  } 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +33,7 @@
 <body>
   
   <div class="headerContainer">
-    <a href="dashboard.html">
+    <a href="dashboard.php">
       <img src="assets/icons/arrow-left.svg" alt="">
     </a>
     <div>
