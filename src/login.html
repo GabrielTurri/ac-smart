@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   
@@ -17,11 +17,10 @@
 </head>
 <body>
 
-  <div class="loginContainer">
-    <img src="assets/main-logo.svg" alt="" />
-    <h1>Fazer Login</h1>
-    
-    <form action="../server/server.php" method="post">
+  <form action="../server/server.php" method="post">
+    <div class="loginContainer">
+      <img src="assets/main-logo.svg" alt="" />
+      <h1>Fazer Login</h1>
       <input class="loginInput" placeholder='E-mail' type="text" name="email"/>
       <input class="loginInput" placeholder='Senha' type="password" name="senha"/>
       
@@ -30,14 +29,14 @@
         <!-- <button>
           Entrar
         </button> -->
-      <!-- </a> -->
-    </form>
-
-    <div>
-      <a class="forget" href="">Esqueci minha senha</a>
-      <span>Não tem uma conta? Entre em contato com a universidade.</span>
-    </div>    
-  </div>
+        <!-- </a> -->
+  
+      <div>
+        <a class="forget" href="">Esqueci minha senha</a>
+        <span>Não tem uma conta? Entre em contato com a universidade.</span>
+      </div>    
+    </div>
+  </form>
 
 </body>
 </html>

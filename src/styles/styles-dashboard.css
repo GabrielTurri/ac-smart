@@ -6,8 +6,25 @@
   'orange-500': '#FF9432',
 } */
 .appHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   background-color: #043565;
-  padding: 8px;
+}
+
+.appHeader input {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+
+  color: #fff;
+  padding: 16px;
+}
+
+.appHeader input:hover {
+  cursor: pointer;
+  background-color: #032A50;
 }
 
 .dashboardContainer{

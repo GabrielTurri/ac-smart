@@ -42,7 +42,8 @@
     <div class="appHeader">
       <img src="assets/icons/menu.svg" alt="">
       <form action="../server/server.php" method="post">
-        <input type="submit" value="sair" name="sair" id="sair">
+        <!-- <img src="assets/icons/log-out.svg" alt=""> -->
+        <input type="submit" value="Encerrar Sessão" name="sair" id="sair">
       </form>
     </div>
 
