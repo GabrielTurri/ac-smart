@@ -1,3 +1,14 @@
+<?php
+  session_start();
+
+  $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+
+  // para buscar as atividades daquele usuario logado
+  $sql = "SELECT * FROM atividade_complementar WHERE RA_aluno = '".$_SESSION['ra_aluno']."'";
+  $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
+ print_r($result->fetch_assoc()["titulo"]);
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +29,10 @@
 <body>
     <div class="appHeader">
       <img src="assets/icons/menu.svg" alt="">
+      <form action="../server/server.php" method="post">
+        <input type="submit" value="sair" name="sair" id="sair">
+      </form>
+      <strong></strong>
     </div>
 
     <div class="dashboardContainer">
@@ -72,6 +87,7 @@
         </a>
       </div>
     </div>
+    
     
 </body>
 </html>
