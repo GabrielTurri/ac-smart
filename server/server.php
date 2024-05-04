@@ -45,6 +45,8 @@ function login_aluno(){
             $_SESSION['nome_aluno'] = $linha['nome_aluno'];
             $_SESSION['sobrenome_aluno'] = $linha['sobrenome_aluno'];
             $_SESSION['email_aluno'] = $linha['email_aluno'];
+            $_SESSION['curso'] = $linha['cod_curso'];
+
             header("Location: ..\src\dashboard.php");
         }        
     }
