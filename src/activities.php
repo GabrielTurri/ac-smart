@@ -30,6 +30,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Activities</title>
 </head>
+<script>
+
+  function showApproved() {
+    document.getElementById("pendentes").style.display = "none";
+    document.getElementById("aprovadas").style.display = "flex";
+  }
+  function showPendent() {
+    document.getElementById("aprovadas").style.display = "none";
+    document.getElementById("pendentes").style.display = "flex";
+  } 
+</script>
 <body>
   
   <div class="headerContainer">
@@ -43,8 +54,8 @@
   </div>
   
   <div class="activityTabs">
-    <button onClick={showApproved}>Aprovadas</button>
-    <button onClick={showPendent}>Pendentes</button>
+    <button onclick="showApproved()">Aprovadas</button>
+    <button onclick="showPendent()">Pendentes</button>
   </div>
 
   <div class="activityList" id="aprovadas">

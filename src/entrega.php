@@ -30,7 +30,7 @@
   </div>
   
   <div class="formContainer column">
-    <form action="POST">
+    <form action="inserir" method="POST">
       <div class="column">
         <label for="titulo">Título</label>
         <input name="titulo" type="text">
@@ -49,13 +49,13 @@
 
       <div class="dataHorasContainer ">
         <div class="horasInput column">
-          <label for="horas">Horas solicitadas</label>
-          <input name="horas" type="number">
+          <label for="horas_solicitadas">Horas solicitadas</label>
+          <input name="horas_solicitadas" type="number">
         </div>
   
         <div class="dataInput column">
-          <label for="data-entrega">Data da atividade</label>
-          <input name="data-entrega" type="number">
+          <label for="data_conclusao">Data da atividade</label>
+          <input name="data_conclusao" type="date">
         </div>
       </div>
       <div class="enviar-container column">

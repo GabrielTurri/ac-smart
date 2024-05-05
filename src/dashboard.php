@@ -54,109 +54,116 @@
   <title>Dashboard</title>
 </head>
 <body>
-    <div class="appHeader">
-      <img src="assets/icons/menu.svg" alt="">
-      <form action="../server/server.php" method="post">
-        <!-- <img src="assets/icons/log-out.svg" alt=""> -->
-        <input type="submit" value="Encerrar Sessão" name="sair" id="sair">
-      </form>
+  <aside class="sidebar">
+    <div class="user-data text-center">
+      <div class="user-photo"></div>
+      <h3>Boas Vindas, <?php echo ucfirst($_SESSION['nome_aluno'])?></h3>
+      <h4>RA: <?php echo $_SESSION['ra_aluno']?></h4>
     </div>
-
-    <h3>Olá de volta, <?php echo ucfirst($_SESSION['nome_aluno'])?></h3>
-    <h4>RA: <?php echo $_SESSION['ra_aluno']?></h4>
-
-    <div class="dashboardContainer">
-      <div class="chartContainer">
-
-        <div class="chartContent">
-          <div class="chartImg"></div>
-          <h1><?php echo "{$horas_totais_entregues}/{$_SESSION['horas_complementares']}";?> Horas</h1>
-          <div>
-            <div>
-              <div class="chartLegendOrange"></div>
-              <span>Entregues</span>
-            </div>
-
-            <div>
-              <div class="chartLegend"></div>
-              <span>Restantes</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="chartContainer">
-        <a href="activities.php" class="button">
-          <button>
-            <img 
-              src="assets/icons/file-text.svg" 
-              alt="Atividades Complementares"
-            >
-            Minhas AC'S
-          </button>
-        </a>
-
-        <a href="entrega.php" class="button">
-          <button class="button">
-            <img 
-              src="assets/icons/file-plus.svg" 
-              alt="Atividades Complementares"
-            >
-            Entregar AC'S
-          </button>
-        </a>
-
-        <a href="" class="button">
-          <button class="button">
-            <img 
-              src="assets/icons/corner-down-left.svg" 
-              alt="Atividades Complementares"
-            >
-            AC'S Reprovadas
-          </button>
-        </a>
-      </div>
-    </div>
-
-    <!-- mostrar as atividades do aluno caso ele tenha alguma atividade entregue -->
-    <?php
-    if ($result ->num_rows > 0){
-      echo "
-      <div class='tableWrapper'>
-        <h2>Atividades Entregues</h2>
-        <table>
-          <tr>
-            <th>Atividade</th>
-            <th>Descrição</th>
-            <th>Anexo</th>
-            <th>Data de conclusão</th>
-            <th>Horas Aprovadas</th>
-            <th>Status</th>
-          </tr>";
-
-          foreach($result as $row){
-            echo "
-            <tr>
-            <td>{$row["titulo"]}</td>
-            <td>{$row["descricao"]}</td>
-            <td>{$row["caminho_anexo"]}</td>
-            <td>{$row["data"]}</td>
-            <td>{$row["horas_aprovadas"]}</td>
-            <td>{$row["status"]}</td>
-            </tr>";
-          }
-        }
-        ?>
-      </table>
-    </div>
-
-    <!-- para imprimir as informações do curso do aluno cadastrado -->
-    <div>
-      <?php echo "<h3>Sobre seu curso: {$_SESSION['nome_curso']}</h3>";
-      echo "<p>Nome do coordenador: ".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
-      echo "<p>Email do coordenador: {$_SESSION['email_coordenador']}</p>"
+      <!-- para imprimir as informações do curso do aluno cadastrado -->
+    <div class="user-info">
+      <h3>Nome do curso:</h3>
+      <?php echo "<span>{$_SESSION['nome_curso']}</span>";
+        echo "<p><b>Nome do coordenador:</b></p> <p>".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
+        echo "<p><b>Email do coordenador:</b></p> <p> {$_SESSION['email_coordenador']}</p>"
       ?>
     </div>
+    <form action="../server/server.php" method="post">
+      <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
+        <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
+        Encerrar Sessão
+      </button>
+    </form>
+  </aside>
+    <div class="dashboard-content">
+      <div class="column">
+        <div class="dashboardContainer">
+          <div class="chartContainer">
     
-</body>
-</html>
+            <div class="chartContent">
+              <div class="chartImg"></div>
+              <h1><?php echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";?> Horas</h1>
+              <div>
+                <div>
+                  <div class="chartLegendOrange"></div>
+                  <span>Entregues</span>
+                </div>
+    
+                <div>
+                  <div class="chartLegend"></div>
+                  <span>Restantes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="chartContainer">
+            <a href="activities.php" class="button">
+              <button>
+                <img 
+                  src="assets/icons/file-text.svg" 
+                  alt="Atividades Complementares"
+                >
+                Minhas AC'S
+              </button>
+            </a>
+    
+            <a href="entrega.php" class="button">
+              <button class="button">
+                <img 
+                  src="assets/icons/file-plus.svg" 
+                  alt="Atividades Complementares"
+                >
+                Entregar AC'S
+              </button>
+            </a>
+    
+            <a href="" class="button">
+              <button class="button">
+                <img 
+                  src="assets/icons/corner-down-left.svg" 
+                  alt="Atividades Complementares"
+                >
+                AC'S Reprovadas
+              </button>
+            </a>
+          </div>
+          
+          <!-- mostrar as atividades do aluno caso ele tenha alguma atividade entregue -->
+        </div>
+        
+        <div class='tableWrapper'>
+          <h2>Atividades Entregues</h2>
+        <table>
+          <?php
+            if ($result ->num_rows > 0){
+              echo "
+              <tr>
+              <th>Atividade</th>
+              <th>Descrição</th>
+              <th>Anexo</th>
+              <th>Data de conclusão</th>
+              <th>Horas Aprovadas</th>
+              <th>Status</th>
+              </tr>";
+              
+              foreach($result as $row){
+                echo "
+                <tr>
+                <td>{$row["titulo"]}</td>
+                <td>{$row["descricao"]}</td>
+                <td>{$row["caminho_anexo"]}</td>
+                <td>{$row["data"]}</td>
+                <td>{$row["horas_aprovadas"]}</td>
+                <td>{$row["status"]}</td>
+                </tr>";
+              }
+            }
+          ?>
+        </table>
+        <hr>
+      </div>
+    </div>
+    
+  </body>
+  </html>
