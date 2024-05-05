@@ -64,8 +64,8 @@
     <div class="user-info">
       <h3>Nome do curso:</h3>
       <?php echo "<span>{$_SESSION['nome_curso']}</span>";
-        echo "<p><b>Nome do coordenador:</b></p> <p>".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
-        echo "<p><b>Email do coordenador:</b></p> <p> {$_SESSION['email_coordenador']}</p>"
+        echo "<p><b>Nome do coordenador (a):</b></p> <p>".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
+        echo "<p><b>Email do coordenador (a):</b></p> <p> {$_SESSION['email_coordenador']}</p>"
       ?>
     </div>
     <form action="../server/server.php" method="post">
@@ -129,11 +129,28 @@
             </a>
           </div>
           
-          <!-- mostrar as atividades do aluno caso ele tenha alguma atividade entregue -->
         </div>
         
+        
+        <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
         <div class='tableWrapper'>
-          <h2>Atividades Entregues</h2>
+        <?php
+            if ($result ->num_rows > 0){
+              echo "<h2>Atividades Entregues</h2>";
+            } else {
+              echo "<h2>Você não possui atividades entregues</h2>";
+              echo "<a href='entrega.php' class='button'>
+              <button class= 'button'>
+                <img 
+                  src='assets/icons/file-plus.svg'
+                  alt='Atividades Complementares'
+                >
+                Entregar AC'S
+              </button>
+            </a>";
+            }
+          ?>
+          
         <table>
           <?php
             if ($result ->num_rows > 0){
@@ -145,6 +162,7 @@
               <th>Data de conclusão</th>
               <th>Horas Aprovadas</th>
               <th>Status</th>
+              <th>Deletar</th>
               </tr>";
               
               foreach($result as $row){
@@ -156,7 +174,17 @@
                 <td>{$row["data"]}</td>
                 <td>{$row["horas_aprovadas"]}</td>
                 <td>{$row["status"]}</td>
-                </tr>";
+                ";
+
+                if($row['status'] == 'Pendente'){
+                  echo '<td><form action="../server/server.php" method="post">
+                  <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                  <button type="submit" name="deletar" id="deletar">X</button>
+                </form></td></tr>';
+                } else {
+                  echo '</tr>';
+                }
+              
               }
             }
           ?>

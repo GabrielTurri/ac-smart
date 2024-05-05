@@ -91,7 +91,7 @@ function login_coordenador(){
 class Aluno{
     // essa classe terá os MÉTODOS VER(atividadesDb()), INSERIR, EDITAR, EXCLUIR, SAIR(logout)
 }
-function insertDb(){
+function insertDb(){    
     // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
     
     $titulo = $_POST['titulo'];
@@ -100,11 +100,7 @@ function insertDb(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
-    // $titulo = "Teste inserção felipe";
-    // $descricao = "Felipe testando inserção";
     $anexo = "teste";
-    // $horas_solicitadas = 5;
-    // $data_conclusao = "2024-04-22";
 
     // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
 
@@ -120,7 +116,7 @@ function insertDb(){
     mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
 
     // redirecionar para a página principal
-    header("Location: index.html");
+    header("Location: ../src/dashboard.php");
 }
 
 // o aluno só pode editar a atividade que estiver como REPROVADA
@@ -133,9 +129,6 @@ function editDb(){
 
 function atividadesDb(){
     // pegar todas as atividades de um certo usuario
-    // enviar para o front, e lá ele vai exibir de acordo com a situção
-    // front pode usar ifs para mostrar todas as atividades, só as aprovadas, só as reprovadas, e as pendentes
-
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
     $sql = "SELECT * FROM atividade_complementar WHERE RA_aluno = '".$_SESSION['ra_aluno']."'"; 
@@ -147,7 +140,6 @@ function atividadesDb(){
             echo "{$row["titulo"]}, {$row["RA_aluno"]}  <br>";
         }
     }
-
 }
 
 function sair(){
@@ -163,8 +155,9 @@ function sair(){
 // no front mostrar o botão de APAGAR SOMENTE SE ELA FOR REPROVADA
 function deletar_ativ(){
     // pegar código da atividade pelo frontend
-    // $cod_atividade = $_POST['$cod_atividade'];
-    $cod_atividade = 6;
+    $cod_atividade = $_POST['cod_atividade'];
+
+    // PRECISA FAZER AS VALIDAÇÕES DOS DADOS DE ENTRADA, PRECISA VERIFICAR SE O VALOR DO $cod_atividade PERTENCE AO USUARIO QUE ESTA LOGADO, O FELIPE FEZ ESSE TIPO DE VALIDAÇÃO NO OUTRO PROJETO INTEGRADOR, BASTA COPIAR A LÓGICA
 
     // conexão com o DB
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
@@ -174,7 +167,7 @@ function deletar_ativ(){
 
     // executar query sql
     mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-    header("Location: botoes.php");
+    header("Location: ../src/dashboard.php");
 }
 
 class Coordenador {

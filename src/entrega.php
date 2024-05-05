@@ -30,32 +30,32 @@
   </div>
   
   <div class="formContainer column">
-    <form action="inserir" method="POST">
+    <form action="../server/server.php" method="post">
       <div class="column">
         <label for="titulo">Título</label>
-        <input name="titulo" type="text">
+        <input name="titulo" id="titulo" type="text">
       </div>
 
       <div class="column">
         <label for="descricao">Descrição</label>
-        <textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+        <textarea name="descricao" itemid="descricao" id="descricao" cols="30" rows="10"></textarea>
       </div>
 
       <div class="column">
-        <label for="anexos">Anexos</label>
-        <input name="anexos" type="text">
+        <label for="anexo">Anexos</label>
+        <input name="anexo" id="anexo" type="text">
       </div>
 
 
       <div class="dataHorasContainer ">
         <div class="horasInput column">
           <label for="horas_solicitadas">Horas solicitadas</label>
-          <input name="horas_solicitadas" type="number">
+          <input name="horas_solicitadas" id="horas_solicitadas" type="number">
         </div>
   
         <div class="dataInput column">
           <label for="data_conclusao">Data da atividade</label>
-          <input name="data_conclusao" type="date">
+          <input name="data_conclusao" id="data_conclusao" type="date">
         </div>
       </div>
       <div class="enviar-container column">
@@ -63,7 +63,7 @@
           Atenção: As informações serão enviadas para o 
           professor/orientador responsável. Preencha com responsabilidade.
         </strong>
-        <button class="enviar" type="submit">ENVIAR</button>
+        <button class="enviar" type="submit" name="inserir">ENVIAR</button>
       </div>
       
     </form>
