@@ -123,7 +123,6 @@ function insertDb(){
 // quando ele editar ela, o status vai mudar para PENDENTE, e o coordenador pode avaliar ela novamente
 function editDb(){
     // redirect
-    // header("Location: index2.html");
     echo "botão edit";
 }
 
@@ -197,4 +196,4 @@ if(isset($_POST['inserir'])){
     login_coordenador();
 } else if (isset($_POST['deletar'])){
     deletar_ativ();
-}
+} 
