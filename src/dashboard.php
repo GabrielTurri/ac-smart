@@ -179,10 +179,16 @@
                 if($row['status'] == 'Pendente'){
                   echo '<td><form action="../server/server.php" method="post">
                   <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                  <button type="submit" name="deletar" id="deletar">X</button>
+                  <button 
+                    type="submit" 
+                    name="deletar" 
+                    id="deletar" 
+                    title="Cancelar Envio"
+                    class="botao-cancelar"
+                  >
+                    <img src="assets/icons/x.svg" alt="Cancelar Envio">
+                  </button>
                 </form></td></tr>';
-                } else {
-                  echo '</tr>';
                 }
               
               }

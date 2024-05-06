@@ -16,22 +16,66 @@
   <title>Fazer Login</title>
 </head>
 <body>
+  <div class="column-container center-absolute">
+    <img class="app-logo" src="assets/main-logo.svg" alt="" />
 
-  <form action="../server/server.php" method="post">
-    <div class="loginContainer">
-      <img src="assets/main-logo.svg" alt="" />
-      <h1>Fazer Login</h1>
-      <input class="loginInput" placeholder='E-mail' type="text" name="email" autofocus/>
-      <input class="loginInput" placeholder='Senha' type="password" name="senha"/>
+    <div class="column-container">
+      <div id="abas-login">
+        <div class="aba aba-aluno ativo" onclick="loginAluno()">Aluno</div>
+        <div class="aba aba-professor" onclick="loginProfessor()">Professor</div>
+      </div>
+      <form action="../server/server.php" method="post" id="aluno" class="column-container"> 
+        <h1>Fazer Login</h1>
+        <input class="login-input" placeholder='E-mail do aluno' type="text" name="email" autofocus/>
+        <input class="login-input" placeholder='Senha' type="password" name="senha"/>
+        
+        <input type="submit" name="login" class="botao-login" id="login" value="Entrar">       
+    
+        <div class="login-footer">
+          <a class="forget" href="">Esqueci minha senha</a>
+          <span class="warning">Não tem uma conta? Entre em contato com a universidade.</span>
+        </div>    
       
-      <input type="submit" name="login" class="botao-login" id="login" value="Entrar">       
+      </form>
   
-      <div>
-        <a class="forget" href="">Esqueci minha senha</a>
-        <span>Não tem uma conta? Entre em contato com a universidade.</span>
-      </div>    
+      <form action="../server/server.php" method="post" id="professor" class="column-container">
+        <div class="column-container">
+          <h1>Fazer Login</h1>
+          <input class="login-input" placeholder='E-mail do professor' type="text" name="email" autofocus/>
+          <input class="login-input" placeholder='Senha' type="password" name="senha"/>
+          
+          <input type="submit" name="login" class="botao-login" id="login" value="Entrar">       
+      
+          <div class="login-footer">
+            <a class="forget" href="">Esqueci minha senha</a>
+            <span class="warning">Não tem uma conta? Entre em contato com a universidade.</span>
+          </div>    
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 
 </body>
+
+<script>
+  // Aplicando a classe ativa na aba de login
+  var header = document.getElementById("abas-login");
+  var btns = header.getElementsByClassName("aba");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("ativo");
+    current[0].className = current[0].className.replace(" ativo", "");
+    this.className += " ativo";
+    });
+
+  function loginAluno() {
+    document.getElementById("professor").style.display = "none";
+    document.getElementById("aluno").style.display = "flex";
+  }
+  function loginProfessor() {
+    document.getElementById("aluno").style.display = "none";
+    document.getElementById("professor").style.display = "flex";
+  } 
+  }
+</script>
 </html>

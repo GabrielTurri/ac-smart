@@ -38,6 +38,21 @@
   display: none;
 }
 
+#pendentes button {
+  background-color: transparent;
+  border: none;
+  curson: pointer;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
 
 .activityList {
   display: flex;
