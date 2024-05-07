@@ -53,44 +53,44 @@ function login_aluno(){
 }
 
 function login_coordenador(){
-    // $email = $_POST ['email'];
-    // $senha = $_POST ['senha'];
-
-    $email = 'carlos.oliveira@humanitae.edu.br';
-    // ana.silva@humanitae.edu.br
-    // carlos.oliveira@humanitae.edu.br
-    // mariana.costa@humanitae.edu.br
+    $email = $_POST ['email'];
+    $senha = $_POST ['senha'];
     
     // conexão com o banco de dados
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
     
     // query para verificar se o email esta cadastrado no DB
     $sql = "SELECT * FROM coordenador WHERE email_coordenador = '".$email."'";
-    $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar coordenador no banco!");
+    $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
     
     // validação para ver se encontrou o email inserido
     if ($result -> num_rows == 0) {
         // se não achar, vai retornar para a página de login
-        header("Location: index.html");
-        
-    } else {
-        // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
-        session_unset();
-        session_destroy();
-        while ($row = $result->fetch_assoc()){
-            $_SESSION['cod_coordenador'] = $row['cod_coordenador'];
-            $_SESSION['nome_coordenador'] = $row['nome_coordenador'];
-            $_SESSION['sobrenome_coordenador'] = $row['sobrenome_coordenador'];
-            $_SESSION['email_coordenador'] = $row['email_coordenador'];
-        }
+        header("Location: ../src/login.html");
 
-        header("Location: ");
+    } else {
+        // fazer a comparação das senhas, se estiver errado, ir para login.html, senão ir para dashboard
+        $linha = mysqli_fetch_array($result);
+        $verify = password_verify($senha, $linha["senha_coordenador"]); 
+        if ($verify == 0) {
+            header("Location: ../src/login.html");
+        } else {
+            // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
+            $_SESSION['cod_coordenador'] = $linha['cod_coordenador'];
+            $_SESSION['nome_coordenador'] = $linha['nome_coordenador'];
+            $_SESSION['sobrenome_coordenador'] = $linha['sobrenome_coordenador'];
+            $_SESSION['email_coordenador'] = $linha['email_coordenador'];
+
+            header("Location: teste.php");
+        }        
     }
 }
+
 
 class Aluno{
     // essa classe terá os MÉTODOS VER(atividadesDb()), INSERIR, EDITAR, EXCLUIR, SAIR(logout)
 }
+
 function insertDb(){    
     // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
     
@@ -121,6 +121,34 @@ function insertDb(){
 
 // o aluno só pode editar a atividade que estiver como REPROVADA
 // quando ele editar ela, o status vai mudar para PENDENTE, e o coordenador pode avaliar ela novamente
+function inserir_aluno(){
+    // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
+    
+    $nome = $_POST['nome'];
+    $sobrenome = $_POST['sobrenome'];
+    $email = $_POST['email'];
+    $cod_curso = $_POST['cod_curso'];
+    $password = $_POST['password'];
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
+
+    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
+
+    // conexao com o DB
+    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
+    $sql = "INSERT INTO aluno (nome_aluno, sobrenome_aluno, email_aluno, cod_curso, senha_aluno) VALUES ('".$nome."' , '".$sobrenome."' , '".$email."' ,'".$cod_curso."' ,'".$hash."');"; 
+
+    // Executar a query sql
+    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+    // redirecionar para a página principal
+    header("Location: inserir_aluno.html");
+}
+
 function editDb(){
     // redirect
     echo "botão edit";
@@ -180,6 +208,35 @@ function aprovar(){}
 // somente o COORDENADOR pode reprovar
 function reprovar(){}
 
+
+function inserir_coordenador(){
+    // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
+    
+    $nome = $_POST['nome'];
+    $sobrenome = $_POST['sobrenome'];
+    $email = $_POST['email'];
+    // $cod_curso = $_POST['cod_curso'];
+    $password = $_POST['password'];
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
+
+    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
+
+    // conexao com o DB
+    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
+    $sql = "INSERT INTO coordenador (nome_coordenador, sobrenome_coordenador, email_coordenador, senha_coordenador) VALUES ('".$nome."' , '".$sobrenome."' , '".$email."' ,'".$hash."');"; 
+
+    // Executar a query sql
+    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+    // redirecionar para a página principal
+    header("Location: inserir_coordenador.html");
+}
+
 // PARA CHAMAR A FUNÇÃO CERTA DE ACORDO COM O BOTÃO CLICADO
 // 'inserir' é o name do input:submit do form
 if(isset($_POST['inserir'])){
@@ -196,4 +253,8 @@ if(isset($_POST['inserir'])){
     login_coordenador();
 } else if (isset($_POST['deletar'])){
     deletar_ativ();
-} 
+} else if (isset($_POST['inserir_aluno'])){
+    inserir_aluno();
+} else if (isset($_POST['inserir_coordenador'])){
+    inserir_coordenador();
+}

@@ -149,7 +149,7 @@
                     id="deletar" 
                     title="Cancelar Envio"
                   >
-                    <img src="assets/icons/x.svg" alt="Cancelar Envio">
+                    <img src="assets/icons/x.svg" alt="Cancelar Envio" title="Cancelar envio">
                   </button>
                 </form>
               </div>
@@ -158,16 +158,6 @@
             }
           }
         ?>  
-  
-    <div class="activityContainer">
-      <span>Certificado: Python Básico</span>
-      <strong>4H</strong>
-    </div>
-    
-    <div class="activityContainer">
-      <span>Certificado: Python Básico</span>
-      <strong>4H</strong>
-    </div>
     
   </div>
  

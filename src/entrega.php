@@ -33,7 +33,7 @@
     <form action="../server/server.php" method="post">
       <div class="column">
         <label for="titulo">Título</label>
-        <input name="titulo" id="titulo" type="text">
+        <input name="titulo" id="titulo" type="text" autofocus>
       </div>
 
       <div class="column">

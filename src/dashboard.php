@@ -98,7 +98,7 @@
           </div>
     
           <div class="chartContainer">
-            <a href="activities.php" class="button">
+            <a href="atividades.php" class="button">
               <button>
                 <img 
                   src="assets/icons/file-text.svg" 
