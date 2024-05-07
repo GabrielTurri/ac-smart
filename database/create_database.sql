@@ -40,6 +40,12 @@ CREATE TABLE disciplina (
     FOREIGN KEY (cod_curso) REFERENCES curso(cod_curso)
 );
 
+-- Criação da tabela observação_atividade
+CREATE TABLE observacao_atividade (
+    cod_observacao INT PRIMARY KEY AUTO_INCREMENT,
+    observacao TEXT
+);
+
 -- Criação da tabela Atividade_complementar
 CREATE TABLE atividade_complementar (
     cod_atividade INT PRIMARY KEY AUTO_INCREMENT,
@@ -51,7 +57,9 @@ CREATE TABLE atividade_complementar (
     status ENUM('Aprovado', 'Reprovado', 'Pendente') DEFAULT 'Pendente',
     horas_aprovadas SMALLINT DEFAULT 0,
     RA_aluno INT,
-    FOREIGN KEY (RA_aluno) REFERENCES aluno(RA_aluno)
+    cod_observacao_atividade INT,
+    FOREIGN KEY (RA_aluno) REFERENCES aluno(RA_aluno),
+    FOREIGN KEY (cod_observacao_atividade) REFERENCES observacao_atividade (cod_observacao)
 );
 
 -- Tabela de junção para Curso e Disciplina
