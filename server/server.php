@@ -81,7 +81,7 @@ function login_coordenador(){
             $_SESSION['sobrenome_coordenador'] = $linha['sobrenome_coordenador'];
             $_SESSION['email_coordenador'] = $linha['email_coordenador'];
 
-            header("Location: teste.php");
+            header("Location: ../src/dash_coordenador.php");
         }        
     }
 }

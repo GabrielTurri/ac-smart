@@ -1,7 +1,7 @@
 <?php
   session_start();
   // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
-  if($_SESSION['ra_aluno'] or $_SESSION['cod_coordenador']){
+  if($_SESSION['ra_aluno']){
   } else {
     header("Location: login.html");
   } 

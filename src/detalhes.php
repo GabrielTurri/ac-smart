@@ -1,3 +1,11 @@
+<?php
+session_start();
+// CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
+if($_SESSION['ra_aluno']){
+} else {
+header("Location: login.html");
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
