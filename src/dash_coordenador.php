@@ -69,7 +69,7 @@
                 echo '
                 <form class="activityContainer button" action="../server/server.php" method="post">
                 <input type="hidden" value="'.$row["nome_curso"].'" name="nome_curso" id="cod_atividade">
-                <button type="submit" name="detalhes_curso">
+                <button type="submit" name="atividades_coord">
                 <p>'.$row["nome_curso"].'</p>
                 </button>
                 </form>';      

@@ -15,13 +15,13 @@
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
   // $rows = mysqli_fetch_array($result);
 
+
+  // query para buscar as atividades que o coordenador deve avaliar
   $sql2 = "SELECT * FROM atividade_complementar INNER JOIN aluno ON atividade_complementar.RA_aluno = aluno.RA_aluno INNER JOIN curso ON aluno.cod_curso = curso.cod_curso WHERE nome_curso = '".$_SESSION['nome_curso']."' AND status = 'Pendente';"; 
 
   // Executar a query sql2
   mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
   $result = mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
-
-  
 
 ?>
 
@@ -74,13 +74,36 @@
               if($result->num_rows < 1){
                 echo "Sem atividades para avaliar";
               } else {
-                  foreach($result as $row){
-                      if($row['status'] == "Pendente"){
-                          echo "nome da atividade: {$row['titulo']} <br>";
-                      }
+                foreach($result as $row){
+                  if($row['status'] == "Pendente"){
+                    echo '
+                    <div class="activityContainer">
+                      <form class="'.$row['status'].'" action="detalhe_atividade_coord.php" method="get">
+
+                        <input type="hidden" value="'.$row["nome_aluno"].'" name="nome_aluno" id="nome_aluno">
+                        <input type="hidden" value="'.$row["RA_aluno"].'" name="RA_aluno" id="RA_aluno">
+                        <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+                        <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
+                        <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
+                        <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+                        <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+                        <input type="hidden" value="'.$row["data"].'" name="data" id="data">
+                        
+                        <button type="submit">
+                          <p>'.$row["titulo"].'</p>
+                          <span>'.$row["horas_aprovadas"].'H</span>
+                          <span>'.$row["status"].'</span>
+                        </button>
+                      </form>
+                    </div>';      
                   }
+                }
+                  
               }
-              ?>   
+              ?>  
+    <?php
+      
+    ?> 
               
             </div>
 
@@ -92,5 +115,11 @@
         
     </div>
     
-  </body>
-  </html>
+</body>
+</html>
+
+<!-- foreach($result as $row){
+                      if($row['status'] == "Pendente"){
+                          echo "nome da atividade: {$row['titulo']} <br>";
+                      }
+                  } -->

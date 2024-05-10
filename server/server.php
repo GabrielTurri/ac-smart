@@ -18,6 +18,7 @@ $banco = "humanitae_db";
 
 
 function login_aluno(){
+    // valores pegados dos inputs 'email' e 'senha'
     $email = $_POST ['email'];
     $senha = $_POST ['senha'];
     
@@ -36,8 +37,10 @@ function login_aluno(){
     } else {
         // fazer a comparação das senhas, se estiver errado, ir para login.html, senão ir para dashboard
         $linha = mysqli_fetch_array($result);
-        $verify = password_verify($senha, $linha["senha_aluno"]); 
-        if ($verify == 0) {
+        // verificação das senhas digitada pelo usuário e da senha decifrada do banco de dados
+        $verify = password_verify($senha, $linha["senha_aluno"]);
+        // caso a verificação seja False, ou seja, se as senhas forem diferentes
+        if ($verify == False) {
             header("Location: ../src/login.html");
         } else {
             // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
@@ -46,7 +49,6 @@ function login_aluno(){
             $_SESSION['sobrenome_aluno'] = $linha['sobrenome_aluno'];
             $_SESSION['email_aluno'] = $linha['email_aluno'];
             $_SESSION['curso'] = $linha['cod_curso'];
-
             header("Location: ..\src\dashboard.php");
         }        
     }
@@ -252,11 +254,11 @@ function atualizar(){
     // redirecionar para a página principal
     header("Location: inserir_coordenador.html");
 }
-function detalhes_curso(){
+function atividades_coord(){
     $nome_curso = $_POST['nome_curso'];
     $_SESSION['nome_curso'] = $nome_curso;
    
-    header("Location: ../src/detalhes_curso.php");
+    header("Location: ../src/atividades_coord.php");
 }
 
 // PARA CHAMAR A FUNÇÃO CERTA DE ACORDO COM O BOTÃO CLICADO
@@ -281,8 +283,6 @@ if(isset($_POST['inserir'])){
     inserir_coordenador();
 } else if (isset($_POST['atualizar'])){
     atualizar();
-} else if (isset($_POST['detalhes_curso'])){
-    detalhes_curso();
-} 
-
-// echo "$nome". " ". "$sobrenome <br>";
+} else if (isset($_POST['atividades_coord'])){
+    atividades_coord();
+}

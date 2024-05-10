@@ -15,13 +15,11 @@
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
   // $rows = mysqli_fetch_array($result);
 
-  $sql2 = "SELECT * FROM atividade_complementar INNER JOIN aluno ON atividade_complementar.RA_aluno = aluno.RA_aluno INNER JOIN curso ON aluno.cod_curso = curso.cod_curso WHERE nome_curso = '".$_SESSION['nome_curso']."' AND status = 'Pendente';"; 
+  // $sql2 = "SELECT * FROM atividade_complementar INNER JOIN aluno ON atividade_complementar.RA_aluno = aluno.RA_aluno INNER JOIN curso ON aluno.cod_curso = curso.cod_curso WHERE nome_curso = '".$_SESSION['nome_curso']."' AND status = 'Pendente';"; 
 
-  // Executar a query sql2
-  mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
-  $result = mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
-
-  
+  // // Executar a query sql2
+  // mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
+  // $result = mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
 
 ?>
 
@@ -56,6 +54,8 @@
     <form action="../server/server.php" method="post">
       
       <a href="dash_coordenador.php" class="button">Voltar para cursos</a>
+      <br>
+      <a href="atividades_coord.php" class="button">Voltar para atividades a serem avaliadas</a>
       <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
         <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
         Encerrar Sessão
@@ -67,22 +67,23 @@
         <div class="dashboardContainer">
           <div class="chartContainer">
             
-            <h2>Atividades disponíveis para avaliação:</h2>
+            <h2>Detalhes da atividade:</h2>
+            
             
             <?php
-              // vai mostrar uma mensagem caso não tenha atividades para avaliar
-              if($result->num_rows < 1){
-                echo "Sem atividades para avaliar";
-              } else {
-                  foreach($result as $row){
-                      if($row['status'] == "Pendente"){
-                          echo "nome da atividade: {$row['titulo']} <br>";
-                      }
-                  }
-              }
-              ?>   
+              echo "
+              <p>Nome do aluno (a): ".ucfirst($_GET['nome_aluno'])."</p>
+              <p>RA do aluno (a): {$_GET["RA_aluno"]}</p>
+
+              <p>Título da atividade: ".ucfirst($_GET["titulo"])."</p>
+              <p>Descrição da atividade: ".ucfirst($_GET["descricao"])."</p>
+              <p>Anexo: {$_GET["caminho_anexo"]}</p>
+              <p>Horas Solicitadas: {$_GET["horas_solicitadas"]}</p>
+              <p>Data de conclusão da atividade: {$_GET["data"]}</p>
+          ";  
+            ?>
               
-            </div>
+          </div>
 
         
           
