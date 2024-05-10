@@ -254,26 +254,9 @@ function atualizar(){
 }
 function detalhes_curso(){
     $nome_curso = $_POST['nome_curso'];
-
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-
-    $sql = "SELECT * FROM atividade_complementar INNER JOIN aluno ON atividade_complementar.RA_aluno = aluno.RA_aluno INNER JOIN curso ON aluno.cod_curso = curso.cod_curso WHERE nome_curso = '".$nome_curso."' AND status = 'Pendente';"; 
-
-    // Executar a query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-    $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-
-    echo "Nome do curso: {$nome_curso} <br>";
-    // vai mostrar uma mensagem caso não tenha atividades para avaliar
-    if($result->num_rows < 1){
-        echo "Sem atividades para avaliar";
-    } else {
-        foreach($result as $row){
-            if($row['status'] == "Pendente"){
-                echo "nome da atividade: {$row['titulo']} <br>";
-            }
-        }
-    }
+    $_SESSION['nome_curso'] = $nome_curso;
+   
+    header("Location: ../src/detalhes_curso.php");
 }
 
 // PARA CHAMAR A FUNÇÃO CERTA DE ACORDO COM O BOTÃO CLICADO

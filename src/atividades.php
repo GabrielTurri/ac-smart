@@ -73,93 +73,100 @@
   </div>
 
   <!-- fazer o cartão da atividade INTEIRA ser clicavel, e direcionar ou abrir mais informações sobre aquela atividade -->
-  <?php
-    foreach($result as $row){
-      
-      echo '
-        <form class="activityContainer '.$row['status'].'" action="detalhes.php" method="get">
-          <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-          <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
-          <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
-          <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
-          <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
-          <input type="hidden" value='.$row["data"].' name="data" id="data">
-          <input type="hidden" value='.$row["status"].' name="status" id="status">
-          <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
-          <button type="submit">
-            <p>'.$row["titulo"].'</p>
-            <span>'.$row["horas_aprovadas"].'H</span>
-            <span>'.$row["status"].'</span>
-          </button>
-        </form>';      
-      }
-  ?>
-
+  
+  
   <div class="activityList" id="aprovadas">
     <h2>Atividades Aprovadas</h2>
-    <div class="activityContainer">
+      <?php
+      foreach($result as $row){
+        if($row['status'] == "Aprovado"){
+          echo '
+          <div class="activityContainer">
+            <form class="'.$row['status'].'" action="detalhes.php" method="get">
+              <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+              <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+              <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+              <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+              <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+              <input type="hidden" value='.$row["data"].' name="data" id="data">
+              <input type="hidden" value='.$row["status"].' name="status" id="status">
+              <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
+              <button type="submit">
+                <p>'.$row["titulo"].'</p>
+                <span>'.$row["horas_aprovadas"].'H</span>
+                <span>'.$row["status"].'</span>
+              </button>
+            </form>
+          </div>';      
+        }
+      }
+      ?>
       
-    </div>
-    <div class="activityContainer">
+    <!-- <div class="activityContainer">
       <span>Certificado: Python Básico</span>
       <strong>4H</strong>
-    </div>
-    
-    <div class="activityContainer">
-      <span>Certificado: Python Básico</span>
-      <strong>4H</strong>
-    </div>
-    
-    <div class="activityContainer">
-      <span>Certificado: Python Básico</span>
-      <strong>4H</strong>
-    </div>
-    
-    <div class="activityContainer">
-      <span>Certificado: Python Básico</span>
-      <strong>4H</strong>
-    </div>
-    
-    <div class="activityContainer">
-      <span>Certificado: Python Básico</span>
-      <strong>4H</strong>
-    </div>
+    </div> -->
   </div>    
   
   <div class="activityList" id="pendentes">
     <h2>Atividades Pendentes</h2>
     <?php
-          if ($result ->num_rows > 0){
-            
-            foreach($result as $row){
-              echo "
-              <div class='activityContainer'>
-                <span>{$row["titulo"]}</span>
-                <div class='row'>
-                  <strong>{$row["horas_aprovadas"]}H</strong>
-              ";
-
-              if($row['status'] == 'Pendente'){
-                echo '
-                <form action="../server/server.php" method="post">
-                  <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                  <button 
-                    type="submit" 
-                    name="deletar" 
-                    id="deletar" 
-                    title="Cancelar Envio"
-                  >
-                    <img src="assets/icons/x.svg" alt="Cancelar Envio" title="Cancelar envio">
-                  </button>
-                </form>
-              </div>
-            </div>';
-              }
-            }
-          }
-        ?>  
+      foreach($result as $row){
+        if($row['status'] == "Pendente"){
+          echo '
+          <div class="activityContainer">
+            <form class="'.$row['status'].'" action="detalhes.php" method="get">
+              <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+              <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+              <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+              <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+              <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+              <input type="hidden" value='.$row["data"].' name="data" id="data">
+              <input type="hidden" value='.$row["status"].' name="status" id="status">
+              <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
+              <button type="submit">
+                <p>'.$row["titulo"].'</p>
+                <span>'.$row["horas_aprovadas"].'H</span>
+                <span>'.$row["status"].'</span>
+              </button>
+            </form>
+          </div>';      
+        }
+      }
+      ?>
     
   </div>
  
 </body>
 </html>
+
+
+<!-- <?php
+      if ($result ->num_rows > 0){
+        foreach($result as $row){
+          echo "
+          <div class='activityContainer'>
+            <span>{$row["titulo"]}</span>
+            <div class='row'>
+              <strong>{$row["horas_aprovadas"]}H</strong>
+          ";
+
+          if($row['status'] == 'Aprovado'){
+            echo '
+            <form action="../server/server.php" method="post">
+              <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+              <button 
+                type="submit" 
+                name="deletar" 
+                id="deletar" 
+                title="Cancelar Envio"
+              >
+                <img src="assets/icons/x.svg" alt="Cancelar Envio" title="Cancelar envio">
+              </button>
+            </form>
+          </div>
+        </div>';
+          }
+        }
+      }
+    ?>  -->

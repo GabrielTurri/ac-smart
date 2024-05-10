@@ -15,10 +15,13 @@
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
   // $rows = mysqli_fetch_array($result);
 
-  // foreach($result as $row){
-  //   echo $row['nome_curso'];
-  // }
+  $sql2 = "SELECT * FROM atividade_complementar INNER JOIN aluno ON atividade_complementar.RA_aluno = aluno.RA_aluno INNER JOIN curso ON aluno.cod_curso = curso.cod_curso WHERE nome_curso = '".$_SESSION['nome_curso']."' AND status = 'Pendente';"; 
 
+  // Executar a query sql2
+  mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
+  $result = mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
+
+  
 
 ?>
 
@@ -51,6 +54,8 @@
       ?>
     </div>
     <form action="../server/server.php" method="post">
+      
+      <a href="dash_coordenador.php" class="button">Voltar para cursos</a>
       <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
         <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
         Encerrar Sessão
@@ -62,17 +67,18 @@
         <div class="dashboardContainer">
           <div class="chartContainer">
             
-            <h2>Seus cursos:</h2>
+            <h2>Atividades disponíveis para avaliação:</h2>
             
             <?php
-              foreach($result as $row){ 
-                echo '
-                <form class="activityContainer button" action="../server/server.php" method="post">
-                <input type="hidden" value="'.$row["nome_curso"].'" name="nome_curso" id="cod_atividade">
-                <button type="submit" name="detalhes_curso">
-                <p>'.$row["nome_curso"].'</p>
-                </button>
-                </form>';      
+              // vai mostrar uma mensagem caso não tenha atividades para avaliar
+              if($result->num_rows < 1){
+                echo "Sem atividades para avaliar";
+              } else {
+                  foreach($result as $row){
+                      if($row['status'] == "Pendente"){
+                          echo "nome da atividade: {$row['titulo']} <br>";
+                      }
+                  }
               }
               ?>   
               
