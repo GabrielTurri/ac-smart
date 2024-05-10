@@ -3,7 +3,7 @@
 
 // https://www.w3schools.com/php/php_sessions.asp
 
-// http://18.230.155.48/
+// http://15.229.66.111/
 
 // http://localhost/www/pi/index.html
 
@@ -237,6 +237,45 @@ function inserir_coordenador(){
     header("Location: inserir_coordenador.html");
 }
 
+function atualizar(){
+    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
+    // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES ('Engenharia de Software', 200, 4);"; 
+    // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES('Análise e Desenvolvimento de Sistemas', 200, 5)"; 
+    $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = 21;"; 
+
+
+    // Executar a query sql
+    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+    // redirecionar para a página principal
+    header("Location: inserir_coordenador.html");
+}
+function detalhes_curso(){
+    $nome_curso = $_POST['nome_curso'];
+
+    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+    $sql = "SELECT * FROM atividade_complementar INNER JOIN aluno ON atividade_complementar.RA_aluno = aluno.RA_aluno INNER JOIN curso ON aluno.cod_curso = curso.cod_curso WHERE nome_curso = '".$nome_curso."' AND status = 'Pendente';"; 
+
+    // Executar a query sql
+    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+    $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+    echo "Nome do curso: {$nome_curso} <br>";
+    // vai mostrar uma mensagem caso não tenha atividades para avaliar
+    if($result->num_rows < 1){
+        echo "Sem atividades para avaliar";
+    } else {
+        foreach($result as $row){
+            if($row['status'] == "Pendente"){
+                echo "nome da atividade: {$row['titulo']} <br>";
+            }
+        }
+    }
+}
+
 // PARA CHAMAR A FUNÇÃO CERTA DE ACORDO COM O BOTÃO CLICADO
 // 'inserir' é o name do input:submit do form
 if(isset($_POST['inserir'])){
@@ -257,4 +296,10 @@ if(isset($_POST['inserir'])){
     inserir_aluno();
 } else if (isset($_POST['inserir_coordenador'])){
     inserir_coordenador();
-}
+} else if (isset($_POST['atualizar'])){
+    atualizar();
+} else if (isset($_POST['detalhes_curso'])){
+    detalhes_curso();
+} 
+
+// echo "$nome". " ". "$sobrenome <br>";

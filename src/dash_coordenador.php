@@ -11,11 +11,14 @@
 
   // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
-  $sql = "SELECT * FROM curso JOIN disciplina ON curso.cod_curso = disciplina.cod_curso WHERE coordenador_curso = '".$_SESSION['cod_coordenador']."'";
+  $sql = "SELECT * FROM coordenador JOIN curso ON coordenador.cod_coordenador = curso.coordenador_curso WHERE cod_coordenador = '".$_SESSION['cod_coordenador']."'";
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
-  $rows = mysqli_fetch_array($result);
+  // $rows = mysqli_fetch_array($result);
 
-  print_r($rows);
+  // foreach($result as $row){
+  //   echo $row['nome_curso'];
+  // }
+
 
 ?>
 
@@ -59,7 +62,22 @@
       <div class="column">
         <div class="dashboardContainer">
           
-    
+          <form action="../server/server.php" method="post">
+            <input type="hidden" name="curso" value=>
+          </form>
+
+          <?php
+              foreach($result as $row){ 
+                echo '
+                  <form class="activityContainer" action="../server/server.php" method="post">
+                    <input type="hidden" value="'.$row["nome_curso"].'" name="nome_curso" id="cod_atividade">
+                    <button type="submit" name="detalhes_curso">
+                      <p>'.$row["nome_curso"].'</p>
+                    </button>
+                  </form>';      
+                }
+          ?>
+
           <div class="chartContainer">
             <a href="atividades.php" class="button">
               <button>
