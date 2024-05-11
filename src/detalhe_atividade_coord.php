@@ -72,16 +72,23 @@
             
             <?php
               echo "
-              <p>Nome do aluno (a): ".ucfirst($_GET['nome_aluno'])."</p>
-              <p>RA do aluno (a): {$_GET["RA_aluno"]}</p>
+                <p>Nome do aluno (a): ".ucfirst($_GET['nome_aluno'])."</p>
+                <p>RA do aluno (a): {$_GET["RA_aluno"]}</p>
 
-              <p>Título da atividade: ".ucfirst($_GET["titulo"])."</p>
-              <p>Descrição da atividade: ".ucfirst($_GET["descricao"])."</p>
-              <p>Anexo: {$_GET["caminho_anexo"]}</p>
-              <p>Horas Solicitadas: {$_GET["horas_solicitadas"]}</p>
-              <p>Data de conclusão da atividade: {$_GET["data"]}</p>
-          ";  
+                <p>Título da atividade: ".ucfirst($_GET["titulo"])."</p>
+                <p>Descrição da atividade: ".ucfirst($_GET["descricao"])."</p>
+                <p>Anexo: {$_GET["caminho_anexo"]}</p>
+                <p>Horas Solicitadas: {$_GET["horas_solicitadas"]}</p>
+                <p>Data de conclusão da atividade: {$_GET["data"]}</p>
+              ";  
             ?>
+
+            <form action="../server/server.php" method="post">
+            <?php
+              echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">';  
+              ?>
+              <button type="submit" name="aprovar" id="aprovar">Aprovar</button>
+            </form>
               
           </div>
 

@@ -86,12 +86,11 @@ function login_coordenador(){
             $_SESSION['sobrenome_coordenador'] = $linha['sobrenome_coordenador'];
             $_SESSION['email_coordenador'] = $linha['email_coordenador'];
             $_SESSION['cursos'] = [];
+
             // salvar todos os cursos do coordenador em um array dentro de $_SESSION
             foreach ($result2 as $row) {
                 $_SESSION['cursos'][$row['nome_curso']] = 0;
-                // array_push($_SESSION['cursos'], $row['nome_curso']);
             }
-            // print_r($_SESSION['cursos']);
 
             header("Location: ../src/dash_coordenador.php");
         }        
@@ -215,7 +214,24 @@ class Coordenador {
 }
 
 // somente o COORDENADOR pode aprovar
-function aprovar(){}
+function aprovar(){
+    // pegar código da atividade pelo frontend
+    $cod_atividade = $_POST['cod_atividade'];
+    // conexão com o DB
+    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+    // query SQL para deletar da tabela atividade_complementar a linha que tiver o cod_atividade recebida do frontend
+    $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = '".$cod_atividade."'";
+
+    // executar query sql
+    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+    header("Location: ../src/dash_coordenador.php");
+
+    header("Location: ../src/atividades_coord.php");
+
+
+    // echo "atividade aprovada";
+}
 
 // somente o COORDENADOR pode reprovar
 function reprovar(){}
@@ -295,4 +311,6 @@ if(isset($_POST['inserir'])){
     atualizar();
 } else if (isset($_POST['atividades_coord'])){
     atividades_coord();
+} else if (isset($_POST['aprovar'])){
+    aprovar();
 }
