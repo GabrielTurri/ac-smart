@@ -13,13 +13,26 @@
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
   $sql = "SELECT * FROM coordenador JOIN curso ON coordenador.cod_coordenador = curso.coordenador_curso WHERE cod_coordenador = '".$_SESSION['cod_coordenador']."'";
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
-  // $rows = mysqli_fetch_array($result);
 
-  // foreach($result as $row){
-  //   echo $row['nome_curso'];
-  // }
+  // query para fazer o contador de quantas atividades pendentes de cada curso o coordenador tem
+  $sql2 = "SELECT * FROM coordenador JOIN curso ON coordenador.cod_coordenador = curso.coordenador_curso JOIN aluno ON curso.cod_curso = aluno.cod_curso JOIN atividade_complementar ON atividade_complementar.RA_aluno = aluno.RA_aluno WHERE cod_coordenador = '".$_SESSION['cod_coordenador']."'";
+  $result2 = mysqli_query($strcon, $sql2) or die ("Erro ao tentar encontrar o aluno no banco!");
+  
+ 
+  // foreach para salvar no array associativo $_SESSION['cursos'] a quantidade de atividades pendentes o coordenador tem que avaliar daquele tal curso
+  foreach($_SESSION['cursos'] as $curso => $quantidade){
+    $quantidade = 0;
+    foreach($result2 as $row){
 
-
+      if($row['status'] == "Pendente" AND $row['nome_curso'] == $curso) {
+        $quantidade +=1;
+      }
+    }
+    $_SESSION['cursos'][$curso] = $quantidade;
+    // $cuso[$quantidade] = ;
+    // echo $curso . ": " . $quantidade . "<br>";
+  }
+  
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +69,7 @@
         Encerrar Sessão
       </button>
     </form>
+    
   </aside>
     <div class="dashboard-content">
       <div class="column">
@@ -64,15 +78,18 @@
             
             <h2>Seus cursos:</h2>
             
+            <!-- foreach para imprimir todos os cursos que o coordenador ministra, e as quantidades de atividades a serem avaliadas naquele curso -->
             <?php
-              foreach($result as $row){ 
+
+              foreach($_SESSION['cursos'] as $curso =>$quantidade){
                 echo '
                 <form class="activityContainer button" action="../server/server.php" method="post">
-                <input type="hidden" value="'.$row["nome_curso"].'" name="nome_curso" id="cod_atividade">
-                <button type="submit" name="atividades_coord">
-                <p>'.$row["nome_curso"].'</p>
-                </button>
-                </form>';      
+                  <input type="hidden" value="'.$curso.'" name="nome_curso" id="cod_atividade">
+                  <button type="submit" name="atividades_coord">
+                   <p>'.$curso.': '.$quantidade.'</p>
+                  </button>
+                </form>'; 
+                // echo $curso . ": " . $quantidade . "<br>";
               }
               ?>   
               
@@ -88,3 +105,5 @@
     
   </body>
   </html>
+
+  

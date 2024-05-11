@@ -77,11 +77,21 @@ function login_coordenador(){
         if ($verify == 0) {
             header("Location: ../src/login.html");
         } else {
+            $sql2 = "SELECT DISTINCT nome_curso FROM curso JOIN coordenador ON curso.coordenador_curso = coordenador.cod_coordenador WHERE email_coordenador = '".$email."'";
+            $result2 = mysqli_query($strcon, $sql2) or die ("Erro ao tentar encontrar o aluno no banco!");
+            
             // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
             $_SESSION['cod_coordenador'] = $linha['cod_coordenador'];
             $_SESSION['nome_coordenador'] = $linha['nome_coordenador'];
             $_SESSION['sobrenome_coordenador'] = $linha['sobrenome_coordenador'];
             $_SESSION['email_coordenador'] = $linha['email_coordenador'];
+            $_SESSION['cursos'] = [];
+            // salvar todos os cursos do coordenador em um array dentro de $_SESSION
+            foreach ($result2 as $row) {
+                $_SESSION['cursos'][$row['nome_curso']] = 0;
+                // array_push($_SESSION['cursos'], $row['nome_curso']);
+            }
+            // print_r($_SESSION['cursos']);
 
             header("Location: ../src/dash_coordenador.php");
         }        
