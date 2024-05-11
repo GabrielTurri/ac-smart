@@ -217,6 +217,7 @@ class Coordenador {
 function aprovar(){
     // pegar código da atividade pelo frontend
     $cod_atividade = $_POST['cod_atividade'];
+
     // conexão com o DB
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
@@ -225,16 +226,45 @@ function aprovar(){
 
     // executar query sql
     mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-    header("Location: ../src/dash_coordenador.php");
 
     header("Location: ../src/atividades_coord.php");
-
-
-    // echo "atividade aprovada";
 }
 
 // somente o COORDENADOR pode reprovar
-function reprovar(){}
+function reprovar(){
+    // pegar observação digitada pelo coordenador
+    $observacao = $_POST['observacao'];
+    $cod_atividade = $_POST['cod_atividade'];
+
+    // caso o campo esteja preenchido, o status da atividade será alterada para "Reprovado", e a observação será salva na tabela observacao_atividade
+    if (strlen($observacao) > 0){
+        // conexão com o DB
+        $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+        // query SQL para mudar status da atividade para REPROVADO da tabela atividade_complementar
+        $sql = "UPDATE atividade_complementar SET status = 'Reprovado' WHERE cod_atividade = '".$cod_atividade."'";
+
+        // executar query sql
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+        // query SQL para adicionar uma observação na tabela observacao_atividade
+        // $sql = "INSERT INTO observacao_atividade (observacao, cod_atividade) VALUES ('".$observacao."', '".$cod_atividade."');";
+        $sql = "INSERT INTO observacao_atividade (observacao) VALUES ('".$observacao."');";
+           
+
+        // executar query sql
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+        header("Location: ../src/atividades_coord.php");
+
+
+        // echo $observacao;
+    } else {
+        // será redirecionado para a página de atividades para ele avaliar novamente, já que essa avaliação não deu certo pois não inserir nenhum comentário para o aluno
+        header("Location: ../src/atividades_coord.php");        
+    }
+
+}
 
 
 function inserir_coordenador(){
@@ -313,4 +343,6 @@ if(isset($_POST['inserir'])){
     atividades_coord();
 } else if (isset($_POST['aprovar'])){
     aprovar();
+} else if (isset($_POST['reprovar'])){
+    reprovar();
 }

@@ -91,7 +91,7 @@
                         
                         <button type="submit">
                           <p>'.$row["titulo"].'</p>
-                          <span>'.$row["horas_aprovadas"].'H</span>
+                          <span>'.$row["horas_solicitadas"].'H</span>
                           <span>'.$row["status"].'</span>
                         </button>
                       </form>

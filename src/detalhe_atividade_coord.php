@@ -69,8 +69,8 @@
             
             <h2>Detalhes da atividade:</h2>
             
-            
             <?php
+            $descricao = ucfirst($_GET["descricao"]);
               echo "
                 <p>Nome do aluno (a): ".ucfirst($_GET['nome_aluno'])."</p>
                 <p>RA do aluno (a): {$_GET["RA_aluno"]}</p>
@@ -84,10 +84,20 @@
             ?>
 
             <form action="../server/server.php" method="post">
-            <?php
-              echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">';  
+              <?php
+                echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">';  
               ?>
               <button type="submit" name="aprovar" id="aprovar">Aprovar</button>
+            </form>
+
+            <form action="../server/server.php" method="post">
+              <?php
+              echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">'; 
+                
+              ?>
+              <p>ATENÇÃO: Para reprovar a atividade, deixe seu comentário para o aluno poder corrigir a atividade e reenviar.</p>
+              <textarea name="observacao" id="observacao" cols="30" rows="10"></textarea>
+              <button type="submit" name="reprovar" id="reprovar">Reprovar</button>
             </form>
               
           </div>
