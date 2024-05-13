@@ -107,27 +107,46 @@ function insertDb(){
     
     $titulo = $_POST['titulo'];
     $descricao = $_POST['descricao'];
-    // $anexo = $_POST['anexo'];
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
-    $anexo = "teste";
+    // Replace any characters not \w- in the original filename
+    $pathinfo = pathinfo($_FILES["anexo"]["name"]);
+    $base = $pathinfo["filename"];
+    $base = preg_replace("/[^\w-]/", "_", $base);
+    $filename = $base . "." . $pathinfo["extension"];
+    $destination = __DIR__ . "/uploads/" . $filename;
+    $caminho_anexo = "/uploads/" . $filename;
+
+    // Add a numeric suffix if the file already exists
+    $i = 1;
+
+    while (file_exists($destination)) {
+        $filename = $base . "($i)." . $pathinfo["extension"];
+        $destination = __DIR__ . "/uploads/" . $filename;
+        $i++;
+    }
+
+    if ( ! move_uploaded_file($_FILES["anexo"]["tmp_name"], $destination)) {
+        exit("Can't move uploaded file");
+    }
 
     // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
 
     // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
-
+    
     // conexao com o DB
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
-    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
-    $sql = "INSERT INTO atividade_complementar (titulo, descricao, caminho_anexo, horas_solicitadas, data, horas_aprovadas, RA_aluno) VALUES ('".$titulo."' , '".$descricao."' , '".$anexo."' ,'".$horas_solicitadas."' ,'".$data_conclusao."' , '0', '".$_SESSION['ra_aluno']."' );"; 
+    // // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
+    $sql = "INSERT INTO atividade_complementar (titulo, descricao, caminho_anexo, horas_solicitadas, data, horas_aprovadas, RA_aluno) VALUES ('".$titulo."' , '".$descricao."' , '".$caminho_anexo."' ,'".$horas_solicitadas."' ,'".$data_conclusao."' , '0', '".$_SESSION['ra_aluno']."' );"; 
 
-    // Executar a query sql
+    // // Executar a query sql
     mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
 
-    // redirecionar para a página principal
+    // // redirecionar para a página principal
     header("Location: ../src/dashboard.php");
+        
 }
 
 // o aluno só pode editar a atividade que estiver como REPROVADA
@@ -217,12 +236,13 @@ class Coordenador {
 function aprovar(){
     // pegar código da atividade pelo frontend
     $cod_atividade = $_POST['cod_atividade'];
-
+    $horas_solicitadas = $_POST['horas_solicitadas'];
+    
     // conexão com o DB
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
     // query SQL para deletar da tabela atividade_complementar a linha que tiver o cod_atividade recebida do frontend
-    $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = '".$cod_atividade."'";
+    $sql = "UPDATE atividade_complementar SET status = 'Aprovado', horas_aprovadas = '".$horas_solicitadas."' WHERE cod_atividade = '".$cod_atividade."'";
 
     // executar query sql
     mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
@@ -248,8 +268,7 @@ function reprovar(){
         mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
 
         // query SQL para adicionar uma observação na tabela observacao_atividade
-        // $sql = "INSERT INTO observacao_atividade (observacao, cod_atividade) VALUES ('".$observacao."', '".$cod_atividade."');";
-        $sql = "INSERT INTO observacao_atividade (observacao) VALUES ('".$observacao."');";
+        $sql = "INSERT INTO observacao_atividade (observacao, cod_atividade) VALUES ('".$observacao."', '".$cod_atividade."');";
            
 
         // executar query sql
@@ -257,8 +276,6 @@ function reprovar(){
 
         header("Location: ../src/atividades_coord.php");
 
-
-        // echo $observacao;
     } else {
         // será redirecionado para a página de atividades para ele avaliar novamente, já que essa avaliação não deu certo pois não inserir nenhum comentário para o aluno
         header("Location: ../src/atividades_coord.php");        
@@ -301,7 +318,8 @@ function atualizar(){
     // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
     // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES ('Engenharia de Software', 200, 4);"; 
     // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES('Análise e Desenvolvimento de Sistemas', 200, 5)"; 
-    $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = 21;"; 
+    // $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = 21;"; 
+    $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE horas_aprovadas = 0;"; 
 
 
     // Executar a query sql
@@ -346,3 +364,6 @@ if(isset($_POST['inserir'])){
 } else if (isset($_POST['reprovar'])){
     reprovar();
 }
+
+
+

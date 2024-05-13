@@ -86,6 +86,7 @@
             <form action="../server/server.php" method="post">
               <?php
                 echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">';  
+                echo '<input type="hidden" name="horas_solicitadas" value="'.$_GET["horas_solicitadas"].'">';  
               ?>
               <button type="submit" name="aprovar" id="aprovar">Aprovar</button>
             </form>

@@ -30,7 +30,7 @@
   </div>
   
   <div class="formContainer column">
-    <form action="../server/server.php" method="post">
+    <form action="../server/server.php" method="post" enctype="multipart/form-data">
       <div class="column">
         <label for="titulo">Título</label>
         <input name="titulo" id="titulo" type="text" autofocus>
@@ -42,8 +42,8 @@
       </div>
 
       <div class="column">
-        <label for="anexo">Anexos</label>
-        <input name="anexo" id="anexo" type="text">
+        <label for="anexo">Anexo</label>
+        <input name="anexo" id="anexo" type="file">
       </div>
 
 

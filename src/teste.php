@@ -1,2 +1,3 @@
 <?php
-    echo "oi";
+session_start();
+echo $_SESSION['teste'];
