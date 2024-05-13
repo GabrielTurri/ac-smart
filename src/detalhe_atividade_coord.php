@@ -71,13 +71,15 @@
             
             <?php
             $descricao = ucfirst($_GET["descricao"]);
+            $caminho = '../server/'.$_GET['caminho_anexo'];
+            
               echo "
                 <p>Nome do aluno (a): ".ucfirst($_GET['nome_aluno'])."</p>
                 <p>RA do aluno (a): {$_GET["RA_aluno"]}</p>
 
                 <p>Título da atividade: ".ucfirst($_GET["titulo"])."</p>
                 <p>Descrição da atividade: ".ucfirst($_GET["descricao"])."</p>
-                <p>Anexo: {$_GET["caminho_anexo"]}</p>
+                <a href=".$caminho." download>Arquivo enviado</a>
                 <p>Horas Solicitadas: {$_GET["horas_solicitadas"]}</p>
                 <p>Data de conclusão da atividade: {$_GET["data"]}</p>
               ";  
