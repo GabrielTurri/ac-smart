@@ -56,7 +56,7 @@
     </div>
     <form action="../server/server.php" method="post">
       
-      <a href="dash_coordenador.php" class="button">Voltar para cursos</a>
+      <!-- <a href="dash_coordenador.php" class="button">Voltar para cursos</a> -->
       <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
         <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
         Encerrar Sessão
@@ -67,6 +67,8 @@
       <div class="column">
         <div class="dashboardContainer">
           <div class="chartContainer">
+          <a href="dash_coordenador.php" class="button">Cursos</a>
+
             <h2><?php echo $_SESSION['nome_curso']; ?></h2>
             <h3>Atividades disponíveis para avaliação:</h3>
 

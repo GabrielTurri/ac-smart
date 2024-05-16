@@ -212,7 +212,7 @@ function inserir_aluno(){
     header("Location: inserir_aluno.html");
 }
 
-function editDb(){
+function editar_atividade(){
     // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
     $cod_atividade = $_POST["cod_atividade"];
     $titulo = ucfirst($_POST['titulo']);
@@ -484,7 +484,7 @@ function atividades_coord(){
 if(isset($_POST['inserir'])){
     insertDb();
 } else if(isset($_POST['editar'])){
-    editDb();
+    editar_atividade();
 } else if(isset($_POST['sair'])){
     sair();
 } else if(isset($_POST['atividades'])){
