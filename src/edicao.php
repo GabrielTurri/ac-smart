@@ -65,8 +65,8 @@
         </div>
   
         <div class="dataInput column">
-          <label for="data_conclusao">Data da atividade</label>
-          <input name="data_conclusao" id="data_conclusao" type="date" onfocus="(this.type='date')" placeholder="<?php echo $_GET["data"];?>">
+          <label for="data_conclusao">Data da atividade: <?php echo $_GET["data"];?></label>
+          <input name="data_conclusao" id="data_conclusao" type="date">
         </div>
       </div>
       <input type="hidden" id="cod_atividade" name="cod_atividade" value="<?php echo $_GET["cod_atividade"];?>">

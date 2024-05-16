@@ -274,7 +274,7 @@ function editDb(){
                 exit("Can't move uploaded file");
             }
 
-            $sql = "UPDATE atividade_complementar SET caminho_anexo = $caminho_anexo WHERE cod_atividade = $cod_atividade;";
+            $sql = "UPDATE atividade_complementar SET caminho_anexo = '".$caminho_anexo."' WHERE cod_atividade = '".$cod_atividade."';";
             mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
             $mudancas +=1;
 
