@@ -52,10 +52,6 @@
       ?>
     </div>
     <form action="../server/server.php" method="post">
-      
-      <a href="dash_coordenador.php" class="button">Voltar para cursos</a>
-      <br>
-      <a href="atividades_coord.php" class="button">Voltar para atividades a serem avaliadas</a>
       <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
         <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
         Encerrar Sessão
@@ -66,7 +62,11 @@
       <div class="column">
         <div class="dashboardContainer">
           <div class="chartContainer">
-            
+            <div class="">
+              <a href="dash_coordenador.php" class="button">Cursos</a>
+              <span>/</span>
+              <a href="atividades_coord.php" class="button">Engenharia de Software</a>
+            </div>
             <h2>Detalhes da atividade:</h2>
             
             <?php

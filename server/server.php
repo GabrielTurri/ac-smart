@@ -1,11 +1,5 @@
 <?php
-// https://www.figma.com/proto/aMZnQ8mrDlJntza4xIqTw1/AC-Smart?type=design&node-id=586-2134&scaling=scale-down&page-id=91%3A51&starting-point-node-id=226%3A13
-
-// https://www.w3schools.com/php/php_sessions.asp
-
 // http://15.229.66.111/
-
-// http://localhost/www/pi/index.html
 
 // para criar o ARRAY GLOBAL com as infos do usuario logado no momento
 session_start();
@@ -99,7 +93,46 @@ function login_coordenador(){
 
 
 class Aluno{
-    // essa classe terá os MÉTODOS VER(atividadesDb()), INSERIR, EDITAR, EXCLUIR, SAIR(logout)
+    // essa classe terá 
+    public $email;
+    public $senha;
+    public function login(){
+        // valores pegados dos inputs 'email' e 'senha'
+        $email = $_POST ['email'];
+        $senha = $_POST ['senha'];
+        
+        // conexão com o banco de dados
+        $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+        
+        // query para verificar se o email esta cadastrado no DB
+        $sql = "SELECT * FROM aluno WHERE email_aluno = '".$email."'";
+        $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
+        
+        // validação para ver se encontrou o email inserido
+        if ($result -> num_rows == 0) {
+            // se não achar, vai retornar para a página de login
+            header("Location: ../src/login.html");
+
+        } else {
+            // fazer a comparação das senhas, se estiver errado, ir para login.html, senão ir para dashboard
+            $linha = mysqli_fetch_array($result);
+            // verificação das senhas digitada pelo usuário e da senha decifrada do banco de dados
+            $verify = password_verify($senha, $linha["senha_aluno"]);
+            // caso a verificação seja False, ou seja, se as senhas forem diferentes
+            if ($verify == False) {
+                header("Location: ../src/login.html");
+            } else {
+                // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
+                $_SESSION['ra_aluno'] = $linha['RA_aluno'];
+                $_SESSION['nome_aluno'] = $linha['nome_aluno'];
+                $_SESSION['sobrenome_aluno'] = $linha['sobrenome_aluno'];
+                $_SESSION['email_aluno'] = $linha['email_aluno'];
+                $_SESSION['curso'] = $linha['cod_curso'];
+                header("Location: ..\src\dashboard.php");
+            }        
+        }
+    }
+
 }
 
 function insertDb(){    

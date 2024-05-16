@@ -76,7 +76,7 @@
         <div class="dashboardContainer">
           <div class="chartContainer">
             
-            <h2>Seus cursos:</h2>
+            <h2>Cursos ministrados:</h2>
             
             <!-- foreach para imprimir todos os cursos que o coordenador ministra, e as quantidades de atividades a serem avaliadas naquele curso -->
             <?php
