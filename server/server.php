@@ -213,8 +213,124 @@ function inserir_aluno(){
 }
 
 function editDb(){
-    // redirect
-    echo "botão edit";
+    // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
+    $cod_atividade = $_POST["cod_atividade"];
+    $titulo = ucfirst($_POST['titulo']);
+    $descricao = ucfirst($_POST['descricao']);
+    $horas_solicitadas = $_POST['horas_solicitadas'];
+    $data_conclusao = $_POST['data_conclusao'];
+
+
+    // validar se a atividade pretence ao aluno logado, se não for dele, vai ser redirecionado para o dashboard novamente
+    if(!in_array($cod_atividade, $_SESSION['atividades_aluno']) or !$cod_atividade){
+        header("Location: ../src/dashboard.php");
+    } else {
+        $mudancas = 0;
+        // atualizar os campos no banco de dados caso eles existam
+        // conexao com o DB
+        $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+        if($titulo){
+            $sql = "UPDATE atividade_complementar SET titulo = '".$titulo."' WHERE cod_atividade = ".$cod_atividade.";"; 
+            mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+            $mudancas +=1;
+        }
+        if($descricao){
+            $sql = "UPDATE atividade_complementar SET descricao = '".$descricao."' WHERE cod_atividade = '".$cod_atividade."';"; 
+            mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+            $mudancas +=1;
+        }
+        if($horas_solicitadas){
+            $sql = "UPDATE atividade_complementar SET horas_solicitadas = ".$horas_solicitadas." WHERE cod_atividade = '".$cod_atividade."';"; 
+            // die($sql);
+            mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+            $mudancas +=1;
+        }
+        if($data_conclusao){
+            $sql = "UPDATE atividade_complementar SET data = '".$data_conclusao."' WHERE cod_atividade = '".$cod_atividade."';"; 
+            mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+            $mudancas +=1;
+        }
+        
+        if($_FILES["anexo"]["name"]){
+             // Replace any characters not \w- in the original filename
+            $pathinfo = pathinfo($_FILES["anexo"]["name"]);
+            $base = $pathinfo["filename"];
+            $base = preg_replace("/[^\w-]/", "_", $base);
+            $filename = $base . "." . $pathinfo["extension"];
+            $destination = __DIR__ . "/uploads/" . $filename;
+            $caminho_anexo = "/uploads/" . $filename;
+
+            // Add a numeric suffix if the file already exists
+            $i = 1;
+
+            while (file_exists($destination)) {
+                $filename = $base . "($i)." . $pathinfo["extension"];
+                $destination = __DIR__ . "/uploads/" . $filename;
+                $i++;
+            }
+
+            if (! move_uploaded_file($_FILES["anexo"]["tmp_name"], $destination)) {
+                exit("Can't move uploaded file");
+            }
+
+            $sql = "UPDATE atividade_complementar SET caminho_anexo = $caminho_anexo WHERE cod_atividade = $cod_atividade;";
+            mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+            $mudancas +=1;
+
+
+        } else {
+            echo 'não existe';
+        }
+        
+        
+
+    }
+    if($mudancas > 0){
+        $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE cod_atividade = $cod_atividade;";
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+    }
+    header("Location: ../src/dashboard.php");
+
+    
+
+    // Replace any characters not \w- in the original filename
+    // $pathinfo = pathinfo($_FILES["anexo"]["name"]);
+    // $base = $pathinfo["filename"];
+    // $base = preg_replace("/[^\w-]/", "_", $base);
+    // $filename = $base . "." . $pathinfo["extension"];
+    // $destination = __DIR__ . "/uploads/" . $filename;
+    // $caminho_anexo = "/uploads/" . $filename;
+
+    // Add a numeric suffix if the file already exists
+    // $i = 1;
+
+    // while (file_exists($destination)) {
+    //     $filename = $base . "($i)." . $pathinfo["extension"];
+    //     $destination = __DIR__ . "/uploads/" . $filename;
+    //     $i++;
+    // }
+
+    // if (! move_uploaded_file($_FILES["anexo"]["tmp_name"], $destination)) {
+    //     exit("Can't move uploaded file");
+    // }
+
+    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
+
+    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
+    
+    // conexao com o DB
+    // $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+    //  query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
+    // $sql = "INSERT INTO atividade_complementar (titulo, descricao, caminho_anexo, horas_solicitadas, data, horas_aprovadas, RA_aluno) VALUES ('".$titulo."' , '".$descricao."' , '".$caminho_anexo."' ,'".$horas_solicitadas."' ,'".$data_conclusao."' , '0', '".$_SESSION['ra_aluno']."' );"; 
+
+    // // Executar a query sql
+    // mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+    // // redirecionar para a página principal
+    // header("Location: ../src/dashboard.php");
+    
 }
 
 function atividadesDb(){
@@ -258,11 +374,6 @@ function deletar_ativ(){
     // executar query sql
     mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
     header("Location: ../src/dashboard.php");
-}
-
-class Coordenador {
-    // está classe terá os MÉTODOS APROVAR, REPROVAR, SAIR(logout)
-    // e os atributos de cod, nome, sobrenome, email 
 }
 
 // somente o COORDENADOR pode aprovar
@@ -352,7 +463,7 @@ function atualizar(){
     // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES ('Engenharia de Software', 200, 4);"; 
     // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES('Análise e Desenvolvimento de Sistemas', 200, 5)"; 
     // $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = 21;"; 
-    $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE horas_aprovadas = 0;"; 
+    $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE cod_atividade = 44;"; 
 
 
     // Executar a query sql
@@ -394,6 +505,8 @@ if(isset($_POST['inserir'])){
     atividades_coord();
 } else if (isset($_POST['aprovar'])){
     aprovar();
+} else if (isset($_POST['reprovar'])){
+    reprovar();
 } else if (isset($_POST['reprovar'])){
     reprovar();
 }

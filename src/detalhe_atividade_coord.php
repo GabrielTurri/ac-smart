@@ -65,9 +65,10 @@
             <div class="">
               <a href="dash_coordenador.php" class="button">Cursos</a>
               <span>/</span>
-              <a href="atividades_coord.php" class="button">Engenharia de Software</a>
+              <a href="atividades_coord.php" class="button"><?php echo $_SESSION['nome_curso']; ?></a>
             </div>
             <h2>Detalhes da atividade:</h2>
+            
             
             <?php
             $descricao = ucfirst($_GET["descricao"]);

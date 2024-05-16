@@ -6,6 +6,8 @@
     header("Location: login.html");
   } 
 
+  $_SESSION['atividades_aluno'] = [];
+
   // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
   $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
 
@@ -20,6 +22,7 @@
   foreach($result as $row){
     $horas_totais_entregues += $row["horas_solicitadas"];
     $horas_totais_aprovadas += $row["horas_aprovadas"];
+    array_push($_SESSION['atividades_aluno'], $row["cod_atividade"]);
   }  
 
   // buscar no banco as informações do curso que o aluno faz, como coordenador, email dele, horas complementares necessarias, nome do curso
@@ -32,7 +35,6 @@
   $_SESSION["nome_coordenador"] = $linha["nome_coordenador"];
   $_SESSION["sobrenome_coordenador"] = $linha['sobrenome_coordenador'];
   $_SESSION["email_coordenador"] = $linha['email_coordenador'];
-  // print_r($_SESSION);
 
 ?>
 
@@ -161,35 +163,66 @@
               <th>Descrição</th>
               <th>Anexo</th>
               <th>Data de conclusão</th>
-              <th>Horas Aprovadas</th>
+              <th>Horas Solicitadas</th>
               <th>Status</th>
               <th>Deletar</th>
+              <th>Editar</th>
               </tr>";
               
               foreach($result as $row){
+                // criar o caminho para baixar o arquivo
+                $caminho = '../server'.$row["caminho_anexo"];
                 echo "
                 <tr>
                 <td>{$row["titulo"]}</td>
                 <td>{$row["descricao"]}</td>
-                <td>{$row["caminho_anexo"]}</td>
+                <td><a href=".$caminho." download>Arquivo</a></td>
                 <td>{$row["data"]}</td>
-                <td>{$row["horas_aprovadas"]}</td>
+                <td>{$row["horas_solicitadas"]}</td>
                 <td>{$row["status"]}</td>
                 ";
 
-                if($row['status'] == 'Pendente'){
-                  echo '<td><form action="../server/server.php" method="post">
-                  <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                  <button 
-                    type="submit" 
-                    name="deletar" 
-                    id="deletar" 
-                    title="Cancelar Envio"
-                    class="botao-cancelar"
-                  >
-                    <img src="assets/icons/x.svg" alt="Cancelar Envio">
-                  </button>
-                </form></td></tr>';
+                if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){
+                  echo '
+                  <td>
+                    <form action="../server/server.php" method="post">
+                      <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                      <button 
+                        type="submit" 
+                        name="deletar" 
+                        id="deletar" 
+                        title="Cancelar Envio"
+                        class="botao-cancelar"
+                      >
+                        <img src="assets/icons/x.svg" alt="Cancelar Envio">
+                      </button>
+                    </form>
+                  </td>
+
+                  <td>
+                    <form action="edicao.php" method="get">
+                      <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+                      <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
+                      <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
+                      <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+                      <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+                      <input type="hidden" value="'.$row["data"].'" name="data" id="data">
+                      <button 
+                        type="submit" 
+                        name="deletar" 
+                        id="deletar" 
+                        title="Cancelar Envio"
+                        class="botao-cancelar"
+                      >
+                        <img src="assets/icons/pencil-square.svg" alt="Cancelar Envio">
+                      </button>
+                    </form>
+                  </td>
+
+                  </tr>';
+                  // $_SESSION['atividade_atual'] = $row["cod_atividade"];
+                } else {
+                  echo '</tr>';
                 }
               
               }

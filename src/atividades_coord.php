@@ -67,8 +67,8 @@
       <div class="column">
         <div class="dashboardContainer">
           <div class="chartContainer">
-            
-            <h2>Atividades disponíveis para avaliação:</h2>
+            <h2><?php echo $_SESSION['nome_curso']; ?></h2>
+            <h3>Atividades disponíveis para avaliação:</h3>
 
           <div class="activityList" id="aprovadas">
             <?php
@@ -109,9 +109,3 @@
     
 </body>
 </html>
-
-<!-- foreach($result as $row){
-                      if($row['status'] == "Pendente"){
-                          echo "nome da atividade: {$row['titulo']} <br>";
-                      }
-                  } -->

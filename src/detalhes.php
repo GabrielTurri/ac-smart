@@ -6,6 +6,7 @@ if($_SESSION['ra_aluno']){
 header("Location: login.html");
 } 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
