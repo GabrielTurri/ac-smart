@@ -163,6 +163,11 @@ function insertDb(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
+    // criação do timestamp atual
+    date_default_timezone_set('America/Sao_Paulo');
+    $timestamp = date("Y-m-d H:i:s");
+    // echo $timestamp;
+
     // Replace any characters not \w- in the original filename
     $pathinfo = pathinfo($_FILES["anexo"]["name"]);
     $base = $pathinfo["filename"];
@@ -240,6 +245,9 @@ function editar_atividade(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
+    // criação do timestamp atual
+    date_default_timezone_set('America/Sao_Paulo');
+    $timestamp = date("Y-m-d H:i:s");
 
     // validar se a atividade pretence ao aluno logado, se não for dele, vai ser redirecionado para o dashboard novamente
     if(!in_array($cod_atividade, $_SESSION['atividades_aluno']) or !$cod_atividade){
@@ -350,7 +358,11 @@ function deletar_ativ(){
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
     // query SQL para deletar da tabela atividade_complementar a linha que tiver o cod_atividade recebida do frontend
-    $sql = "DELETE FROM atividade_complementar WHERE cod_atividade = '".$cod_atividade."'";
+    // $sql = "DELETE FROM atividade_complementar WHERE cod_atividade = '".$cod_atividade."'";
+
+    // arquivar atividade, não deletar do banco
+    $sql = "UPDATE atividade_complementar SET status = 'Arquivado', horas_aprovadas = 0 WHERE cod_atividade = '".$cod_atividade."';"; 
+
 
     // executar query sql
     mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
@@ -455,7 +467,8 @@ function atualizar(){
     // $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = 21;"; 
     // $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE cod_atividade = 44;"; 
     // $sql = "UPDATE atividade_complementar SET status = 'Pendente';"; 
-    $sql = "UPDATE atividade_complementar SET horas_aprovadas = 0;"; 
+    $sql = "UPDATE atividade_complementar SET status = 'Arquivado', horas_aprovadas = 0 WHERE cod_atividade = 42;"; 
+    // $sql = "UPDATE atividade_complementar SET horas_aprovadas = 0;"; 
 
 
     // Executar a query sql
