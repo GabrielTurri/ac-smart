@@ -1,0 +1,93 @@
+.abas-atividades { 
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin: 8px 0;
+  justify-content: center;
+}
+
+.abas-atividades .aba-btn {
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#pendentes {
+  display: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.full {
+  width: 100%;
+}
+
+.lista-atividades {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  max-width: 70%;
+  gap: 8px;
+
+  margin: 16px auto;
+}
+
+#pendentes .container-atividade {
+  border-radius: 8px 0 0 8px;
+  border-right: none;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50px;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  
+
+  border: 1px solid #043565;
+  background-color: #043565;
+}
+
+.container-atividade {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+
+  width: 100%;
+  
+  gap: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #043565;
+  background-color: #fff;
+}
+.container-atividade:hover {
+  background-color: #D6E9FB;
+  transition: 0.5s;
+}
+
+#pendentes .container-atividade strong {
+  color: #FF9432;
+}
+
+.container-atividade strong {
+  color: #043565;
+  font-size: 1rem;
+}
+
+.container-atividade span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #043565;
+}

@@ -59,14 +59,14 @@
     </form>
   </aside>
     <div class="dashboard-content">
-      <div class="column">
+      <div class="breadcrumb">
+                <a href="dash_coordenador.php" class="button">Cursos</a>
+                <span>/</span>
+                <a href="atividades_coord.php" class="button"><?php echo $_SESSION['nome_curso']; ?></a>
+              </div>
+        <div class="column">
         <div class="dashboardContainer">
           <div class="chartContainer">
-            <div class="">
-              <a href="dash_coordenador.php" class="button">Cursos</a>
-              <span>/</span>
-              <a href="atividades_coord.php" class="button"><?php echo $_SESSION['nome_curso']; ?></a>
-            </div>
             <h2>Detalhes da atividade:</h2>
             
             

@@ -53,7 +53,7 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles/styles-activities.css">
+  <link rel="stylesheet" href="styles/styles-atividades.css">
   <link rel="stylesheet" href="styles/global.css">
   <link rel="stylesheet" href="styles/styles-dashboard.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
@@ -72,6 +72,11 @@
     document.getElementById("aprovadas").style.display = "none";
     document.getElementById("pendentes").style.display = "flex";
   } 
+
+  function abrirOpcoes(){
+    // Abrir as opções de editar ou excluir
+    console.log("Editar/Excluir")
+  }
 </script>
 <body>
   <aside class="sidebar">
@@ -88,7 +93,6 @@
           echo "<p><b>Email do coordenador (a):</b></p> <p> {$_SESSION['email_coordenador']}</p>"
         ?>
       </div>
-      <a href="dashboard.php">Voltar para dashboard</a>
       <form action="../server/server.php" method="post">
         <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
           <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
@@ -98,34 +102,27 @@
   </aside>
 
 <div class="dashboard-content">
-
-  <!-- <div class="headerContainer">
-    <a href="dashboard.php">
-      <img src="assets/icons/arrow-left.svg" alt="">
-    </a>
-    <div>
-      <h2>Minhas AC'S</h2>
-    </div>
-    <div></div>
-  </div> -->
+  <div class="breadcrumb">
+    <a href="dashboard.php">Voltar para dashboard</a>
+  </div>
   
-  <div class="activityTabs">
-    <button onclick="showApproved()">Aprovadas</button>
-    <button onclick="showPendent()">Pendentes</button>
+  <div class="abas-atividades">
+    <button class="aba-btn" onclick="showApproved()">Aprovadas</button>
+    <button class="aba-btn" onclick="showPendent()">Pendentes</button>
   </div>
   
   <!-- fazer o cartão da atividade INTEIRA ser clicavel, e direcionar ou abrir mais informações sobre aquela atividade -->
   
   
-  <div class="activityList" id="aprovadas">
+  <div class="lista-atividades" id="aprovadas">
     <?php
     echo "<h2>Atividades Aprovadas: {$aprovadas}</h2>"?>
       <?php
       foreach($result as $row){
         if($row['status'] == "Aprovado"){
           echo '
-          <div class="activityContainer">
-            <form class="'.$row['status'].'" action="detalhes.php" method="get">
+          <form class="'.$row['status'].'" action="detalhes.php" method="get">
+            <button type="submit" class="container-atividade">
               <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
               <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
               <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
@@ -134,33 +131,35 @@
               <input type="hidden" value='.$row["data"].' name="data" id="data">
               <input type="hidden" value='.$row["status"].' name="status" id="status">
               <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
-              <button type="submit">
-                <p>'.$row["titulo"].'</p>
-                <span>'.$row["horas_aprovadas"].'H</span>
-                <span>'.$row["status"].'</span>
+                <span>'.$row["titulo"].'</span>
+                <strong>'.$row["horas_aprovadas"].'H</strong>
               </button>
-            </form>
-          </div>';      
+            </form>';      
         }
       }
       ?>
       
-      <!-- <div class="activityContainer">
+      <!-- <div class="container-atividade">
         <span>Certificado: Python Básico</span>
         <strong>4H</strong>
       </div> -->
     </div>    
     
-    <div class="activityList" id="pendentes">
-      <?php
-    echo "<h2>Atividades Pendentes: {$pendentes}</h2>"?>
-      
+    <div class="lista-atividades" id="pendentes">
+      <h2>
+        Atividades Pendentes: 
+        <?php echo $pendentes ?>
+      </h2>
+
       <?php
       foreach($result as $row){
         if($row['status'] == "Pendente"){
           echo '
-            <div class="activityContainer">
-              <form class="'.$row['status'].'" action="detalhes.php" method="get">
+          <div class="row">
+
+            <form class="'.$row['status'].' full" action="detalhes.php" method="get">
+            
+              <button type="submit" class="container-atividade">
                 <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
                 <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
                 <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
@@ -169,20 +168,18 @@
                 <input type="hidden" value='.$row["data"].' name="data" id="data">
                 <input type="hidden" value='.$row["status"].' name="status" id="status">
                 <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
-                <button type="submit">
-                  <p>'.$row["titulo"].'</p>
-                  <span>'.$row["horas_aprovadas"].'H</span>
-                  <span>'.$row["status"].'</span>
-                </button>
-              </form>
-            </div>';      
-        }
-      }
-      ?>
-    
+                <span>'.$row["titulo"].'</span>
+                <strong class="">'.$row["horas_solicitadas"].'H</strong>
+              </button>
+            
+            </form>
+            <button class="more" onclick="abrirOpcoes()">
+              <img src="assets/icons/more-vertical.svg" alt="">
+            </button>
+          </div>';
+      }}?>
+    </div>
   </div>
-</div>
-  
 </body>
 </html>
 
@@ -191,7 +188,7 @@
       if ($result ->num_rows > 0){
         foreach($result as $row){
           echo "
-          <div class='activityContainer'>
+          <div class='container-atividade'>
             <span>{$row["titulo"]}</span>
             <div class='row'>
               <strong>{$row["horas_aprovadas"]}H</strong>

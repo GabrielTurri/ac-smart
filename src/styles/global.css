@@ -15,3 +15,24 @@ body, input, textarea, button {
   font-weight: 400;
   font-style: 1rem;
 }
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-direction: row;
+  margin: 0 32px;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: #043565;
+  text-decoration: none;
+}
