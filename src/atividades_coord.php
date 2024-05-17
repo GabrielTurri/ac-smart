@@ -35,7 +35,7 @@
 
   <link rel="stylesheet" href="styles/global.css">
   <link rel="stylesheet" href="styles/styles-dashboard.css">
-  <link rel="stylesheet" href="styles/styles-activities.css">
+  <link rel="stylesheet" href="styles/atividades.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -64,15 +64,15 @@
     </form>
   </aside>
     <div class="dashboard-content">
-      <div class="column">
-        <div class="dashboardContainer">
-          <div class="chartContainer">
-          <a href="dash_coordenador.php" class="button">Cursos</a>
+      <div class="">
+          <div class="breadcrumb">
+            <a href="dash_coordenador.php" class="button">Cursos</a>
+          </div>
 
+          <div class="lista-atividades" id="aprovadas">
+          
             <h2><?php echo $_SESSION['nome_curso']; ?></h2>
-            <h3>Atividades disponíveis para avaliação:</h3>
-
-          <div class="activityList" id="aprovadas">
+            <h3>Atividades aguardando avaliação:</h3>
             <?php
               // vai mostrar uma mensagem caso não tenha atividades para avaliar
               if($result->num_rows < 1){
@@ -82,7 +82,7 @@
                   if($row['status'] == "Pendente"){
                     echo '
                     <form class="'.$row['status'].'" action="detalhe_atividade_coord.php" method="get">
-                      <button class="activityContainer" type="submit">
+                      <button class="container-atividade" type="submit">
 
                         <input type="hidden" value="'.$row["nome_aluno"].'" name="nome_aluno" id="nome_aluno">
                         <input type="hidden" value="'.$row["RA_aluno"].'" name="RA_aluno" id="RA_aluno">
@@ -92,8 +92,10 @@
                         <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
                         <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
                         <input type="hidden" value="'.$row["data"].'" name="data" id="data">
-                       
-                        <strong>'.$row["titulo"].'</strong>
+                        
+                        <span>'.$row["titulo"].'</span>
+                        
+                        
                         <strong>'.$row["horas_solicitadas"].'H</strong>
                       
                       </button>
@@ -104,10 +106,8 @@
                   
               }
               ?>
-              
-            </div>
-        </div>
     </div>
+    
     
 </body>
 </html>

@@ -81,10 +81,10 @@
   
     <div class="dashboard-content">
       <div class="column">
-        <div class="dashboardContainer">
-          <div class="chartContainer">
+        <div class="dashboard-container">
+          <div class="chart-container">
     
-            <div class="chartContent">
+            <div class="chart-content">
               <div class="chartImg"></div>
               <h1><?php echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";?> Horas</h1>
               <div>
@@ -101,7 +101,7 @@
             </div>
           </div>
     
-          <div class="chartContainer">
+          <div class="chart-container">
             <a href="atividades.php" class="button">
               <button>
                 <img 

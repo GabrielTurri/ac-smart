@@ -73,7 +73,7 @@
   display: flex;
   flex-direction: column;
 }
-.dashboardContainer{
+.dashboard-container{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -84,7 +84,7 @@
   margin: 8px 0;
 }
 
-.chartContainer{
+.chart-container{
   min-width: 20rem;
   width: 40%;
   flex-grow: 1;
@@ -101,7 +101,7 @@
   border-radius: 24px;
 }
 
-.chartInfo{
+.chart-info{
   display: flex;
   flex-direction: row;
 }
@@ -135,17 +135,17 @@
   transition: 0.6s;
 }
 
-.chartContent {
+.chart-content {
 display: flex;
 flex-direction: column;
 align-items: center;
 }
-.chartContent div {
+.chart-content div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.chartContent h1{
+.chart-content h1{
   margin: 8px 0;
 }
 
