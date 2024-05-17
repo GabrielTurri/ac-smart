@@ -380,11 +380,12 @@ function aprovar(){
 // somente o COORDENADOR pode reprovar
 function reprovar(){
     // pegar observação digitada pelo coordenador
-    $observacao = trim($_POST['observacao']);
+    $observacao = ucfirst(trim($_POST['observacao']));
     $cod_atividade = $_POST['cod_atividade'];
 
+    $min_ob = 15;
     // caso o campo esteja preenchido, o status da atividade será alterada para "Reprovado", e a observação será salva na tabela observacao_atividade
-    if (strlen($observacao) > 5){
+    if (strlen($observacao) > $min_ob){
         // conexão com o DB
         $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
@@ -408,9 +409,8 @@ function reprovar(){
 
     } else {
         // será redirecionado para a página de atividades para ele avaliar novamente, já que essa avaliação não deu certo pois não inserir nenhum comentário para o aluno
-        $_SESSION['message'] = "Campo 'Observação' deve ter ao menos 5 caracteres!";
+        $_SESSION['message'] = "Campo 'Observação' deve ter ao menos ".$min_ob." caracteres!";
         $_SESSION['message_type'] = 'warning';
-
 
         header("Location: ../src/atividades_coord.php");        
     }
@@ -453,7 +453,9 @@ function atualizar(){
     // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES ('Engenharia de Software', 200, 4);"; 
     // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES('Análise e Desenvolvimento de Sistemas', 200, 5)"; 
     // $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = 21;"; 
-    $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE cod_atividade = 44;"; 
+    // $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE cod_atividade = 44;"; 
+    // $sql = "UPDATE atividade_complementar SET status = 'Pendente';"; 
+    $sql = "UPDATE atividade_complementar SET horas_aprovadas = 0;"; 
 
 
     // Executar a query sql

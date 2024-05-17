@@ -75,7 +75,7 @@
           Atenção: As informações serão enviadas para o 
           professor/orientador responsável. Preencha com responsabilidade.
         </strong>
-        <button class="enviar" type="submit" name="editar">ENVIAR</button>
+        <button class="enviar" type="submit" name="editar">EDITAR</button>
       </div>
       
     </form>
