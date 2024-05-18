@@ -61,12 +61,23 @@
   </aside>
     <div class="dashboard-content">
       <div class="breadcrumb">
+<<<<<<< HEAD
         <a href="dash_coordenador.php" class="button">Cursos</a>
         <span>/</span>
         <a href="atividades_coord.php" class="button"><?php echo $_SESSION['nome_curso']; ?></a>
       </div>
         <div class="form-container">
           <h2>Detalhes da atividade:</h2>
+=======
+                <a href="dash_coordenador.php" class="button">Cursos</a>
+                <span>/</span>
+                <a href="atividades_coord.php" class="button"><?php echo $_SESSION['nome_curso']; ?></a>
+      </div>
+        <div class="column">
+        <div class="dashboardContainer">
+          <div class="chartContainer">
+            <h2>Detalhes da atividade:</h2>
+>>>>>>> bc6b27cc4cb98e164566a8890bbb59eb0169505d
             
             
           <?php

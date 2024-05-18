@@ -1,5 +1,6 @@
 <?php
-  session_start();
+  require_once("../server/server.php");
+
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if($_SESSION['cod_coordenador']){
   } else {
@@ -73,6 +74,10 @@
           
             <h2><?php echo $_SESSION['nome_curso']; ?></h2>
             <h3>Atividades aguardando avaliação:</h3>
+            <?php
+              flash();
+            ?>
+
             <?php
               // vai mostrar uma mensagem caso não tenha atividades para avaliar
               if($result->num_rows < 1){

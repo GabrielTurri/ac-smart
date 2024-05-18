@@ -5,6 +5,14 @@ if($_SESSION['ra_aluno']){
 } else {
 header("Location: login.html");
 } 
+
+$strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+
+// pegar a ultima observação feita pelo professor 
+$sql = "SELECT * FROM observacao_atividade WHERE cod_atividade = ".$_GET['cod_atividade']." ORDER BY observacao DESC
+LIMIT 1;";
+
+$result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +57,7 @@ header("Location: login.html");
     <div class="breadcrumb">
         <a href="dashboard.php">Voltar para dashboard</a>
         <span>/</span>
-        <a href="atividades.php" class="button">Voltar para atividades</a>
+        <a href="reprovadas.php" class="button">Voltar para atividades reprovadas</a>
     </div>
     <?php
             echo"
@@ -61,6 +69,11 @@ header("Location: login.html");
                 <p>Data de conclusão da atividade: {$_GET["data"]}</p>
                 <p>Status da Atividade: {$_GET["status"]}</p>
             ";
+
+            foreach($result as $row){
+              echo "<p>Observação do coordenador: {$row['observacao']}</p>";
+            }
+
             // se precisar ver quais infos estão no get, basta descomentar a linha abaixo
             // print_r($_GET);
 

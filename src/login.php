@@ -1,3 +1,7 @@
+<?php
+  include("../server/server.php");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -26,6 +30,8 @@
       </div>
       <form action="../server/server.php" method="post" id="aluno" class="column-container"> 
         <h1>Fazer Login</h1>
+        <?php
+        flash();?>
         <input class="login-input" placeholder='E-mail do aluno' type="text" name="email" autofocus/>
         <input class="login-input" placeholder='Senha' type="password" name="senha"/>
         

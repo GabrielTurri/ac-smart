@@ -1,5 +1,6 @@
 <?php
-  session_start();
+  // session_start();
+  include("../server/server.php");
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if($_SESSION['ra_aluno']){
   } else {
@@ -18,11 +19,28 @@
   $horas_totais_entregues = 0;
   $horas_totais_aprovadas = 0;
 
+  
+  $_SESSION['aprovadas'] = 0;
+  $_SESSION['arquivadas'] = 0;
+  $_SESSION['reprovadas'] = 0;
+  $_SESSION['pendentes'] = 0;
+
+  // contagem para saber quantas atividades de cada status o usuário tem
   // somar horas entregues pelo aluno e as aprovadas
   foreach($result as $row){
     $horas_totais_entregues += $row["horas_solicitadas"];
     $horas_totais_aprovadas += $row["horas_aprovadas"];
     array_push($_SESSION['atividades_aluno'], $row["cod_atividade"]);
+
+    if($row['status'] == "Aprovado"){
+      $_SESSION['aprovadas'] +=1;
+    } else if($row['status'] == "Reprovado"){
+      $_SESSION['reprovadas'] += 1;
+    }else if($row['status'] == "Pendente"){
+      $_SESSION['pendentes'] += 1;
+    } else if($row['status'] == "Arquivado"){
+      $_SESSION['aprovadas'] += 1;
+    }
   }  
 
   // buscar no banco as informações do curso que o aluno faz, como coordenador, email dele, horas complementares necessarias, nome do curso
@@ -86,7 +104,10 @@
     
             <div class="chart-content">
               <div class="chartImg"></div>
-              <h1><?php echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";?> Horas</h1>
+              <h1><?php 
+                if($horas_totais_aprovadas > 200){$horas_totais_aprovadas = 200;};
+                echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";
+              ?> Horas</h1>
               <div>
                 <div>
                   <div class="chartLegendOrange"></div>
@@ -122,7 +143,7 @@
               </button>
             </a>
     
-            <a href="" class="button">
+            <a href="reprovadas.php" class="button">
               <button class="button">
                 <img 
                   src="assets/icons/corner-down-left.svg" 
@@ -217,6 +238,18 @@
                   <img src="assets/icons/x.svg" alt="Cancelar Envio">
                   </button>
                   </form>
+                  <form action="../server/server.php" method="post">
+                  <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                  <button 
+                  type="submit" 
+                  name="deletar" 
+                  id="deletar" 
+                  title="Cancelar Envio"
+                  class="botao-cancelar"
+                  >
+                  <img src="assets/icons/x.svg" alt="Cancelar Envio">
+                  </button>
+                  </form>
                   </td>
                   
                         <td>
@@ -233,6 +266,7 @@
                         id="deletar" 
                         title="Cancelar Envio"
                         class="botao-cancelar"
+                        >
                         >
                         <img src="assets/icons/pencil-square.svg" alt="Cancelar Envio">
                         </button>
