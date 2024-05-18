@@ -77,7 +77,14 @@
             <?php
               flash();
             ?>
-
+            <div class="legenda-lista-atividades">
+              <div class="legenda">
+                <strong>Título</strong>
+              </div>
+              <div class="legenda">
+                <strong>Horas Solicitadas</strong>
+              </div>
+            </div>
             <?php
               // vai mostrar uma mensagem caso não tenha atividades para avaliar
               if($result->num_rows < 1){
@@ -86,26 +93,25 @@
                 foreach($result as $row){
                   if($row['status'] == "Pendente"){
                     echo '
-                    <form class="'.$row['status'].'" action="detalhe_atividade_coord.php" method="get">
-                      <button class="container-atividade" type="submit">
-
-                        <input type="hidden" value="'.$row["nome_aluno"].'" name="nome_aluno" id="nome_aluno">
-                        <input type="hidden" value="'.$row["RA_aluno"].'" name="RA_aluno" id="RA_aluno">
-                        <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
-                        <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
-                        <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
+                    
+                    <form action="detalhe_atividade_coord.php" method="get">  
+                    <input type="hidden" value="'.$row["nome_aluno"].'" name="nome_aluno" id="nome_aluno">
+                    <input type="hidden" value="'.$row["RA_aluno"].'" name="RA_aluno" id="RA_aluno">
+                    <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+                    <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
+                    <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
                         <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
                         <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
                         <input type="hidden" value="'.$row["data"].'" name="data" id="data">
                         
+                      <button class="container-atividade" type="submit">
                         <span>'.$row["titulo"].'</span>
-                        
-                        
                         <strong>'.$row["horas_solicitadas"].'H</strong>
+                        </button>
+                      </form>';
+                        
                       
-                      </button>
                                 
-                    </form>';
                   }
                 }
                   
