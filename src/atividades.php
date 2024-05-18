@@ -111,8 +111,11 @@
   
   
   <div class="lista-atividades" id="aprovadas">
-    <?php
-    echo "<h2>Atividades Aprovadas: {$aprovadas}</h2>"?>
+    <h2>
+      Atividades Aprovadas:
+      <?php echo $_SESSION['aprovadas'] ?>
+    </h2>
+    
     <div class="legenda-lista-atividades">
       <div class="legenda">
         <strong>Título</strong>
