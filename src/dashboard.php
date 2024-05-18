@@ -158,10 +158,18 @@
         
         
         <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
-        <div class='lista-atividades'>
-        <?php
+        <div class='lista-atividades full'>
+          <?php
             if ($result ->num_rows > 0){
-              echo "<h2>Atividades Recentes</h2>";
+              echo "<h2>Atividades Recentes</h2>
+                <div class='legenda-lista-atividades'>
+                  <div class='legenda'>
+                    <strong>Título</strong>
+                  </div>
+                  <div class='legenda'>
+                    <strong>Horas Aprovadas</strong>
+                  </div>
+                </div>";
             } else {
               echo "<h2>Você não possui atividades entregues</h2>";
               echo "<a href='entrega.php' class='button'>
@@ -171,146 +179,58 @@
                   alt='Atividades Complementares'
                 >
                 Entregar AC'S
-                </button>
-                </a>";
-              }
-              ?>
-        <table>
-        <div class="lista-atividades">
+              </button>
+              </a>";
+            }
+          ?>
           <?php
-            if ($result ->num_rows > 0){
-              echo "
-              <tr>
-              <th>Atividade</th>
-              <th>Descrição</th>
-              <th>Anexo</th>
-              <th>Data de conclusão</th>
-              <th>Horas Solicitadas</th>
-              <th>Status</th>
-              <th>Deletar</th>
-              <th>Editar</th>
-              </tr>";
-              
+            if ($result ->num_rows > 0) {
               foreach($result as $row){
-                // criar o caminho para baixar o arquivo
-                $caminho = '../server'.$row["caminho_anexo"];
-                echo "
-                <tr>
-                <td>{$row["titulo"]}</td>
-                <td>{$row["descricao"]}</td>
-                <td><a href=".$caminho." download>Arquivo</a></td>
-                <td>{$row["data"]}</td>
-                <td>{$row["horas_solicitadas"]}</td>
-                <td>{$row["status"]}</td>
-                ";
+                if ($row['status'] == 'Aprovado'){ 
                 echo '
-                  <div id="aprovadas">
+                  <div id="aprovadas" class="full">
                     <form class="'.$row['status'].'" action="detalhes.php" method="get">
+                      <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                      <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+                      <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+                      <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+                      <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+                      <input type="hidden" value='.$row["data"].' name="data" id="data">
+                      <input type="hidden" value='.$row["status"].' name="status" id="status">
+                      <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                       <button type="submit" class="container-atividade">
-                        <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                        <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
-                        <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
-                        <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
-                        <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
-                        <input type="hidden" value='.$row["data"].' name="data" id="data">
-                        <input type="hidden" value='.$row["status"].' name="status" id="status">
-                        <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
-                          <span>'.$row["titulo"].'</span>
-                          <strong>'.$row["horas_aprovadas"].'H</strong>
-                        </button>
-                      </form>
-                    </div>
-                      ';  
-                
-                if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){
-                  echo '
-        
-                  <td>
-                  <form action="../server/server.php" method="post">
-                  <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                  <button 
-                  type="submit" 
-                  name="deletar" 
-                  id="deletar" 
-                  title="Cancelar Envio"
-                  class="botao-cancelar"
-                  >
-                  <img src="assets/icons/x.svg" alt="Cancelar Envio">
-                  </button>
-                  </form>
-                  <form action="../server/server.php" method="post">
-                  <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                  <button 
-                  type="submit" 
-                  name="deletar" 
-                  id="deletar" 
-                  title="Cancelar Envio"
-                  class="botao-cancelar"
-                  >
-                  <img src="assets/icons/x.svg" alt="Cancelar Envio">
-                  </button>
-                  </form>
-                  </td>
-                  
-                        <td>
-                        <form action="edicao.php" method="get">
-                        <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
-                        <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
-                        <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
-                        <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
-                        <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
-                        <input type="hidden" value="'.$row["data"].'" name="data" id="data">
-                        <button 
-                        type="submit" 
-                        name="deletar" 
-                        id="deletar" 
-                        title="Cancelar Envio"
-                        class="botao-cancelar"
-                        >
-                        >
-                        <img src="assets/icons/pencil-square.svg" alt="Cancelar Envio">
-                        </button>
-                        </form>
-                        </td>
-                        
-                        </tr>';
-                        
-                        echo '
-                        <div id="pendentes">
-                        <div class="row">
-                        
-                        <form class="'.$row['status'].' full" action="detalhes.php" method="get">
-                        
-                        <button type="submit" class="container-atividade">
-                        <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                        <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
-                        <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
-                        <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
-                        <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
-                        <input type="hidden" value='.$row["data"].' name="data" id="data">
-                        <input type="hidden" value='.$row["status"].' name="status" id="status">
-                        <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                         <span>'.$row["titulo"].'</span>
-                        <strong title="Pendente">'.$row["horas_solicitadas"].'H</strong>
-                        </button>
-                        
-                        </form>
-                        <button class="more" onclick="abrirOpcoes()">
-                        <img src="assets/icons/more-vertical.svg" alt="">
-                        </button>
-                        </div>
-                        </div>';
-                        // $_SESSION['atividade_atual'] = $row["cod_atividade"];
-                } else {
-                  echo '</tr>';
+                        <strong>'.$row["horas_aprovadas"].'H</strong>
+                      </button>
+                    </form>
+                  </div>';
                 }
-                
+                else if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){                        
+                  echo '
+                  <div id="pendentes" class="row">
+                    <form class="'.$row['status'].' full" action="detalhes.php" method="get">
+                      <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                      <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+                      <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+                      <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+                      <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+                      <input type="hidden" value='.$row["data"].' name="data" id="data">
+                      <input type="hidden" value='.$row["status"].' name="status" id="status">
+                      <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
+                      <button type="submit" class="container-atividade">
+                        <span>'.$row["titulo"].'</span>
+                        <strong title="Pendente">Pendente</strong>
+                      </button>
+                    </form>
+                    <button class="more" onclick="abrirOpcoes()">
+                      <img src="assets/icons/more-vertical.svg" alt="">
+                    </button>
+                  </div>';
+                  // $_SESSION['atividade_atual'] = $row["cod_atividade"];
+                }
               }
             }
             ?>
-        </div>
-        </table>
-        <hr>
       </div>
     </div>
     

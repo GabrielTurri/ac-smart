@@ -8,7 +8,7 @@
   margin: 16px auto;
 }
 
-#pendentes,.pendente .container-atividade {
+#pendentes,.Pendente .container-atividade {
   border-radius: 8px 0 0 8px;
   border-right: none;
 }
@@ -58,4 +58,22 @@
   font-size: 1rem;
   font-weight: 600;
   color: #043565;
+}
+.legenda-lista-atividades {
+  display: flex;
+  width: 100%;
+  padding: 0 8px;
+  justify-content: space-between;
+}
+
+.legenda-lista-atividades .legenda {
+  display: flex;
+  align-items: center;
+  max-width: 6rem;
+}
+.legenda-lista-atividades .legenda:last-child {
+  text-align: right;
+}
+#pendentes .legenda-lista-atividades .legenda:last-child {
+  margin-right: 42px;
 }

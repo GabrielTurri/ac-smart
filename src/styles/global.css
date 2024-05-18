@@ -24,6 +24,9 @@ body, input, textarea, button {
   display: flex;
   flex-direction: column;
 }
+.full {
+  width: 100%;
+}
 
 .breadcrumb {
   display: flex;
