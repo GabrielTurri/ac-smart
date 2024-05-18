@@ -19,7 +19,7 @@
   <title>Entrega de AC's</title>
 </head>
 <body>
-  <div class="headerContainer">
+  <div class="header-container">
     <a href="dashboard.php">
       <img src="assets/icons/arrow-left.svg" alt="">
     </a>
@@ -29,7 +29,7 @@
     <div></div>
   </div>
   
-  <div class="formContainer column">
+  <div class="form-container column">
     <form action="../server/server.php" method="post" enctype="multipart/form-data">
       <div class="column">
         <label for="titulo">Título</label>
@@ -47,13 +47,13 @@
       </div>
 
 
-      <div class="dataHorasContainer ">
+      <div class="data-horas-container ">
         <div class="horasInput column">
           <label for="horas_solicitadas">Horas solicitadas</label>
           <input name="horas_solicitadas" id="horas_solicitadas" type="number">
         </div>
   
-        <div class="dataInput column">
+        <div class="data-input column">
           <label for="data_conclusao">Data da atividade</label>
           <input name="data_conclusao" id="data_conclusao" type="date">
         </div>

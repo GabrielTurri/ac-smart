@@ -92,4 +92,21 @@
   color: #043565;
 }
 
+.legenda-lista-atividades {
+  display: flex;
+  width: 100%;
+  padding: 0 8px;
+  justify-content: space-between;
+}
 
+.legenda-lista-atividades .legenda {
+  display: flex;
+  align-items: center;
+  max-width: 6rem;
+}
+.legenda-lista-atividades .legenda:last-child {
+  text-align: right;
+}
+#pendentes .legenda-lista-atividades .legenda:last-child {
+  margin-right: 42px;
+}

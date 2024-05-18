@@ -73,8 +73,8 @@
   </aside>
     <div class="dashboard-content">
       <div class="column">
-        <div class="dashboardContainer">
-          <div class="chartContainer">
+        <div class="dashboard-container">
+          <div class="chart-container">
             
             <h2>Cursos ministrados:</h2>
             
@@ -94,13 +94,7 @@
               ?>   
               
             </div>
-
-        
-          
         </div>
-        
-        
-        
     </div>
     
   </body>

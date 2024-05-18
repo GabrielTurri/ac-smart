@@ -33,6 +33,7 @@
 
   <link rel="stylesheet" href="styles/global.css">
   <link rel="stylesheet" href="styles/styles-dashboard.css">
+  <link rel="stylesheet" href="styles/styles-entrega.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -60,59 +61,67 @@
   </aside>
     <div class="dashboard-content">
       <div class="breadcrumb">
-                <a href="dash_coordenador.php" class="button">Cursos</a>
-                <span>/</span>
-                <a href="atividades_coord.php" class="button"><?php echo $_SESSION['nome_curso']; ?></a>
-              </div>
-        <div class="column">
-        <div class="dashboardContainer">
-          <div class="chartContainer">
-            <h2>Detalhes da atividade:</h2>
+        <a href="dash_coordenador.php" class="button">Cursos</a>
+        <span>/</span>
+        <a href="atividades_coord.php" class="button"><?php echo $_SESSION['nome_curso']; ?></a>
+      </div>
+        <div class="form-container">
+          <h2>Detalhes da atividade:</h2>
             
             
-            <?php
-            $descricao = ucfirst($_GET["descricao"]);
-            $caminho = '../server/'.$_GET['caminho_anexo'];
-            
-              echo "
-                <p>Nome do aluno (a): ".ucfirst($_GET['nome_aluno'])."</p>
-                <p>RA do aluno (a): {$_GET["RA_aluno"]}</p>
-
-                <p>Título da atividade: ".ucfirst($_GET["titulo"])."</p>
-                <p>Descrição da atividade: ".ucfirst($_GET["descricao"])."</p>
-                <a href=".$caminho." download>Arquivo enviado</a>
-                <p>Horas Solicitadas: {$_GET["horas_solicitadas"]}</p>
-                <p>Data de conclusão da atividade: {$_GET["data"]}</p>
-              ";  
-            ?>
-
-            <form action="../server/server.php" method="post">
-              <?php
-                echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">';  
-                echo '<input type="hidden" name="horas_solicitadas" value="'.$_GET["horas_solicitadas"].'">';  
-              ?>
-              <button type="submit" name="aprovar" id="aprovar">Aprovar</button>
-            </form>
-
-            <form action="../server/server.php" method="post">
-              <?php
-              echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">'; 
-                
-              ?>
-              <p>ATENÇÃO: Para reprovar a atividade, deixe seu comentário para o aluno poder corrigir a atividade e reenviar.</p>
-              <textarea name="observacao" id="observacao" cols="30" rows="10"></textarea>
-              <button type="submit" name="reprovar" id="reprovar">Reprovar</button>
-            </form>
-              
-          </div>
-
-        
+          <?php
+          $descricao = ucfirst($_GET["descricao"]);
+          $caminho = '../server/'.$_GET['caminho_anexo'];
           
+            echo "
+              <p>Nome do aluno (a): ".ucfirst($_GET['nome_aluno'])."</p>
+              <p>RA do aluno (a): {$_GET["RA_aluno"]}</p>
+              
+                <div class='column'>
+                  <label for='titulo'>Título:</label>
+                  <input name='titulo' type='text' value='".ucfirst($_GET["titulo"])."' disabled>
+                </div>
+                <div class='column'>
+                  <label for='descricao'>Descrição da atividade:</label>
+                  <textarea name='descricao' type='text' value='".ucfirst($_GET["descricao"])."' disabled>
+                </textarea>
+                </div>
+                <a href=".$caminho." download>Arquivo enviado</a>
+                
+                <div class='row'>
+                  <div class='data-horas-container '>
+                    <label for='horas_solicitadas'>Título:</label>
+                    <input name='horas_solicitadas' type='number' value='".ucfirst($_GET["horas_solicitadas"])."' disabled>
+                  </div>
+
+                  <div class='data-input'>
+                  <label for='data_conclusao'>Título:</label>
+                  <input name='data_conclusao' type='date' value='".ucfirst($_GET["data"])."' disabled>
+                </div>
+                </div>
+              
+            ";  
+          ?>
+
+          <form action="../server/server.php" method="post">
+            <?php
+              echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">';  
+              echo '<input type="hidden" name="horas_solicitadas" value="'.$_GET["horas_solicitadas"].'">';  
+            ?>
+            <button type="submit" class="enviar" name="aprovar" id="aprovar">Aprovar</button>
+          </form>
+
+          <form action="../server/server.php" method="post">
+            <?php
+            echo '<input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">'; 
+              
+            ?>
+            <p>ATENÇÃO: Para reprovar a atividade, deixe seu comentário para o aluno poder corrigir a atividade e reenviar.</p>
+            <textarea name="observacao" id="observacao" cols="30" rows="10"></textarea>
+            <button type="submit" name="reprovar" id="reprovar">Reprovar</button>
+          </form>
         </div>
-        
-        
-        
-    </div>
+      
     
   </body>
   </html>

@@ -117,6 +117,15 @@
   <div class="lista-atividades" id="aprovadas">
     <?php
     echo "<h2>Atividades Aprovadas: {$aprovadas}</h2>"?>
+    <div class="legenda-lista-atividades">
+      <div class="legenda">
+        <strong>Título</strong>
+      </div>
+      <div class="legenda">
+        <strong>Horas Aprovadas</strong>
+      </div>
+    </div>
+
       <?php
       foreach($result as $row){
         if($row['status'] == "Aprovado"){
@@ -150,6 +159,14 @@
         Atividades Pendentes: 
         <?php echo $pendentes ?>
       </h2>
+      <div class="legenda-lista-atividades">
+      <div class="legenda">
+        <strong>Título</strong>
+      </div>
+      <div class="legenda">
+        <strong>Horas Solicitadas</strong>
+      </div>
+    </div>
 
       <?php
       foreach($result as $row){
