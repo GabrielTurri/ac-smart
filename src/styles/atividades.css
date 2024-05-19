@@ -45,7 +45,7 @@
   transition: 0.5s;
 }
 
-#pendentes .container-atividade strong {
+#pendentes .container-atividade span {
   color: #FF9432;
 }
 
@@ -64,6 +64,7 @@
   width: 100%;
   padding: 0 8px;
   justify-content: space-between;
+  align-items: flex-end;`
 }
 
 .legenda-lista-atividades .legenda {

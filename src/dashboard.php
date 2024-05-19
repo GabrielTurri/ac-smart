@@ -218,8 +218,8 @@
                       <input type="hidden" value='.$row["status"].' name="status" id="status">
                       <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                       <button type="submit" class="container-atividade">
-                        <span>'.$row["titulo"].'</span>
-                        <strong title="Pendente">Pendente</strong>
+                        <span class="pendente">'.$row["titulo"].'</span>
+                        <strong></strong>
                       </button>
                     </form>
                     <button class="more" onclick="abrirOpcoes()">

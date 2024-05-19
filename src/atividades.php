@@ -155,13 +155,13 @@
         <?php echo $_SESSION['pendentes'] ?>
       </h2>
       <div class="legenda-lista-atividades">
-      <div class="legenda">
-        <strong>Título</strong>
+        <div class="legenda">
+          <strong>Título</strong>
+        </div>
+        <div class="legenda">
+          <strong>Horas Solicitadas</strong>
+        </div>
       </div>
-      <div class="legenda">
-        <strong>Horas Solicitadas</strong>
-      </div>
-    </div>
 
       <?php
       foreach($result as $row){

@@ -1,0 +1,74 @@
+.detalhes-container {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 30rem;
+  max-width: 70%;
+  margin: 16px auto;
+  gap: 8px;
+
+}
+
+.campo input, textarea, .anexo {
+  background-color: #fff;
+  border: 1px solid #043565;
+  border-radius: 4px;
+
+  padding: 16px;
+}
+
+.row, .gap-8 {
+  gap: 8px;
+}
+.row .column {
+  width: 100%;
+  
+}
+
+.status {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aprovado span {
+  font-weight: 700;
+  color: #043565;
+}
+.pendente span {
+  font-weight: 700;
+  color: #FF9432;
+}
+.reprovado span {
+  font-weight: 700;
+  color: #de3e3e;
+}
+.aviso {
+  color: #de3e3e;
+  font-size: 14px;
+}
+.btn {
+  min-width: 10rem;
+  padding: 1rem;
+  border-radius: 4px;
+  border: none;
+
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.btn-row .btn{
+  width: 100%;
+}
+.vermelho {
+  background-color: #de3e3e;
+}
+.azul {
+  background-color: #043565;
+}
+.laranja {
+  background-color: #FF9432;
+}
+
+.center {
+  margin: 0 auto;
+}

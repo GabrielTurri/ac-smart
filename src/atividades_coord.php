@@ -67,7 +67,7 @@
     <div class="dashboard-content">
       <div class="">
           <div class="breadcrumb">
-            <a href="dash_coordenador.php" class="button">Cursos</a>
+            <a href="dash_coordenador.php">Cursos</a>
           </div>
 
           <div class="lista-atividades" id="aprovadas">
