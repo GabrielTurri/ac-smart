@@ -39,3 +39,14 @@ body, input, textarea, button {
   color: #043565;
   text-decoration: none;
 }
+
+/* FLASH MESSAGES */
+.warning {
+  background-color: #FF9432;
+  color: #F7FBFF;
+  font-weight: 600;
+  
+  margin: 8px 0;
+  border-radius: 12px;
+  padding: 12px;
+}

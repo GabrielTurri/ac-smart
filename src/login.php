@@ -39,7 +39,7 @@
     
         <div class="login-footer">
           <a class="forget" href="">Esqueci minha senha</a>
-          <span class="warning">Não tem uma conta? Entre em contato com a universidade.</span>
+          <span class="aviso">Não tem uma conta? Entre em contato com a universidade.</span>
         </div>    
       
       </form>
@@ -54,7 +54,7 @@
       
           <div class="login-footer">
             <a class="forget" href="">Esqueci minha senha</a>
-            <span class="warning">Não tem uma conta? Entre em contato com a universidade.</span>
+            <span class="aviso">Não tem uma conta? Entre em contato com a universidade.</span>
           </div>    
         </div>
       </form>
