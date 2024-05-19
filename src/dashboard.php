@@ -145,7 +145,7 @@
     
             <a href="reprovadas.php" class="button">
               <button class="button">
-                <img 
+                <img
                   src="assets/icons/corner-down-left.svg" 
                   alt="Atividades Complementares"
                 >
@@ -183,6 +183,7 @@
               </a>";
             }
           ?>
+
           <?php
             if ($result ->num_rows > 0) {
               foreach($result as $row){
@@ -218,7 +219,10 @@
                       <input type="hidden" value='.$row["status"].' name="status" id="status">
                       <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                       <button type="submit" class="container-atividade">
-                        <span class="pendente">'.$row["titulo"].'</span>
+                        <div>
+                          <span>'.$row["titulo"].'</span>
+                          <span class="texto-laranja">('.$row["status"].')</span>
+                        </div>
                         <strong></strong>
                       </button>
                     </form>
@@ -231,8 +235,8 @@
               }
             }
             ?>
+        </div>
       </div>
     </div>
-    
   </body>
-  </html>
+</html>

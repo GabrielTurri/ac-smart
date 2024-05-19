@@ -13,6 +13,20 @@
   border-right: none;
 }
 
+.abas-atividades { 
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin: 8px 0;
+  justify-content: center;
+}
+
+.abas-atividades .aba-btn {
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .more {
   display: flex;
   justify-content: center;
@@ -45,12 +59,13 @@
   transition: 0.5s;
 }
 
-#pendentes .container-atividade span {
+.container-atividade .texto-laranja {
   color: #FF9432;
 }
 
 .container-atividade strong {
   color: #043565;
+  font-weight: 600;
   font-size: 1rem;
 }
 
@@ -64,7 +79,7 @@
   width: 100%;
   padding: 0 8px;
   justify-content: space-between;
-  align-items: flex-end;`
+  align-items: flex-end;
 }
 
 .legenda-lista-atividades .legenda {
@@ -74,6 +89,9 @@
 }
 .legenda-lista-atividades .legenda:last-child {
   text-align: right;
+}
+#pendentes {
+  display: none;
 }
 #pendentes .legenda-lista-atividades .legenda:last-child {
   margin-right: 42px;

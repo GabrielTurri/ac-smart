@@ -49,7 +49,7 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles/styles-atividades.css">
+  <link rel="stylesheet" href="styles/atividades.css">
   <link rel="stylesheet" href="styles/global.css">
   <link rel="stylesheet" href="styles/styles-dashboard.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>

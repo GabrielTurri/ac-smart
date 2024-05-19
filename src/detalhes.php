@@ -12,7 +12,7 @@ header("Location: login.html");
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles/styles-atividades.css">
+  <link rel="stylesheet" href="styles/atividades.css">
   <link rel="stylesheet" href="styles/global.css">
   <link rel="stylesheet" href="styles/styles-dashboard.css">
   <link rel="stylesheet" href="styles/detalhes.css">

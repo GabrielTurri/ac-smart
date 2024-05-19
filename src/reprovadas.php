@@ -22,7 +22,7 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles/styles-atividades.css">
+  <link rel="stylesheet" href="styles/atividades.css">
   <link rel="stylesheet" href="styles/global.css">
   <link rel="stylesheet" href="styles/styles-dashboard.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
@@ -62,9 +62,9 @@
   
 
   
-  <div class="lista-atividades" id="aprovadas">
+  <div class="lista-atividades" id="reprovadas">
     <?php
-      echo "<h2>Atividades Aprovadas: {$_SESSION['reprovadas']}</h2>";
+      echo "<h2>Atividades Reprovadas: {$_SESSION['reprovadas']}</h2>";
     ?>
     <div style="display: flex; justify-content: space-between; font-weight: bold;">
       <span>Título</span>
