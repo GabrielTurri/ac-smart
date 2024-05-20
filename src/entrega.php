@@ -19,16 +19,17 @@
   <title>Entrega de AC's</title>
 </head>
 <body>
-  <div class="header-container">
-    <a href="dashboard.php">
-      <img src="assets/icons/arrow-left.svg" alt="">
-    </a>
-    <div>
-      <h2>Entregar AC</h2>
-    </div>
-    <div></div>
+  <?php 
+    include './components/sidebar.php';
+  ?>
+  <div class="dashboard-content">
+
+
+  <div class="breadcrumb">
+    <a href="dashboard.php">Voltar para dashboard</a>
   </div>
-  
+
+  <h2 class="text-center">Enviar nova AC</h2>
   <div class="form-container column">
     <form action="../server/server.php" method="post" enctype="multipart/form-data">
       <div class="column">
@@ -68,5 +69,7 @@
       
     </form>
   </div>
+  </div>
+
 </body>
 </html>
