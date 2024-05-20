@@ -3,6 +3,7 @@
 
 // para criar o ARRAY GLOBAL com as infos do usuario logado no momento
 session_start();
+include_once("usuario.php");
 
 // PARA USAR AS SEGUINTES VARIAVEIS GLOBAIS, É NECESSARIO USAR $GLOBALS['x']
 $server = "ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com";
@@ -19,140 +20,20 @@ function flash() {
       }
 }
 
-function login_aluno(){
-    // valores pegados dos inputs 'email' e 'senha'
-    $email = trim($_POST ['email']);
-    $senha = $_POST ['senha'];
-    
-    // conexão com o banco de dados
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-    
-    // query para verificar se o email esta cadastrado no DB
-    $sql = "SELECT * FROM aluno WHERE email_aluno = '".$email."'";
-    $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
-    
-    // validação para ver se encontrou o email inserido
-    if ($result -> num_rows == 0) {
-        // se não achar, vai retornar para a página de login
-        $_SESSION['message'] = 'E-mail incorreto, tente novamente!';
-        $_SESSION['message_type'] = 'warning';
-
-        header("Location: ../src/login.php");
-
-    } else {
-        // fazer a comparação das senhas, se estiver errado, ir para login.php, senão ir para dashboard
-        $linha = mysqli_fetch_array($result);
-        // verificação das senhas digitada pelo usuário e da senha decifrada do banco de dados
-        $verify = password_verify($senha, $linha["senha_aluno"]);
-        // caso a verificação seja False, ou seja, se as senhas forem diferentes
-        if ($verify == False) {
-            $_SESSION['message'] = 'Senha incorreta, tente novamente!';
-            $_SESSION['message_type'] = 'warning';
-
-            header("Location: ../src/login.php");
-        } else {
-            // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
-            $_SESSION['ra_aluno'] = $linha['RA_aluno'];
-            $_SESSION['nome_aluno'] = $linha['nome_aluno'];
-            $_SESSION['sobrenome_aluno'] = $linha['sobrenome_aluno'];
-            $_SESSION['email_aluno'] = $linha['email_aluno'];
-            $_SESSION['curso'] = $linha['cod_curso'];
-            header("Location: ..\src\dashboard.php");
-        }        
-    }
-}
-
-function login_coordenador(){
-    $email = trim($_POST ['email']);
-    $senha = $_POST ['senha'];
-    
-    // conexão com o banco de dados
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-    
-    // query para verificar se o email esta cadastrado no DB
-    $sql = "SELECT * FROM coordenador WHERE email_coordenador = '".$email."'";
-    $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
-    
-    // validação para ver se encontrou o email inserido
-    if ($result -> num_rows == 0) {
-        // se não achar, vai retornar para a página de login
-        $_SESSION['message'] = 'E-mail incorreto, tente novamente!';
-        $_SESSION['message_type'] = 'warning';
-
-        header("Location: ../src/login.php");
-
-    } else {
-        // fazer a comparação das senhas, se estiver errado, ir para login.php, senão ir para dashboard
-        $linha = mysqli_fetch_array($result);
-        $verify = password_verify($senha, $linha["senha_coordenador"]); 
-        if ($verify == 0) {
-            $_SESSION['message'] = 'Senha incorreta, tente novamente!';
-            $_SESSION['message_type'] = 'warning';
-
-            header("Location: ../src/login.php");
-        } else {
-            $sql2 = "SELECT DISTINCT nome_curso FROM curso JOIN coordenador ON curso.coordenador_curso = coordenador.cod_coordenador WHERE email_coordenador = '".$email."'";
-            $result2 = mysqli_query($strcon, $sql2) or die ("Erro ao tentar encontrar o aluno no banco!");
-            
-            // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
-            $_SESSION['cod_coordenador'] = $linha['cod_coordenador'];
-            $_SESSION['nome_coordenador'] = $linha['nome_coordenador'];
-            $_SESSION['sobrenome_coordenador'] = $linha['sobrenome_coordenador'];
-            $_SESSION['email_coordenador'] = $linha['email_coordenador'];
-            $_SESSION['cursos'] = [];
-
-            // salvar todos os cursos do coordenador em um array dentro de $_SESSION
-            foreach ($result2 as $row) {
-                $_SESSION['cursos'][$row['nome_curso']] = 0;
-            }
-
-            header("Location: ../src/dash_coordenador.php");
-        }        
-    }
-}
 
 
-class Aluno{
-    // essa classe terá 
-    public $email;
-    public $senha;
-    public function login(){
-        // valores pegados dos inputs 'email' e 'senha'
-        $email = $_POST ['email'];
-        $senha = $_POST ['senha'];
+function login($tipo_usuario){
+    // se for aluno (1), então criar um objeto aluno e fazer o login nele
+    if($tipo_usuario == 1){
+        $aluno = new Aluno(trim($_POST ['email']), $_POST ['senha']);
+        $aluno->login();
         
-        // conexão com o banco de dados
-        $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-        
-        // query para verificar se o email esta cadastrado no DB
-        $sql = "SELECT * FROM aluno WHERE email_aluno = '".$email."'";
-        $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
-        
-        // validação para ver se encontrou o email inserido
-        if ($result -> num_rows == 0) {
-            // se não achar, vai retornar para a página de login
-            header("Location: ../src/login.php");
-
-        } else {
-            // fazer a comparação das senhas, se estiver errado, ir para login.php, senão ir para dashboard
-            $linha = mysqli_fetch_array($result);
-            // verificação das senhas digitada pelo usuário e da senha decifrada do banco de dados
-            $verify = password_verify($senha, $linha["senha_aluno"]);
-            // caso a verificação seja False, ou seja, se as senhas forem diferentes
-            if ($verify == False) {
-                header("Location: ../src/login.php");
-            } else {
-                // se achar, vai salvar as infos dele no ARRAY GLOBAL SESSION e vai entrar no app
-                $_SESSION['ra_aluno'] = $linha['RA_aluno'];
-                $_SESSION['nome_aluno'] = $linha['nome_aluno'];
-                $_SESSION['sobrenome_aluno'] = $linha['sobrenome_aluno'];
-                $_SESSION['email_aluno'] = $linha['email_aluno'];
-                $_SESSION['curso'] = $linha['cod_curso'];
-                header("Location: ..\src\dashboard.php");
-            }        
-        }
+    // se for coordenador (2), criar objeto coordenador e fazer login nele
+    } else if($tipo_usuario == 2){
+        $coordenador = new Coordenador(trim($_POST ['email']), $_POST ['senha']);
+        $coordenador->login();
     }
-
+    
 }
 
 function insertDb(){    
@@ -495,9 +376,9 @@ if(isset($_POST['inserir'])){
 } else if(isset($_POST['atividades'])){
     atividadesDb();
 } else if(isset($_POST['login'])){
-    login_aluno();
+    login(1);
 } else if(isset($_POST['login_coordenador'])){
-    login_coordenador();
+    login(2);
 } else if (isset($_POST['deletar'])){
     deletar_ativ();
 } else if (isset($_POST['inserir_aluno'])){
