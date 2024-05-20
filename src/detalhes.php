@@ -60,39 +60,85 @@ header("Location: login.html");
       </div>
       <div class='column campo'>
         <strong>Descrição:</strong>
-        <textarea disabled>Descrição</textarea>
+        <textarea disabled><?php echo $_GET["descricao"];?></textarea>
       </div>
       <div class='column campo'>
         <strong>Anexo:</strong>
         <div class='anexo'>
-          <span>Link para o anexo</span>
+          
+        <?php echo "<a href='{$_GET["caminho_anexo"]}'>Link para o anexo</a>"; ?>
+            
+          
         </div>
       </div>
       <div class='column campo'>
         <div class="row">
           <div class="column">
-            <strong>Horas Solicitadas:</strong>
-            <input type='text' value='4H' disabled>
+            <strong>Horas 
+              <?php 
+                echo $_GET["status"] == "Aprovado" ?  'Aprovadas:' : 'Solicitadas:';
+              ?>
+            </strong>
+            <?php 
+              echo "
+                <input type='text' value='{$_GET["horas_solicitadas"]}H' disabled>
+              ";
+            ?>
           </div>
           <div class="column">
             <strong>Data de conclusão da atividade:</strong>
-            <input type='date' value='4H' disabled>
+            <?php echo "
+              <input type='text' value='{$_GET["data"]}' disabled>
+            ";?>
           </div>
         </div>
       </div>
-      <div class='column status aprovado'>
-        <strong>Status Atividade:</strong>
-        <span>Aprovado</span>
-      </div>
-      <div class='column status pendente'>
-        <strong>Status Atividade:</strong>
-        <span>Pendente</span>
-      </div>
-      <div class='column status reprovado'>
-        <strong>Status Atividade:</strong>
-        <span>Reprovado</span>
-      </div>
-      <h2>Em caso pendente (Coordenador):</h2>
+      <?php
+      if ($_GET["status"] == "Aprovado") {
+        echo "
+          <div class='column status aprovado'>
+            <strong>Status Atividade:</strong>
+            <span>Aprovado</span>
+          </div>
+        ";
+      }
+      else if ($_GET["status"] == "Pendente") {
+        echo '
+          <div class="column status pendente">
+            <strong>Status Atividade:</strong>
+            <span>Pendente</span>
+          </div>
+          <div class="row center"> 
+
+          <!-- BOTÃO EDITAR -->
+          
+          <form action="edicao.php" method="get">
+            <input type="hidden" value="'.$_GET["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+            <input type="hidden" value="'.$_GET["titulo"].'" name="titulo" id="titulo">
+            <input type="hidden" value="'.$_GET["descricao"].'" name="descricao" id="descricao">
+            <input type="hidden" value="'.$_GET["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+            <input type="hidden" value="'.$_GET["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+            <input type="hidden" value="'.$_GET["data"].'" name="data" id="data">
+            <button type="submit" name="editar" id="editar" class="btn laranja">
+              Editar
+            </button>
+          </form>
+            <button class="btn vermelho">Cancelar Envio</button>
+          </div>
+        ';
+      }
+      else if ($_GET["status"] == "Reprovado") {
+        echo "
+          <div class='column status reprovado'>
+            <strong>Status Atividade:</strong>
+            <span>Reprovado</span>
+          </div>
+        ";
+      }
+      ?>
+      
+      
+      <!-- <h2>Em caso pendente (Coordenador):</h2>
       <div class="column gap-8">
         <strong class='aviso'>
           ATENÇÃO: Para reprovar a entrega da atividade, será necessário informar o que precisa ser corrigido
@@ -102,54 +148,24 @@ header("Location: login.html");
           <button class='btn azul'>Aprovar</button>
           <button class='btn vermelho'>Reprovar</button>
         </div>
-      </div>
-      <h2>Em caso pendente (Aluno):</h2>
-      <div class="row center"> 
-      <?php echo '
-      <form action="edicao.php" method="get">
-        <input type="hidden" value="'.$_GET["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
-        <input type="hidden" value="'.$_GET["titulo"].'" name="titulo" id="titulo">
-        <input type="hidden" value="'.$_GET["descricao"].'" name="descricao" id="descricao">
-        <input type="hidden" value="'.$_GET["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
-        <input type="hidden" value="'.$_GET["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
-            <input type="hidden" value="'.$_GET["data"].'" name="data" id="data">
-            ';
-            ?>
-            <button 
-            type="submit" 
-              name="deletar" 
-              id="deletar" 
-              title="Cancelar Envio"
-              class="btn laranja"
-              >
-              Editar
-              </button>
-              
-              
-              
-            
-      </form>
-        <button class='btn vermelho'>Cancelar Envio</button>
-      </div>
+      </div> -->   
 
     </div>
 
-
-
     <?php
-            echo"
-                <p>Título da atividade: {$_GET["titulo"]}</p>
-                <p>Descrição da ativdade: {$_GET["descricao"]}</p>
-                <p>Anexo: {$_GET["caminho_anexo"]}</p>
-                <p>Horas Solicitadas: {$_GET["horas_solicitadas"]}</p>
-                <p>Horas Aprovadas: {$_GET["horas_aprovadas"]}</p>
-                <p>Data de conclusão da atividade: {$_GET["data"]}</p>
-                <p>Status da Atividade: {$_GET["status"]}</p>
-            ";
-            // se precisar ver quais infos estão no get, basta descomentar a linha abaixo
-            // print_r($_GET);
+      echo"
+          <p>Título da atividade: {$_GET["titulo"]}</p>
+          <p>Descrição da ativdade: </p>
+          <p>Anexo: {$_GET["caminho_anexo"]}</p>
+          <p>Horas Solicitadas: </p>
+          <p>Horas Aprovadas: {$_GET["horas_aprovadas"]}</p>
+          <p>Data de conclusão da atividade: </p>
+          <p>Status da Atividade: {$_GET["status"]}</p>
+      ";
+      // se precisar ver quais infos estão no get, basta descomentar a linha abaixo
+      // print_r($_GET);
 
-        ?>
+    ?>
 
         
     </div>
