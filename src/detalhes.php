@@ -104,8 +104,31 @@ header("Location: login.html");
         </div>
       </div>
       <h2>Em caso pendente (Aluno):</h2>
-      <div class="row center">
-        <button class='btn laranja'>Editar</button>
+      <div class="row center"> 
+      <?php echo '
+      <form action="edicao.php" method="get">
+        <input type="hidden" value="'.$_GET["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+        <input type="hidden" value="'.$_GET["titulo"].'" name="titulo" id="titulo">
+        <input type="hidden" value="'.$_GET["descricao"].'" name="descricao" id="descricao">
+        <input type="hidden" value="'.$_GET["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+        <input type="hidden" value="'.$_GET["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+            <input type="hidden" value="'.$_GET["data"].'" name="data" id="data">
+            ';
+            ?>
+            <button 
+            type="submit" 
+              name="deletar" 
+              id="deletar" 
+              title="Cancelar Envio"
+              class="btn laranja"
+              >
+              Editar
+              </button>
+              
+              
+              
+            
+      </form>
         <button class='btn vermelho'>Cancelar Envio</button>
       </div>
 
