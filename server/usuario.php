@@ -37,6 +37,12 @@ class Usuario{
     }
     public function sair(){
         // deslogar do sistema
+        // função para sair da sessão, ou seja, sair do login e sair do app
+        session_unset();
+        session_destroy();
+
+        // redirecionar para a página inicial sem os dados do usuario que estava logado    
+        header("Location: ../src/login.php");
     }
 }
 

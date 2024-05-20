@@ -135,6 +135,8 @@
         
         
         <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
+        <?php
+        flash();?>
         <div class='lista-atividades full'>
           <?php
             if ($result ->num_rows > 0){

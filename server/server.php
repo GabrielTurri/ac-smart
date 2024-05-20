@@ -21,7 +21,6 @@ function flash() {
 }
 
 
-
 function login($tipo_usuario){
     // se for aluno (1), então criar um objeto aluno e fazer o login nele
     if($tipo_usuario == 1){
@@ -49,42 +48,52 @@ function insertDb(){
     $timestamp = date("Y-m-d H:i:s");
     // echo $timestamp;
 
-    // Replace any characters not \w- in the original filename
-    $pathinfo = pathinfo($_FILES["anexo"]["name"]);
-    $base = $pathinfo["filename"];
-    $base = preg_replace("/[^\w-]/", "_", $base);
-    $filename = $base . "." . $pathinfo["extension"];
-    $destination = __DIR__ . "/uploads/" . $filename;
-    $caminho_anexo = "/uploads/" . $filename;
+    // validação para checar se tem algum arquivo enviado
+    if($_FILES["anexo"]["size"] == 0){
+        // mostrar mensagem de erro caso não tenha arquivo
+        $_SESSION['message'] = 'Campo "anexo" obrigatório!';
+        $_SESSION['message_type'] = 'warning';
 
-    // Add a numeric suffix if the file already exists
-    $i = 1;
+        header("Location: ../src/dashboard.php");
 
-    while (file_exists($destination)) {
-        $filename = $base . "($i)." . $pathinfo["extension"];
+        // caso tenha sido enviado algum arquivo
+    } else {
+        // Replace any characters not \w- in the original filename
+        $pathinfo = pathinfo($_FILES["anexo"]["name"]);
+        $base = $pathinfo["filename"];
+        $base = preg_replace("/[^\w-]/", "_", $base);
+        $filename = $base . "." . $pathinfo["extension"];
         $destination = __DIR__ . "/uploads/" . $filename;
-        $i++;
-    }
+        $caminho_anexo = "/uploads/" . $filename;
 
-    if ( ! move_uploaded_file($_FILES["anexo"]["tmp_name"], $destination)) {
-        exit("Can't move uploaded file");
-    }
+        // Add a numeric suffix if the file already exists
+        $i = 1;
 
-    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
+        while (file_exists($destination)) {
+            $filename = $base . "($i)." . $pathinfo["extension"];
+            $destination = __DIR__ . "/uploads/" . $filename;
+            $i++;
+        }
 
-    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
-    
-    // conexao com o DB
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+        if ( ! move_uploaded_file($_FILES["anexo"]["tmp_name"], $destination)) {
+            exit("Can't move uploaded file");
+        }
 
-    // // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
-    $sql = "INSERT INTO atividade_complementar (titulo, descricao, caminho_anexo, horas_solicitadas, data, horas_aprovadas, RA_aluno) VALUES ('".$titulo."' , '".$descricao."' , '".$caminho_anexo."' ,'".$horas_solicitadas."' ,'".$data_conclusao."' , '0', '".$_SESSION['ra_aluno']."' );"; 
+        // conexao com o DB
+        $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
-    // // Executar a query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+        // // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
+        $sql = "INSERT INTO atividade_complementar (titulo, descricao, caminho_anexo, horas_solicitadas, data, horas_aprovadas, RA_aluno) VALUES ('".$titulo."' , '".$descricao."' , '".$caminho_anexo."' ,'".$horas_solicitadas."' ,'".$data_conclusao."' , '0', '".$_SESSION['ra_aluno']."' );"; 
 
-    // // redirecionar para a página principal
-    header("Location: ../src/dashboard.php");
+        // // Executar a query sql
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+        $_SESSION['message'] = 'Atividade enviada com sucesso!';
+        $_SESSION['message_type'] = 'success';
+
+        // // redirecionar para a página principal
+        header("Location: ../src/dashboard.php");
+        }
+
         
 }
 
@@ -116,6 +125,34 @@ function inserir_aluno(){
 
     // redirecionar para a página principal
     header("Location: inserir_aluno.html");
+}
+
+function inserir_coordenador(){
+    // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
+    
+    $nome = $_POST['nome'];
+    $sobrenome = $_POST['sobrenome'];
+    $email = $_POST['email'];
+    // $cod_curso = $_POST['cod_curso'];
+    $password = $_POST['password'];
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
+
+    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
+
+    // conexao com o DB
+    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
+
+    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
+    $sql = "INSERT INTO coordenador (nome_coordenador, sobrenome_coordenador, email_coordenador, senha_coordenador) VALUES ('".$nome."' , '".$sobrenome."' , '".$email."' ,'".$hash."');"; 
+
+    // Executar a query sql
+    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+
+    // redirecionar para a página principal
+    header("Location: inserir_coordenador.html");
 }
 
 function editar_atividade(){
@@ -218,13 +255,16 @@ function atividadesDb(){
     }
 }
 
+// está criando um novo objeto com classe Usuario para fazer o logout do sistema
 function sair(){
     // função para sair da sessão, ou seja, sair do login e sair do app
-    session_unset();
-    session_destroy();
-    // redirecionar para a página inicial sem os dados do usuario que estava logado
-    header("Location: ../src/login.php");
+    $usuario = new Usuario($_SESSION['email_aluno'], $_SESSION['senha']);
+    $usuario->sair();
+    // session_unset();
+    // session_destroy();
 
+    // // redirecionar para a página inicial sem os dados do usuario que estava logado    
+    // header("Location: ../src/login.php");
 }
 
 // só o aluno pode deletar a atividade dele mesmo, e só pode fazer isso se o status estiver REPROVADA
@@ -311,33 +351,7 @@ function reprovar(){
 }
 
 
-function inserir_coordenador(){
-    // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
-    
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
-    $email = $_POST['email'];
-    // $cod_curso = $_POST['cod_curso'];
-    $password = $_POST['password'];
 
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
-
-    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
-
-    // conexao com o DB
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-
-    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
-    $sql = "INSERT INTO coordenador (nome_coordenador, sobrenome_coordenador, email_coordenador, senha_coordenador) VALUES ('".$nome."' , '".$sobrenome."' , '".$email."' ,'".$hash."');"; 
-
-    // Executar a query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-
-    // redirecionar para a página principal
-    header("Location: inserir_coordenador.html");
-}
 
 function atualizar(){
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
