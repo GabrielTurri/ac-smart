@@ -8,7 +8,7 @@
   margin: 16px auto;
 }
 
-#pendentes,.Pendente .container-atividade {
+#pendentes,.atividades-reprovadas .container-atividade {
   border-radius: 8px 0 0 8px;
   border-right: none;
 }
@@ -61,6 +61,10 @@
 
 .container-atividade .texto-laranja {
   color: #FF9432;
+}
+
+.container-atividade .texto-vermelho {
+  color: #de3e3e;
 }
 
 .container-atividade strong {

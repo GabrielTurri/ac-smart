@@ -187,7 +187,7 @@
                 }
                 else if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){                        
                   echo '
-                    <div class="row">
+                    <div class="row atividades-reprovadas">
                       <form class="'.$row["status"].' full" action="detalhes.php" method="get">
                         <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
                         <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
@@ -199,9 +199,12 @@
                         <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                         <button type="submit" class="container-atividade">
                           <div>
-                            <span>'.$row["titulo"].'</span>
-                            <span class="texto-laranja">('.$row["status"].')</span>
-                          </div>
+                            <span>'.$row["titulo"].'</span>';
+                            if ($row['status'] == 'Pendente')
+                              echo '<span class="texto-laranja"> ('.$row["status"].')</span>';
+                            else
+                              echo '<span class="texto-vermelho"> ('.$row["status"].')</span>';
+                          echo '</div>
                           <strong></strong>
                         </button>
                       </form>
