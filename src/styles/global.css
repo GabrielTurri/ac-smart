@@ -43,43 +43,29 @@ body, input, textarea, button {
 }
 
 /* FLASH MESSAGES */
-.warning {
-  background-color: #FF9432;
+.warning, .danger, .success, .secondary{
   color: #F7FBFF;
   font-weight: 600;
-  
-  margin: 8px 0;
-  border-radius: 12px;
-  padding: 12px;
-}
-.danger {
-  background-color: #de3e3e;
-  color: #F7FBFF;
-  font-weight: 600;
-  
-  margin: 8px 0;
-  border-radius: 12px;
-  padding: 12px;
-}
-.success {
-  background-color: #499367;
-  color: #F7FBFF;
-  font-weight: 600;
+  text-align: center;
   
   margin: 8px 0;
   border-radius: 12px;
   padding: 12px;
 }
 
+.warning {
+  background-color: #FF9432;
+}
+.danger {
+  background-color: #de3e3e;
+}
+.success {
+  background-color: #499367;
+}
 .secondary {
   background-color: #aaa;
-  color: #F7FBFF;
-  font-weight: 600;
-  
-  margin: 8px 0;
-  border-radius: 12px;
-  padding: 12px;
 }
+
 .sidebar {
   display: flex;
   flex-direction: column;

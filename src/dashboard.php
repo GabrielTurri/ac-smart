@@ -63,7 +63,6 @@
   
   <?php include './components/global.php' ?>
   
-  <link rel="stylesheet" href="styles/styles-dashboard.css">
   <link rel="stylesheet" href="styles/atividades.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -186,28 +185,29 @@
                 }
                 else if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){                        
                   echo '
-                  <div id="pendentes" class="row">
-                    <form class="'.$row['status'].' full" action="detalhes.php" method="get">
-                      <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                      <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
-                      <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
-                      <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
-                      <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
-                      <input type="hidden" value='.$row["data"].' name="data" id="data">
-                      <input type="hidden" value='.$row["status"].' name="status" id="status">
-                      <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
-                      <button type="submit" class="container-atividade">
-                        <div>
-                          <span>'.$row["titulo"].'</span>
-                          <span class="texto-laranja">('.$row["status"].')</span>
-                        </div>
-                        <strong></strong>
+                    <div class="row">
+                      <form class="'.$row["status"].' full" action="detalhes.php" method="get">
+                        <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                        <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+                        <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+                        <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+                        <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+                        <input type="hidden" value='.$row["data"].' name="data" id="data">
+                        <input type="hidden" value='.$row["status"].' name="status" id="status">
+                        <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
+                        <button type="submit" class="container-atividade">
+                          <div>
+                            <span>'.$row["titulo"].'</span>
+                            <span class="texto-laranja">('.$row["status"].')</span>
+                          </div>
+                          <strong></strong>
+                        </button>
+                      </form>
+                      <button class="more" onclick="abrirOpcoes()">
+                        <img src="assets/icons/more-vertical.svg" alt="">
                       </button>
-                    </form>
-                    <button class="more" onclick="abrirOpcoes()">
-                      <img src="assets/icons/more-vertical.svg" alt="">
-                    </button>
-                  </div>';
+                    </div>
+                  ';
                   // $_SESSION['atividade_atual'] = $row["cod_atividade"];
                 }
               }
