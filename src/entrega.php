@@ -13,16 +13,14 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles/styles-entrega.css">
+  <link rel="stylesheet" href="styles/entrega.css">
   <link rel="stylesheet" href="styles/global.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrega de AC's</title>
 </head>
 <body>
-  <?php 
-    include './components/sidebar.php';
-  ?>
+  <?php include './components/sidebar.php'; ?>
   <div class="dashboard-content">
 
 
@@ -53,12 +51,12 @@
 
 
       <div class="data-horas-container ">
-        <div class="horasInput column">
+        <div class="column">
           <label for="horas_solicitadas">Horas solicitadas</label>
           <input name="horas_solicitadas" id="horas_solicitadas" type="number">
         </div>
   
-        <div class="data-input column">
+        <div class="column">
           <label for="data_conclusao">Data da atividade</label>
           <input name="data_conclusao" id="data_conclusao" type="date">
         </div>
@@ -68,7 +66,7 @@
           Atenção: As informações serão enviadas para o 
           professor/orientador responsável. Preencha com responsabilidade.
         </strong>
-        <button class="enviar" type="submit" name="inserir">ENVIAR</button>
+        <button class="btn enviar" type="submit" name="inserir">ENVIAR</button>
       </div>
       
     </form>

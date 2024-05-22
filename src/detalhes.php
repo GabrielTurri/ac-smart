@@ -61,10 +61,7 @@ foreach($result as $row){
       <div class='column campo'>
         <strong>Anexo:</strong>
         <div class='anexo'>
-          
-        <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Link para o anexo</a>"; ?>
-            
-          
+          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Link para o anexo</a>"; ?>
         </div>
       </div>
       <div class='column campo'>
@@ -128,6 +125,8 @@ foreach($result as $row){
               <input type="hidden" value="'.$_GET["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
               <input type="hidden" value="'.$_GET["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
               <input type="hidden" value="'.$_GET["data"].'" name="data" id="data">
+              <input type="hidden" value="'.$_GET["status"].'" name="status" id="status">
+              <input type="hidden" value="'.$observacao.'" name="observacao" id="observacao">
               <button type="submit" name="editar" id="editar" class="btn laranja">
                 Editar
               </button>

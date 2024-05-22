@@ -8,13 +8,30 @@
         </a>
       </div>
     </div>
-    <h3>Boas Vindas, <?php echo ucfirst($_SESSION['nome_aluno'])?></h3>
+    <h3>
+      Boas Vindas, 
+      <?php 
+      if ($_SESSION['ra_aluno'])
+        echo ucfirst($_SESSION['nome_aluno']);
+      else if ($_SESSION['cod_coordenador']){
+        echo ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']);
+      }
+      print_r($_SESSION['ra_aluno'])
+
+      ?>
+    </h3>
     <h4>RA: <?php echo $_SESSION['ra_aluno']?></h4>
     <div class="user-info">
       <h3>Nome do curso:</h3>
-      <?php echo "<span>{$_SESSION['nome_curso']}</span>";
+      <?php 
+       if ($_SESSION['ra_aluno']){
+        echo "<span>{$_SESSION['nome_curso']}</span>";
         echo "<p><b>Nome do coordenador (a):</b></p> <p>".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
-        echo "<p><b>Email do coordenador (a):</b></p> <p> {$_SESSION['email_coordenador']}</p>"
+        echo "<p><b>Email do coordenador (a):</b></p>";        
+      } else {
+        echo "<p><b>Seu email:</b></p>" ;
+      }       
+      echo "<p> {$_SESSION['email_coordenador']}</p>";
       ?>
     </div>
   </div>

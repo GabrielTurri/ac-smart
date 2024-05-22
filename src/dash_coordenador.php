@@ -2,6 +2,7 @@
   session_start();
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if($_SESSION['cod_coordenador']){
+    $_SESSION['tipo-usuario'] = 'coordenador';
   } else {
     header("Location: login.html");
   } 
@@ -52,24 +53,7 @@
   <title>Dashboard Coordenador</title>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="user-data text-center">
-      <div class="user-photo"></div>
-      <h3>Boas Vindas, <?php echo ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']) ?></h3>
-    </div>
-    <!-- para imprimir as informações do curso do aluno cadastrado -->
-    <div class="user-info">
-      <?php echo "<p><b>Seu email:</b></p> <p> {$_SESSION['email_coordenador']}</p>"
-      ?>
-    </div>
-    <form action="../server/server.php" method="post">
-      <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
-        <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
-        Encerrar Sessão
-      </button>
-    </form>
-    
-  </aside>
+  <?php include "./components/sidebar.php" ?>
     <div class="dashboard-content">
       <div class="column">
         <div class="dashboard-container">
