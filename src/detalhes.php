@@ -131,12 +131,18 @@ foreach($result as $row){
                 Editar
               </button>
             </form>
-              <button class="btn vermelho">Cancelar Entrega</button>
+
+            <form action="../server/server.php" method="post">
+              <input type="hidden" value="'.$_GET["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+              <button class="btn vermelho" type="submit" name="deletar" id="deletar" class="btn laranja">
+                Cancelar Entrega  
+              </button>
+            </form>
+
           </div>
         ';
       } ?>
       
-
 
     </div>
 

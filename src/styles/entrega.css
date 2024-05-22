@@ -45,14 +45,17 @@
 .enviar {
   background-color: #499367;
 }
-.editar {
-  background-color: #ff9432;
-}
 .enviar:hover {
   background-color: #387550;
   transition: .4s;
 }
-
+.editar {
+  background-color: #ff9432;
+}
+.editar:hover {
+  background-color: #e87f1c;
+  transition: .4s;
+}
 .enviar-container {
   margin: 16px auto;
   width: 400px;

@@ -70,6 +70,14 @@
   background-color: #FF9432;
 }
 
+.laranja:hover {
+  background-color: #e87f1c;
+}
+
+.vermelho:hover {
+  background-color: #c22d2d;
+}
+
 .center {
   margin: 0 auto;
 }
