@@ -1,5 +1,6 @@
 <?php
-  session_start();
+  include("../server/server.php");
+
   // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if($_SESSION['ra_aluno']){
   } else {
@@ -29,7 +30,10 @@
     <a href="dashboard.php">Voltar para dashboard</a>
   </div>
 
+  
   <h2 class="text-center">Enviar nova AC</h2>
+  <?php
+        flash();?>
   <div class="form-container column">
     <form action="../server/server.php" method="post" enctype="multipart/form-data">
       <div class="column">

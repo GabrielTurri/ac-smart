@@ -54,10 +54,12 @@ function insertDb(){
         $_SESSION['message'] = 'Campo "anexo" obrigatório!';
         $_SESSION['message_type'] = 'warning';
 
-        header("Location: ../src/dashboard.php");
+        header("Location: ../src/entrega.php");
 
         // caso tenha sido enviado algum arquivo
-    } else {
+    } 
+    
+    else {
         // Replace any characters not \w- in the original filename
         $pathinfo = pathinfo($_FILES["anexo"]["name"]);
         $base = $pathinfo["filename"];
