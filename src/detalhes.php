@@ -5,6 +5,18 @@ if($_SESSION['ra_aluno']){
 } else {
 header("Location: login.html");
 } 
+
+$strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+
+// pegar a ultima observação feita pelo professor 
+$sql = "SELECT * FROM observacao_atividade WHERE cod_atividade = ".$_GET['cod_atividade']." ORDER BY observacao DESC
+LIMIT 1;";
+
+$result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
+$observacao = '';
+foreach($result as $row){
+  $observacao = $row['observacao'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,27 +36,7 @@ header("Location: login.html");
 </head>
 
 <body>
-  <aside class="sidebar">
-      <div class="user-data text-center">
-        <div class="user-photo"></div>
-        <h3>Boas Vindas, <?php echo ucfirst($_SESSION['nome_aluno'])?></h3>
-        <h4>RA: <?php echo $_SESSION['ra_aluno']?></h4>
-      </div>
-        <!-- para imprimir as informações do curso do aluno cadastrado -->
-      <div class="user-info">
-        <h3>Nome do curso:</h3>
-        <?php echo "<span>{$_SESSION['nome_curso']}</span>";
-          echo "<p><b>Nome do coordenador (a):</b></p> <p>".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
-          echo "<p><b>Email do coordenador (a):</b></p> <p> {$_SESSION['email_coordenador']}</p>"
-        ?>
-      </div>
-      <form action="../server/server.php" method="post">
-        <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
-          <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
-          Encerrar Sessão
-        </button>
-      </form>
-  </aside>
+  <?php include('components/sidebar.php') ?>
 
     <div class="dashboard-content">
     <div class="breadcrumb">
@@ -54,9 +46,13 @@ header("Location: login.html");
     </div>
 
     <div class='detalhes-container'>
+      <h2 class="text-center">Detalhes da Atividade</h2>
       <div class='column campo'>
-        <strong>Titulo:</strong>
-        <input type='text' value='Titulo Teste' disabled>
+        <strong>Título:</strong>
+        <?php echo "
+          <input type='text' value='{$_GET["titulo"]}' disabled>
+        ";?>
+        
       </div>
       <div class='column campo'>
         <strong>Descrição:</strong>
@@ -66,7 +62,7 @@ header("Location: login.html");
         <strong>Anexo:</strong>
         <div class='anexo'>
           
-        <?php echo "<a href='{$_GET["caminho_anexo"]}'>Link para o anexo</a>"; ?>
+        <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Link para o anexo</a>"; ?>
             
           
         </div>
@@ -116,6 +112,9 @@ header("Location: login.html");
             <strong>Status Atividade:</strong>
             <span>Reprovado</span>
             </div>
+            <label for='obs-coord'>Observação do coordenador ".ucfirst($_SESSION['nome_coordenador']).":</label>
+            
+            <textarea name='obs-coord' disabled>{$observacao}</textarea>
             ";
           }
           echo '
@@ -138,35 +137,11 @@ header("Location: login.html");
         ';
       } ?>
       
-      
-      <!-- <h2>Em caso pendente (Coordenador):</h2>
-      <div class="column gap-8">
-        <strong class='aviso'>
-          ATENÇÃO: Para reprovar a entrega da atividade, será necessário informar o que precisa ser corrigido
-        </strong>
-        <textarea placeholder='Informe aqui o que precisa ser corrigido'></textarea>
-        <div class="row btn-row">
-          <button class='btn azul'>Aprovar</button>
-          <button class='btn vermelho'>Reprovar</button>
-        </div>
-      </div> -->   
+
 
     </div>
 
-    <?php
-      echo"
-          <p>Título da atividade: {$_GET["titulo"]}</p>
-          <p>Descrição da ativdade: {$_GET["descricao"]}</p>
-          <p>Anexo: {$_GET["caminho_anexo"]}</p>
-          <p>Horas Solicitadas: </p>
-          <p>Horas Aprovadas: {$_GET["horas_aprovadas"]}</p>
-          <p>Data de conclusão da atividade: </p>
-          <p>Status da Atividade: {$_GET["status"]}</p>
-      ";
-      // se precisar ver quais infos estão no get, basta descomentar a linha abaixo
-      // print_r($_GET);
-
-    ?>
+   
 
         
     </div>

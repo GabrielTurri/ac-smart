@@ -8,7 +8,7 @@
   margin: 16px auto;
 }
 
-#pendentes,.atividades-reprovadas .container-atividade {
+.atividades-pendentes .container-atividade {
   border-radius: 8px 0 0 8px;
   border-right: none;
 }

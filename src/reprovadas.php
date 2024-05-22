@@ -55,7 +55,7 @@
     <?php
       foreach($result as $row){
           echo '
-          <form action="detalhes_reprovada.php" method="get">
+          <form action="detalhes.php" method="get">
             <button type="submit" class="container-atividade">
               <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
               

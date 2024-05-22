@@ -147,7 +147,7 @@
           echo '
           <div class="row">
 
-            <form class="'.$row['status'].' full" action="detalhes.php" method="get">
+            <form class="'.$row['status'].' atividades-pendentes full" action="detalhes.php" method="get">
             
               <button type="submit" class="container-atividade">
                 <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
