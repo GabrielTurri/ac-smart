@@ -61,9 +61,12 @@
 <head>
   <meta charset="UTF-8">
   
-  <?php include './components/global.php' ?>
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link rel="stylesheet" href="styles/atividades.css">
+  <link rel="stylesheet" href="styles/global.css">
+  
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

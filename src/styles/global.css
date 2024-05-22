@@ -69,6 +69,7 @@ body, input, textarea, button {
 .sidebar {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   top: 0;
   bottom: 0;
   left: 0;
@@ -76,9 +77,9 @@ body, input, textarea, button {
 
   height: 100%;
   width: 20rem;
-  background-color: #fff;
+  color: #fff;
   border: 0.5px solid #476988;
-  color: #043565;
+  background-color: #043565;
 }
 
 .user-photo-container {
@@ -90,7 +91,7 @@ body, input, textarea, button {
 .user-photo {
   display: block;
   border-radius: 100%;
-  border: 2px solid #043565;
+  border: 2px solid #fff;
   width: 100%;
   height: auto;
 }
@@ -124,6 +125,7 @@ body, input, textarea, button {
 .user-info {
   padding: 1rem;
 }
+
 .sidebar button {
   display: flex;
   align-items: center;
@@ -133,7 +135,9 @@ body, input, textarea, button {
   background-color: transparent;
   font-size: 16px;
 
-  color: #de3e3e;
+  color: #ff9432;
+  font-weight: 700;
+
   width: 100%;
   padding: 16px;
   bottom: 0;
@@ -141,9 +145,9 @@ body, input, textarea, button {
 
 .sidebar button:hover {
   cursor: pointer;
-  background-color: #de3e3e;
-  color: #fff;
-}
+  background-color: #ff9432;
+  color: #043565;
+  }
 /* DASHBOARD */
 .dashboard-content {
   margin-left: 20rem;
