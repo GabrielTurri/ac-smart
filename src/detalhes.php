@@ -61,10 +61,7 @@ foreach($result as $row){
       <div class='column campo'>
         <strong>Anexo:</strong>
         <div class='anexo'>
-          
-        <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Link para o anexo</a>"; ?>
-            
-          
+          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Link para o anexo</a>"; ?>
         </div>
       </div>
       <div class='column campo'>
