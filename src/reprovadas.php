@@ -1,10 +1,8 @@
 <?php
   session_start();
   // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
-  if($_SESSION['ra_aluno']){
-  } else {
-    header("Location: login.html");
-  } 
+  if(!($_SESSION['ra_aluno']))
+    header("Location: login.php");
   
   $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
 

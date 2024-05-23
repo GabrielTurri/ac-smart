@@ -2,10 +2,8 @@
   include("../server/server.php");
 
   // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
-  if($_SESSION['ra_aluno']){
-  } else {
-    header("Location: login.html");
-  } 
+  if(!($_SESSION['ra_aluno']))
+    header("Location: login.php");
 ?>
 
 <!DOCTYPE html>
@@ -22,13 +20,10 @@
 <body>
   <?php include './components/sidebar.php'; ?>
   <div class="dashboard-content">
+    <div class="breadcrumb">
+      <a href="dashboard.php">Voltar para dashboard</a>
+    </div>
 
-
-  <div class="breadcrumb">
-    <a href="dashboard.php">Voltar para dashboard</a>
-  </div>
-
-  
   <h2 class="text-center">Enviar nova AC</h2>
   <?php
         flash();?>
@@ -41,7 +36,7 @@
 
       <div class="column">
         <label for="descricao">Descrição</label>
-        <textarea name="descricao" itemid="descricao" id="descricao" cols="30" rows="10"></textarea>
+        <textarea name="descricao" itemid="descricao" id="descricao" cols="30" rows="5"></textarea>
       </div>
 
       <div class="column">

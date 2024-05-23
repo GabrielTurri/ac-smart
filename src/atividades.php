@@ -1,10 +1,9 @@
 <?php
   session_start();
   // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
-  if($_SESSION['ra_aluno']){
-  } else {
+  if(!($_SESSION['ra_aluno']))
     header("Location: login.php");
-  } 
+  
   $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
 
   // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
@@ -51,7 +50,6 @@
 
   <link rel="stylesheet" href="styles/atividades.css">
   <link rel="stylesheet" href="styles/global.css">
-  <link rel="stylesheet" href="styles/styles-dashboard.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
 
 

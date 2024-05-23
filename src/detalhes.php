@@ -40,7 +40,7 @@ foreach($result as $row){
   <div class="dashboard-content">
     <div class="breadcrumb">
     <?php 
-      echo isset($_SESSION['ra_aluno']) ? '<a href="dash_coordenador.php">Cursos</a>': '<a href="dashboard.php">Dashboard</a>';
+      echo isset($_SESSION['ra_aluno']) ? '<a href="dashboard.php">Dashboard</a>' : '<a href="dash_coordenador.php">Cursos</a>';
       echo '<span>/</span>';
       echo isset($_SESSION['ra_aluno']) ? '<a href="atividades.php">Atividades</a>': '<a href="atividades_coord.php">'.$_SESSION['nome_curso'].'</a>';
       ?>
@@ -149,13 +149,17 @@ foreach($result as $row){
               <strong class="aviso">
                 ATENÇÃO: Para reprovar a entrega da atividade, será necessário informar o que precisa ser corrigido
               </strong>
-              <textarea placeholder="Informe aqui o que precisa ser corrigido"></textarea>
-              <div class="row btn-row">
-                <button class="btn azul">Aprovar</button>
-                <button class="btn vermelho">Reprovar</button>
+              <textarea name="observacao" id="observacao" cols="30" rows="10" placeholder="Informe aqui o que precisa ser corrigido"></textarea>
+              <div class="row-reverse btn-row gap-8">
+                <button type="submit" name="reprovar" id="reprovar" class="btn vermelho">Reprovar</button>
+                <input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">
+                </form>
+                <form action="../server/server.php" method="post" class="full">
+                  <input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">
+                  <input type="hidden" name="horas_solicitadas" value="'.$_GET["horas_solicitadas"].'"> 
+                  <button type="submit" name="aprovar" id="aprovar" class="btn azul">Aprovar</button>
+                </div>
               </div>
-            </div>
-          </form>
         ';
       }
 
