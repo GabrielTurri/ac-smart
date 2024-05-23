@@ -1,9 +1,9 @@
 <?php
-  session_start();
+  // session_start();
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if($_SESSION['cod_coordenador']){
   } else {
-    header("Location: login.html");
+    header("Location: login.php");
   } 
 
   // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém

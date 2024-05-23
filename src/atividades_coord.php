@@ -4,7 +4,7 @@
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if($_SESSION['cod_coordenador']){
   } else {
-    header("Location: login.html");
+    header("Location: login.php");
   } 
 
   // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
@@ -94,15 +94,16 @@
                   if($row['status'] == "Pendente"){
                     echo '
                     
-                    <form action="detalhe_atividade_coord.php" method="get">  
+                    <form action="detalhes.php" method="get">  
                     <input type="hidden" value="'.$row["nome_aluno"].'" name="nome_aluno" id="nome_aluno">
                     <input type="hidden" value="'.$row["RA_aluno"].'" name="RA_aluno" id="RA_aluno">
                     <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
                     <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
                     <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
-                        <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
-                        <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
-                        <input type="hidden" value="'.$row["data"].'" name="data" id="data">
+                    <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+                    <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+                    <input type="hidden" value="'.$row["data"].'" name="data" id="data">
+                    <input type="hidden" value="'.$row["status"].'" name="status" id="status">
                         
                       <button class="container-atividade" type="submit">
                         <span>'.$row["titulo"].'</span>

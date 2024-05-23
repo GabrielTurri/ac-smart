@@ -1,9 +1,9 @@
 <?php
 session_start();
 // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
-if($_SESSION['ra_aluno']){
+if(isset($_SESSION['ra_aluno']) || isset($_SESSION['cod_coordenador'])){
 } else {
-header("Location: login.html");
+header("Location: login.php");
 } 
 
 $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
@@ -26,7 +26,6 @@ foreach($result as $row){
 
   <link rel="stylesheet" href="styles/atividades.css">
   <link rel="stylesheet" href="styles/global.css">
-  <link rel="stylesheet" href="styles/styles-dashboard.css">
   <link rel="stylesheet" href="styles/detalhes.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
 
@@ -38,11 +37,13 @@ foreach($result as $row){
 <body>
   <?php include('components/sidebar.php') ?>
 
-    <div class="dashboard-content">
+  <div class="dashboard-content">
     <div class="breadcrumb">
-        <a href="dashboard.php">Dashboard</a>
-        <span>/</span>
-        <a href="atividades.php" class="button">Atividades</a>
+    <?php 
+      echo isset($_SESSION['ra_aluno']) ? '<a href="dash_coordenador.php">Cursos</a>': '<a href="dashboard.php">Dashboard</a>';
+      echo '<span>/</span>';
+      echo isset($_SESSION['ra_aluno']) ? '<a href="atividades.php">Atividades</a>': '<a href="atividades_coord.php">'.$_SESSION['nome_curso'].'</a>';
+      ?>
     </div>
 
     <div class='detalhes-container'>
@@ -94,7 +95,7 @@ foreach($result as $row){
             <span>Aprovado</span>
           </div>
         ";
-      } else {
+      } else if (isset($_SESSION['ra_aluno'])) {
         if ($_GET["status"] == "Pendente") {
           echo '
             <div class="column status pendente">
@@ -141,15 +142,27 @@ foreach($result as $row){
 
           </div>
         ';
-      } ?>
-      
+      } else if (isset($_SESSION['cod_coordenador'])){
+        echo '
+          <form action="../server/server.php" method="post" enctype="multipart/form-data">
+            <div class="column gap-8">
+              <strong class="aviso">
+                ATENÇÃO: Para reprovar a entrega da atividade, será necessário informar o que precisa ser corrigido
+              </strong>
+              <textarea placeholder="Informe aqui o que precisa ser corrigido"></textarea>
+              <div class="row btn-row">
+                <button class="btn azul">Aprovar</button>
+                <button class="btn vermelho">Reprovar</button>
+              </div>
+            </div>
+          </form>
+        ';
+      }
 
-    </div>
 
-   
-
-        
-    </div>
+      ?>
+    </div>        
+  </div>
 </body>
 </html>
 

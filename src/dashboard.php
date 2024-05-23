@@ -2,10 +2,8 @@
   // session_start();
   include("../server/server.php");
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
-  if($_SESSION['ra_aluno']){
-  } else {
-    header("Location: login.html");
-  } 
+  if(!($_SESSION['ra_aluno']))
+    header("Location: login.php");
 
   $_SESSION['atividades_aluno'] = [];
 
