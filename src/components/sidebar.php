@@ -11,21 +11,21 @@
     <h3>
       Boas Vindas, 
       <?php 
-      if ($_SESSION['ra_aluno'])
-        echo ucfirst($_SESSION['nome_aluno']);
-      else if ($_SESSION['cod_coordenador']){
-        echo ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']);
-      }
-      print_r($_SESSION['ra_aluno'])
-
+      // Se existir o RA do aluno, exibe o nome dele, senão, o nome completo do coordenador
+      echo isset($_SESSION['ra_aluno']) ? ucfirst($_SESSION['nome_aluno']) : ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']);
       ?>
     </h3>
-    <h4>RA: <?php echo $_SESSION['ra_aluno']?></h4>
-    <div class="user-info">
-      <h3>Nome do curso:</h3>
+    
       <?php 
-       if ($_SESSION['ra_aluno']){
-        echo "<span>{$_SESSION['nome_curso']}</span>";
+      // Se existir o RA do aluno, exibe o RA dele
+      if (isset($_SESSION['ra_aluno']))
+        echo "<h4>RA: ".$_SESSION['ra_aluno']."</h4>";
+      ?>
+    <div class="user-info">
+      <?php 
+       if (isset($_SESSION['ra_aluno'])){
+         echo "<h3>Nome do curso:</h3>";
+         echo "<span>{$_SESSION['nome_curso']}</span>";
         echo "<p><b>Nome do coordenador (a):</b></p> <p>".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
         echo "<p><b>Email do coordenador (a):</b></p>";        
       } else {
