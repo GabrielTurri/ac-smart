@@ -16,17 +16,41 @@
 .abas-atividades { 
   display: flex;
   flex-direction: row;
-  gap: 16px;
-  margin: 8px 0;
   justify-content: center;
-}
+  align-items: flex-end;
 
-.abas-atividades .aba-btn {
+  margin: 16px auto;
+  height: 60px;
+  line-height: 60px;
+  width: 27rem;
+  border-bottom: .5px solid #043565;
+}
+.abas-atividades .aba.ativo {
+  color: #FF9432;
+  border-bottom: 4px solid #FF9432;
+  bottom: 0;
+  transition: .3s ease;
+  border-radius: 1px;
+}
+.abas-atividades .aba {
+  
+  display: inline-block;
   padding: 16px;
   font-size: 18px;
   font-weight: bold;
+  
+  background-color: transparent;
+  border: none;
+  color: #043565;
+  cursor: pointer;
+  width: 9rem;
+  transition: .3s ease;
 }
 
+.abas-atividades .aba:hover {
+  color: #FF9432;
+  transition: .3s ease;
+}
 .more {
   display: flex;
   justify-content: center;
@@ -100,3 +124,4 @@
 #pendentes .legenda-lista-atividades .legenda:last-child {
   margin-right: 42px;
 }
+

@@ -56,22 +56,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atividades</title>
 </head>
-<script>
-
-  function showApproved() {
-    document.getElementById("pendentes").style.display = "none";
-    document.getElementById("aprovadas").style.display = "flex";
-  }
-  function showPendent() {
-    document.getElementById("aprovadas").style.display = "none";
-    document.getElementById("pendentes").style.display = "flex";
-  } 
-
-  function abrirOpcoes(){
-    // Abrir as opções de editar ou excluir
-    console.log("Editar/Excluir")
-  }
-</script>
 <body>
   <?php include './components/sidebar.php' ?>
 
@@ -81,9 +65,10 @@
     <a href="dashboard.php">Voltar para dashboard</a>
   </div>
   
-  <div class="abas-atividades">
-    <button class="aba-btn" onclick="showApproved()">Aprovadas</button>
-    <button class="aba-btn" onclick="showPendent()">Pendentes</button>
+  <div class="abas-atividades" id="abas-atividades">
+    <button class="aba ativo" onclick="showApproved()">Aprovadas</button>
+    <button class="aba" onclick="showPendent()">Pendentes</button>
+    <button class="aba" onclick="showPendent()">Reprovadas</button>
   </div>  
   
   <div class="lista-atividades" id="aprovadas">
@@ -169,4 +154,25 @@
     </div>
   </div>
 </body>
+
+<script>
+  // Aplicando a classe ativa na aba de atividade
+  var header = document.getElementById("abas-atividades");
+  var btns = header.getElementsByClassName("aba");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("ativo");
+      current[0].className = current[0].className.replace(" ativo", "");
+      this.className += " ativo";
+    });
+  var pendentes = document.getElementById("pendentes");
+  var aprovadas = document.getElementById("aprovadas");
+  var reprovadas = document.getElementById("reprovadas");
+
+  function abrirOpcoes(){
+    // Abrir as opções de editar ou excluir
+    console.log("Editar/Excluir")
+  }
+}
+</script>
 </html>
