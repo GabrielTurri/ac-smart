@@ -8,7 +8,7 @@
   margin: 16px auto;
 }
 
-.atividades-pendentes .container-atividade {
+.atividade-pendente .container-atividade {
   border-radius: 8px 0 0 8px;
   border-right: none;
 }
@@ -96,11 +96,13 @@
   font-weight: 700;
   font-size: 1rem;
 }
-
 .container-atividade span {
   font-size: 1rem;
   font-weight: 600;
   color: #043565;
+}
+span.texto-reprovada, strong.texto-reprovada {
+  color: #de3e3e;
 }
 .legenda-lista-atividades {
   display: flex;
@@ -118,10 +120,10 @@
 .legenda-lista-atividades .legenda:last-child {
   text-align: right;
 }
-#pendentes {
+#pendentes, #reprovadas {
   display: none;
 }
-#pendentes .legenda-lista-atividades .legenda:last-child {
+.lista-nao-aprovadas .legenda-lista-atividades .legenda:last-child {
   margin-right: 42px;
 }
 

@@ -66,9 +66,12 @@
   </div>
   
   <div class="abas-atividades" id="abas-atividades">
-    <button class="aba ativo" onclick="showApproved()">Aprovadas</button>
-    <button class="aba" onclick="showPendent()">Pendentes</button>
-    <button class="aba" onclick="showPendent()">Reprovadas</button>
+    <!-- <button class="aba ativo" onclick="mostrarAprovadas()">Aprovadas</button>
+    <button class="aba" onclick="mostrarPendentes()">Pendentes</button>
+    <button class="aba" onclick="mostrarReprovadas()">Reprovadas</button> -->
+    <button id="aba-aprovadas" class="aba ativo" onclick="">Aprovadas</button>
+    <button id="aba-pendentes" class="aba" onclick="">Pendentes</button>
+    <button id="aba-reprovadas" class="aba" onclick="">Reprovadas</button>
   </div>  
   
   <div class="lista-atividades" id="aprovadas">
@@ -110,7 +113,7 @@
 
     </div>    
     
-    <div class="lista-atividades" id="pendentes">
+    <div class="lista-atividades lista-nao-aprovadas" id="pendentes">
       <h2>
         Atividades Pendentes: 
         <?php echo $_SESSION['pendentes'] ?>
@@ -130,7 +133,7 @@
           echo '
           <div class="row">
 
-            <form class="'.$row['status'].' atividades-pendentes full" action="detalhes.php" method="get">
+            <form class="'.$row['status'].' atividade-pendente full" action="detalhes.php" method="get">
             
               <button type="submit" class="container-atividade">
                 <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
@@ -152,6 +155,50 @@
           </div>';
       }}?>
     </div>
+
+    <div class="lista-atividades lista-nao-aprovadas" id="reprovadas">
+      <h2>
+        Atividades Reprovadas: 
+        <?php echo $_SESSION['reprovadas'] ?>
+      </h2>
+      <div class="legenda-lista-atividades">
+        <div class="legenda">
+          <strong>Título</strong>
+        </div>
+        <div class="legenda">
+          <strong>Horas Solicitadas</strong>
+        </div>
+      </div>
+
+      <?php
+      foreach($result as $row){
+        if($row['status'] == "Reprovado"){
+          echo '
+          <div class="row">
+
+            <form class="'.$row['status'].' atividade-pendente full" action="detalhes.php" method="get">
+            
+              <button type="submit" class="container-atividade">
+                <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+                <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
+                <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
+                <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+                <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+                <input type="hidden" value="'.$row["data"].'" name="data" id="data">
+                <input type="hidden" value="'.$row["status"].'" name="status" id="status">
+                <span class="texto-reprovada">'.$row["titulo"].'</span>
+                <strong class="texto-reprovada">'.$row["horas_solicitadas"].'H</strong>
+              </button>
+            
+            </form>
+            <button class="more" onclick="abrirOpcoes()">
+              <img src="assets/icons/more-vertical.svg" alt="">
+            </button>
+          </div>';
+      }}?>
+    </div>
+
+
   </div>
 </body>
 
@@ -160,14 +207,46 @@
   var header = document.getElementById("abas-atividades");
   var btns = header.getElementsByClassName("aba");
   for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function() {
+    btns[i].addEventListener("click", async function() {
       var current = document.getElementsByClassName("ativo");
       current[0].className = current[0].className.replace(" ativo", "");
       this.className += " ativo";
+      switch(current[0].id) {
+        case "aba-aprovadas":
+          await mostrarAprovadas();
+          break;
+        case "aba-pendentes":
+          await mostrarPendentes();
+          break;
+        case "aba-reprovadas":
+          await mostrarReprovadas();
+          break;
+      }
     });
   var pendentes = document.getElementById("pendentes");
   var aprovadas = document.getElementById("aprovadas");
   var reprovadas = document.getElementById("reprovadas");
+
+  function esconderOutros(lista1, lista2) {
+    document.getElementById(lista1).style.display = "none";
+    document.getElementById(lista2).style.display = "none";
+  }
+
+  function mostrarAprovadas() {
+    esconderOutros("pendentes", "reprovadas");
+    aprovadas.style.display = "flex";
+  }
+  function mostrarPendentes() {
+    esconderOutros("aprovadas", "reprovadas");
+    pendentes.style.display = "flex";
+
+  }
+  function mostrarReprovadas() {
+    esconderOutros("pendentes", "aprovadas");
+    reprovadas.style.display = "flex";
+
+  }
+
 
   function abrirOpcoes(){
     // Abrir as opções de editar ou excluir
