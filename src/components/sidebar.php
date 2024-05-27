@@ -34,10 +34,19 @@
       echo "<p> {$_SESSION['email_coordenador']}</p>";
       ?>
     </div>
+    <div class="column gap-8">
+      <a href="atividades.php">
+        <button>Minhas AC's</button>
+      </a>
+      <a href="entrega.php">
+        <button>Entregar nova AC</button>
+      </a>
+    </div>
+
   </div>
     <!-- para imprimir as informações do curso do aluno cadastrado -->
   <form action="../server/server.php" method="post">
-    <button type="submit" value="Encerrar Sessão" name="sair" id="sair">
+    <button type="submit" class="btn-logoff" name="sair" id="sair">
       <!-- <img src="assets/icons/log-out-red.svg" alt=""> -->
       Encerrar Sessão
     </button>

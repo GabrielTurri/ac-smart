@@ -136,19 +136,32 @@ body, input, textarea, button {
   background-color: transparent;
   font-size: 16px;
 
-  color: #ff9432;
   font-weight: 700;
+  color: #F7FBFF;
+  /* background-color: #084480; */
 
   width: 100%;
   padding: 16px;
   bottom: 0;
 }
+.sidebar .btn-logoff {
+  color: #ff9432;
 
-.sidebar button:hover {
-  cursor: pointer;
+}
+.sidebar .btn-logoff:hover {
   background-color: #ff9432;
   color: #043565;
+
+}
+ .sidebar button:hover {
+  background-color: #476988;
+  cursor: pointer;
+  transition: .4s ease;
   }
+.sidebar a{
+  text-decoration: none;
+}
+
 /* DASHBOARD */
 .dashboard-content {
   margin-left: 20rem;

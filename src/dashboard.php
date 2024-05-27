@@ -104,7 +104,7 @@
             <a href="atividades.php" class="button">
               <button>
                 <img 
-                  src="assets/icons/file-text.svg" 
+                  src="assets/icons/file-text.svg"
                   alt="Atividades Complementares"
                 >
                 Minhas AC'S
