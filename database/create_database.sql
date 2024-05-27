@@ -34,7 +34,7 @@ CREATE TABLE `aluno` (
   PRIMARY KEY (`RA_aluno`),
   KEY `cod_curso` (`cod_curso`),
   CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`cod_curso`) REFERENCES `curso` (`cod_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,11 +54,10 @@ CREATE TABLE `atividade_complementar` (
   `status` enum('Aprovado','Reprovado','Pendente','Arquivado') DEFAULT 'Pendente',
   `horas_aprovadas` int(11) DEFAULT 0,
   `RA_aluno` int(11) DEFAULT NULL,
-  `atividade_complementar_timestamp` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`cod_atividade`),
   KEY `RA_aluno` (`RA_aluno`),
   CONSTRAINT `atividade_complementar_ibfk_1` FOREIGN KEY (`RA_aluno`) REFERENCES `aluno` (`RA_aluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +74,7 @@ CREATE TABLE `coordenador` (
   `email_coordenador` varchar(60) DEFAULT NULL,
   `senha_coordenador` varchar(255) DEFAULT '',
   PRIMARY KEY (`cod_coordenador`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +92,7 @@ CREATE TABLE `curso` (
   PRIMARY KEY (`cod_curso`),
   KEY `coordenador_curso` (`coordenador_curso`),
   CONSTRAINT `curso_ibfk_1` FOREIGN KEY (`coordenador_curso`) REFERENCES `coordenador` (`cod_coordenador`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +144,7 @@ CREATE TABLE `disciplina` (
   PRIMARY KEY (`cod_disciplina`),
   KEY `cod_curso` (`cod_curso`),
   CONSTRAINT `disciplina_ibfk_1` FOREIGN KEY (`cod_curso`) REFERENCES `curso` (`cod_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,11 +158,10 @@ CREATE TABLE `observacao_atividade` (
   `cod_observacao` int(11) NOT NULL AUTO_INCREMENT,
   `observacao` text DEFAULT NULL,
   `cod_atividade` int(11) DEFAULT NULL,
-  `observacao_atividade_timestamp` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`cod_observacao`),
   KEY `cod_atividade` (`cod_atividade`),
   CONSTRAINT `observacao_atividade_ibfk_1` FOREIGN KEY (`cod_atividade`) REFERENCES `atividade_complementar` (`cod_atividade`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,4 +221,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-17 20:43:58
+-- Dump completed on 2024-05-11 18:18:54

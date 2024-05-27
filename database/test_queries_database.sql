@@ -83,25 +83,7 @@ WHERE
     
     
 -- View de Atividades Complementares com Status
-CREATE VIEW vw_atividades_complementares_status AS
-SELECT 
-    ac.titulo,
-    ac.descricao,
-    ac.caminho_anexo,
-    ac.horas_solicitadas,
-    ac.data,
-    ac.status,
-    ac.horas_aprovadas,
-    a.nome_aluno,
-    a.sobrenome_aluno,
-    a.email_aluno,
-    c.nome_curso
-FROM 
-    atividade_complementar ac
-JOIN 
-    aluno a ON ac.RA_aluno = a.RA_aluno
-JOIN 
-    curso c ON a.cod_curso = c.cod_curso;
+-- Obs.: Criar view
 
 -- Consulta para obter todas as atividades complementares com seus status
 SELECT * FROM vw_atividades_complementares_status;
