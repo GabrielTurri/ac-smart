@@ -2,16 +2,16 @@ USE `humanitae_db`;
 
 -- Inserir dados na tabela coordenador
 INSERT INTO `coordenador` (`nome_coordenador`, `sobrenome_coordenador`, `email_coordenador`, `senha_coordenador`) VALUES
-('João', 'Silva', 'joao.silva@humanitae.br', 'senhavazia'),
-('Maria', 'Oliveira', 'maria.oliveira@humanitae.br', 'senhavazia'),
-('Carlos', 'Santos', 'carlos.santos@humanitae.br', 'senhavazia'),
-('Fernanda', 'Almeida', 'fernanda.almeida@humanitae.br', 'senhavazia'),
-('Ricardo', 'Pereira', 'ricardo.pereira@humanitae.br', 'senhavazia'),
-('Patrícia', 'Lima', 'patricia.lima@humanitae.br', 'senhavazia'),
-('Roberto', 'Gomes', 'roberto.gomes@humanitae.br', 'senhavazia'),
-('Juliana', 'Ferreira', 'juliana.ferreira@humanitae.br', 'senhavazia'),
-('Marcelo', 'Rodrigues', 'marcelo.rodrigues@humanitae.br', 'senhavazia'),
-('Luciana', 'Martins', 'luciana.martins@humanitae.br', 'senhavazia');
+('João', 'Silva', 'joao.silva@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Maria', 'Oliveira', 'maria.oliveira@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Carlos', 'Santos', 'carlos.santos@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Fernanda', 'Almeida', 'fernanda.almeida@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Ricardo', 'Pereira', 'ricardo.pereira@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Patrícia', 'Lima', 'patricia.lima@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Roberto', 'Gomes', 'roberto.gomes@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Juliana', 'Ferreira', 'juliana.ferreira@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Marcelo', 'Rodrigues', 'marcelo.rodrigues@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Luciana', 'Martins', 'luciana.martins@humanitae.br', '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W');
 
 -- Inserir dados na tabela curso
 INSERT INTO `curso` (`nome_curso`, `horas_complementares`, `coordenador_curso`) VALUES
@@ -28,16 +28,16 @@ INSERT INTO `curso` (`nome_curso`, `horas_complementares`, `coordenador_curso`) 
 
 -- Inserir dados na tabela aluno
 INSERT INTO `aluno` (`nome_aluno`, `sobrenome_aluno`, `email_aluno`, `cod_curso`, `senha_aluno`) VALUES
-('Ana', 'Pereira', 'ana.pereira@humanitae.br', 1, 'senhavazia'),
-('Bruno', 'Costa', 'bruno.costa@humanitae.br', 2, 'senhavazia'),
-('Carla', 'Mendes', 'carla.mendes@humanitae.br', 3, 'senhavazia'),
-('Daniel', 'Souza', 'daniel.souza@humanitae.br', 4, 'senhavazia'),
-('Eduarda', 'Silva', 'eduarda.silva@humanitae.br', 5, 'senhavazia'),
-('Felipe', 'Oliveira', 'felipe.oliveira@humanitae.br', 6, 'senhavazia'),
-('Gabriela', 'Santos', 'gabriela.santos@humanitae.br', 7, 'senhavazia'),
-('Henrique', 'Lima', 'henrique.lima@humanitae.br', 8, 'senhavazia'),
-('Isabela', 'Gomes', 'isabela.gomes@humanitae.br', 9, 'senhavazia'),
-('João', 'Ferreira', 'joao.ferreira@humanitae.br', 10, 'senhavazia');
+('Ana', 'Pereira', 'ana.pereira@humanitae.br', 1, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Bruno', 'Costa', 'bruno.costa@humanitae.br', 2, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Carla', 'Mendes', 'carla.mendes@humanitae.br', 3, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Daniel', 'Souza', 'daniel.souza@humanitae.br', 4, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Eduarda', 'Silva', 'eduarda.silva@humanitae.br', 5, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Felipe', 'Oliveira', 'felipe.oliveira@humanitae.br', 6, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Gabriela', 'Santos', 'gabriela.santos@humanitae.br', 7, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Henrique', 'Lima', 'henrique.lima@humanitae.br', 8, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('Isabela', 'Gomes', 'isabela.gomes@humanitae.br', 9, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W'),
+('João', 'Ferreira', 'joao.ferreira@humanitae.br', 10, '$2y$10$0LECBkFzmX1yjqiKrY8dC.c53iDvr8pSX2H5Dco4mhO8HPtE8WS9W');
 
 -- Inserir dados na tabela atividade_complementar
 INSERT INTO `atividade_complementar` (`titulo`, `descricao`, `caminho_anexo`, `horas_solicitadas`, `data`, `status`, `horas_aprovadas`, `RA_aluno`) VALUES
