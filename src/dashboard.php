@@ -52,9 +52,7 @@
   $_SESSION["sobrenome_coordenador"] = $linha['sobrenome_coordenador'];
   $_SESSION["email_coordenador"] = $linha['email_coordenador'];
 
-  $porcentagem_completa = ($horas_totais_aprovadas/$_SESSION['horas_complementares'])*100;
-
-  
+  $porcentagem_completa = ($horas_totais_aprovadas/$_SESSION['horas_complementares'])*100;  
 ?>
 
 <!DOCTYPE html>
@@ -89,8 +87,8 @@
             <div id="specificChart" class="donut-size">
               <div class="pie-wrapper">
                 <span class="label">
-                    <span class="num"><?php echo $porcentagem_completa?></span><span class="smaller">%</span>
-                    <input type="hidden" id="percent" value="<?php $porcentagem_completa ?>">
+                    <span class="num"><?php echo $porcentagem_completa ?></span><span class="smaller">%</span>
+                    <input type="hidden" id="percent" value="<?php $porcentagem_completa?>">
                 </span>
                 <div class="pie">
                   <div class="left-side half-circle"></div>
@@ -99,7 +97,6 @@
                 <div class="shadow"></div>
               </div>
             </div>
-
             <h1><?php 
               if($horas_totais_aprovadas > 200){$horas_totais_aprovadas = 200;};
               echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";
@@ -142,12 +139,8 @@
       </div>
       
       <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
-      
       <?php
-        echo '<div class="flash_message">';
-        flash();
-        echo '</div>'
-      ?>
+      flash();?>
       <div class='lista-atividades full'>
         <?php
           if ($result ->num_rows > 0){
@@ -181,14 +174,14 @@
               echo '
                 <div id="aprovadas" class="full">
                   <form class="'.$row['status'].'" action="detalhes.php" method="get">
-                    <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
-                    <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
-                    <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
-                    <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
-                    <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
-                    <input type="hidden" value="'.$row["data"].'" name="data" id="data">
-                    <input type="hidden" value="'.$row["status"].'" name="status" id="status">
-                    <input type="hidden" value="'.$row["horas_aprovadas"].'" name="horas_aprovadas" id="horas_aprovadas">
+                    <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                    <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+                    <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+                    <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+                    <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+                    <input type="hidden" value='.$row["data"].' name="data" id="data">
+                    <input type="hidden" value='.$row["status"].' name="status" id="status">
+                    <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                     <button type="submit" class="container-atividade">
                       <span>'.$row["titulo"].'</span>
                       <strong>'.$row["horas_aprovadas"].'H</strong>
@@ -200,14 +193,14 @@
                 echo '
                   <div class="row atividade-pendente">
                     <form class="'.$row["status"].' full" action="detalhes.php" method="get">
-                      <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
-                      <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
-                      <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
-                      <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
-                      <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
-                      <input type="hidden" value="'.$row["data"].'" name="data" id="data">
-                      <input type="hidden" value="'.$row["status"].'" name="status" id="status">
-                      <input type="hidden" value="'.$row["horas_aprovadas"].'" name="horas_aprovadas" id="horas_aprovadas">
+                      <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                      <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+                      <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+                      <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+                      <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+                      <input type="hidden" value='.$row["data"].' name="data" id="data">
+                      <input type="hidden" value='.$row["status"].' name="status" id="status">
+                      <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                       <button type="submit" class="container-atividade">
                         <div>
                           <span>'.$row["titulo"].'</span>';
@@ -224,7 +217,7 @@
                     </button>
                   </div>
                 ';
-                
+                // $_SESSION['atividade_atual'] = $row["cod_atividade"];
               }
             }
           }
@@ -240,36 +233,38 @@
  * @param  {number}  percent Passing in 22.3 will make the chart show 22%
  * @param  {boolean} donut   True shows donut, false shows pie
  */
-function updateDonutChart (el, percent, donut) {
-    percent = Math.round(percent);
-    if (percent > 100) {
-        percent = 100;
-    } else if (percent < 0) {
-        percent = 0;
-    }
-    var deg = Math.round(360 * (percent / 100));
+    var porcentagem_total = document.getElementById('percent');
 
-    if (percent > 50) {
-        $(el + ' .pie').css('clip', 'rect(auto, auto, auto, auto)');
-        $(el + ' .right-side').css('transform', 'rotate(180deg)');
-    } else {
-        $(el + ' .pie').css('clip', 'rect(0, 1em, 1em, 0.5em)');
-        $(el + ' .right-side').css('transform', 'rotate(0deg)');
-    }
-    if (donut) {
-        $(el + ' .right-side').css('border-width', '0.1em');
-        $(el + ' .left-side').css('border-width', '0.1em');
-        $(el + ' .shadow').css('border-width', '0.1em');
-    } else {
-        $(el + ' .right-side').css('border-width', '0.5em');
-        $(el + ' .left-side').css('border-width', '0.5em');
-        $(el + ' .shadow').css('border-width', '0.5em');
-    }
-    $(el + ' .num').text(percent);
-    $(el + ' .left-side').css('transform', 'rotate(' + deg + 'deg)');
-}
+    function updateDonutChart (el, percent, donut) {
+      percent = Math.round(percent);
+      if (percent > 100) {
+          percent = 100;
+      } else if (percent < 0) {
+          percent = 0;
+      }
+      var deg = Math.round(360 * (percent / 100));
 
-// Pass in a number for the percent
-updateDonutChart('#specificChart', <?php $porcentagem_completa ?>, true);
+      if (percent > 50) {
+          $(el + ' .pie').css('clip', 'rect(auto, auto, auto, auto)');
+          $(el + ' .right-side').css('transform', 'rotate(180deg)');
+      } else {
+          $(el + ' .pie').css('clip', 'rect(0, 1em, 1em, 0.5em)');
+          $(el + ' .right-side').css('transform', 'rotate(0deg)');
+      }
+      if (donut) {
+          $(el + ' .right-side').css('border-width', '0.1em');
+          $(el + ' .left-side').css('border-width', '0.1em');
+          $(el + ' .shadow').css('border-width', '0.1em');
+      } else {
+          $(el + ' .right-side').css('border-width', '0.5em');
+          $(el + ' .left-side').css('border-width', '0.5em');
+          $(el + ' .shadow').css('border-width', '0.5em');
+      }
+      $(el + ' .num').text(percent);
+      $(el + ' .left-side').css('transform', 'rotate(' + deg + 'deg)');
+    }
+
+    // Pass in a number for the percent
+    updateDonutChart('#specificChart', porcentagem_total.value, true);
   </script>
 </html>
