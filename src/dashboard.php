@@ -52,6 +52,9 @@
   $_SESSION["sobrenome_coordenador"] = $linha['sobrenome_coordenador'];
   $_SESSION["email_coordenador"] = $linha['email_coordenador'];
 
+  $porcentagem_completa = ($horas_totais_aprovadas/$_SESSION['horas_complementares'])*100;
+
+  
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +67,9 @@
 
   <link rel="stylesheet" href="styles/atividades.css">
   <link rel="stylesheet" href="styles/global.css">
-  
+  <link rel="stylesheet" href="styles/chart.css">
+
+  <script src="jquery-3.7.1.min.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -80,7 +85,21 @@
         <div class="chart-container">
   
           <div class="chart-content">
-            <div class="chartImg"></div>
+
+            <div id="specificChart" class="donut-size">
+              <div class="pie-wrapper">
+                <span class="label">
+                    <span class="num"><?php echo $porcentagem_completa?></span><span class="smaller">%</span>
+                    <input type="hidden" id="percent" value="<?php $porcentagem_completa ?>">
+                </span>
+                <div class="pie">
+                  <div class="left-side half-circle"></div>
+                  <div class="right-side half-circle"></div>
+                </div>
+                <div class="shadow"></div>
+              </div>
+            </div>
+
             <h1><?php 
               if($horas_totais_aprovadas > 200){$horas_totais_aprovadas = 200;};
               echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";
@@ -209,4 +228,44 @@
       </div>
     </div>
   </body>
+  <script>
+    /**
+ * Updates the donut chart's percent number and the CSS positioning of the progress bar.
+ * Also allows you to set if it is a donut or pie chart
+ * @param  {string}  el      The selector for the donut to update. '#thing'
+ * @param  {number}  percent Passing in 22.3 will make the chart show 22%
+ * @param  {boolean} donut   True shows donut, false shows pie
+ */
+function updateDonutChart (el, percent, donut) {
+    percent = Math.round(percent);
+    if (percent > 100) {
+        percent = 100;
+    } else if (percent < 0) {
+        percent = 0;
+    }
+    var deg = Math.round(360 * (percent / 100));
+
+    if (percent > 50) {
+        $(el + ' .pie').css('clip', 'rect(auto, auto, auto, auto)');
+        $(el + ' .right-side').css('transform', 'rotate(180deg)');
+    } else {
+        $(el + ' .pie').css('clip', 'rect(0, 1em, 1em, 0.5em)');
+        $(el + ' .right-side').css('transform', 'rotate(0deg)');
+    }
+    if (donut) {
+        $(el + ' .right-side').css('border-width', '0.1em');
+        $(el + ' .left-side').css('border-width', '0.1em');
+        $(el + ' .shadow').css('border-width', '0.1em');
+    } else {
+        $(el + ' .right-side').css('border-width', '0.5em');
+        $(el + ' .left-side').css('border-width', '0.5em');
+        $(el + ' .shadow').css('border-width', '0.5em');
+    }
+    $(el + ' .num').text(percent);
+    $(el + ' .left-side').css('transform', 'rotate(' + deg + 'deg)');
+}
+
+// Pass in a number for the percent
+updateDonutChart('#specificChart', <?php $porcentagem_completa ?>, true);
+  </script>
 </html>

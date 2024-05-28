@@ -37,7 +37,7 @@
       ?>
     </div>
     <hr>
-    <div class="column gap-8 menu-buttons">
+    <div class="column menu-buttons">
       
         <a href="atividades.php" class="row">
           <button >
