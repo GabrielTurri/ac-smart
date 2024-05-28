@@ -75,39 +75,37 @@
 <body>
   <?php include './components/sidebar.php' ?>
   
-    <div class="dashboard-content">
-      <div class="column">
-        <div class="dashboard-container">
-          <div class="chart-container">
-    
-            <div class="chart-content">
-              <div class="chartImg"></div>
-              <h1><?php 
-                if($horas_totais_aprovadas > 200){$horas_totais_aprovadas = 200;};
-                echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";
-              ?> Horas</h1>
+    <div class="dashboard-content column">
+      <div class="dashboard-container">
+        <div class="chart-container">
+  
+          <div class="chart-content">
+            <div class="chartImg"></div>
+            <h1><?php 
+              if($horas_totais_aprovadas > 200){$horas_totais_aprovadas = 200;};
+              echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";
+            ?> Horas</h1>
+            <div>
               <div>
-                <div>
-                  <div class="chartLegendOrange"></div>
-                  <span>Entregues</span>
-                </div>
-    
-                <div>
-                  <div class="chartLegend"></div>
-                  <span>Restantes</span>
-                </div>
+                <div class="chartLegendOrange"></div>
+                <span>Entregues</span>
+              </div>
+  
+              <div>
+                <div class="chartLegend"></div>
+                <span>Restantes</span>
               </div>
             </div>
           </div>
-    
-          <div class="chart-container">
+        
+          <div class="row gap-8">
             <a href="atividades.php" class="button">
               <button>
                 <img 
                   src="assets/icons/file-text.svg"
                   alt="Atividades Complementares"
                 >
-                Minhas AC'S
+                Minhas Atividades Complementares
               </button>
             </a>
     
@@ -117,60 +115,68 @@
                   src="assets/icons/file-plus.svg" 
                   alt="Atividades Complementares"
                 >
-                Entregar AC'S
-              </button>
-            </a>
-    
-            <a href="reprovadas.php" class="button">
-              <button class="button">
-                <img
-                  src="assets/icons/corner-down-left.svg" 
-                  alt="Atividades Complementares"
-                >
-                AC'S Reprovadas
+                Entregar Atividade Complementar
               </button>
             </a>
           </div>
-          
         </div>
-        
-        
-        <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
+      </div>
+      
+      <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
+      <?php
+      flash();?>
+      <div class='lista-atividades full'>
         <?php
-        flash();?>
-        <div class='lista-atividades full'>
-          <?php
-            if ($result ->num_rows > 0){
-              echo "<h2>Atividades Recentes</h2>
-                <div class='legenda-lista-atividades'>
-                  <div class='legenda'>
-                    <strong>Título</strong>
-                  </div>
-                  <div class='legenda'>
-                    <strong>Horas Aprovadas</strong>
-                  </div>
-                </div>";
-            } else {
-              echo "<h2>Você não possui atividades entregues</h2>";
-              echo "<a href='entrega.php' class='button'>
-              <button class= 'button'>
-                <img 
-                  src='assets/icons/file-plus.svg'
-                  alt='Atividades Complementares'
-                >
-                Entregar AC'S
-              </button>
-              </a>";
-            }
-          ?>
+          if ($result ->num_rows > 0){
+            echo "<h2>Atividades Recentes</h2>
+              <div class='legenda-lista-atividades'>
+                <div class='legenda'>
+                  <strong>Título</strong>
+                </div>
+                <div class='legenda'>
+                  <strong>Horas Aprovadas</strong>
+                </div>
+              </div>";
+          } else {
+            echo "<h2>Você não possui atividades entregues</h2>";
+            echo "<a href='entrega.php' class='button'>
+            <button class= 'button'>
+              <img 
+                src='assets/icons/file-plus.svg'
+                alt='Atividades Complementares'
+              >
+              Entregar AC'S
+            </button>
+            </a>";
+          }
+        ?>
 
-          <?php
-            if ($result ->num_rows > 0) {
-              foreach($result as $row){
-                if ($row['status'] == 'Aprovado'){ 
+        <?php
+          if ($result ->num_rows > 0) {
+            foreach($result as $row){
+              if ($row['status'] == 'Aprovado'){ 
+              echo '
+                <div id="aprovadas" class="full">
+                  <form class="'.$row['status'].'" action="detalhes.php" method="get">
+                    <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
+                    <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
+                    <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
+                    <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
+                    <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
+                    <input type="hidden" value='.$row["data"].' name="data" id="data">
+                    <input type="hidden" value='.$row["status"].' name="status" id="status">
+                    <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
+                    <button type="submit" class="container-atividade">
+                      <span>'.$row["titulo"].'</span>
+                      <strong>'.$row["horas_aprovadas"].'H</strong>
+                    </button>
+                  </form>
+                </div>';
+              }
+              else if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){                        
                 echo '
-                  <div id="aprovadas" class="full">
-                    <form class="'.$row['status'].'" action="detalhes.php" method="get">
+                  <div class="row atividade-pendente">
+                    <form class="'.$row["status"].' full" action="detalhes.php" method="get">
                       <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
                       <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
                       <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
@@ -180,46 +186,26 @@
                       <input type="hidden" value='.$row["status"].' name="status" id="status">
                       <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
                       <button type="submit" class="container-atividade">
-                        <span>'.$row["titulo"].'</span>
-                        <strong>'.$row["horas_aprovadas"].'H</strong>
+                        <div>
+                          <span>'.$row["titulo"].'</span>';
+                          if ($row['status'] == 'Pendente')
+                            echo '<span class="texto-laranja"> ('.$row["status"].')</span>';
+                          else
+                            echo '<span class="texto-vermelho"> ('.$row["status"].')</span>';
+                        echo '</div>
+                        <strong></strong>
                       </button>
                     </form>
-                  </div>';
-                }
-                else if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){                        
-                  echo '
-                    <div class="row atividade-pendente">
-                      <form class="'.$row["status"].' full" action="detalhes.php" method="get">
-                        <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                        <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
-                        <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
-                        <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
-                        <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
-                        <input type="hidden" value='.$row["data"].' name="data" id="data">
-                        <input type="hidden" value='.$row["status"].' name="status" id="status">
-                        <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
-                        <button type="submit" class="container-atividade">
-                          <div>
-                            <span>'.$row["titulo"].'</span>';
-                            if ($row['status'] == 'Pendente')
-                              echo '<span class="texto-laranja"> ('.$row["status"].')</span>';
-                            else
-                              echo '<span class="texto-vermelho"> ('.$row["status"].')</span>';
-                          echo '</div>
-                          <strong></strong>
-                        </button>
-                      </form>
-                      <button class="more" onclick="abrirOpcoes()">
-                        <img src="assets/icons/more-vertical.svg" alt="">
-                      </button>
-                    </div>
-                  ';
-                  // $_SESSION['atividade_atual'] = $row["cod_atividade"];
-                }
+                    <button class="more" onclick="abrirOpcoes()">
+                      <img src="assets/icons/more-vertical.svg" alt="">
+                    </button>
+                  </div>
+                ';
+                // $_SESSION['atividade_atual'] = $row["cod_atividade"];
               }
             }
-            ?>
-        </div>
+          }
+          ?>
       </div>
     </div>
   </body>

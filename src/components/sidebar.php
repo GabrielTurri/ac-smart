@@ -1,13 +1,13 @@
 <aside class="sidebar">
   <div class="user-data text-center">
-    <div class="user-photo-container">
+    <!-- <div class="user-photo-container">
       <img class="user-photo" src="https://avatars.githubusercontent.com/u/90584577?v=4" alt="">
       <div class="overlay">
         <a href="alterar-imagem.html">
           <img src="./assets/icons/edit-3-blue.svg" alt="">
         </a>
       </div>
-    </div>
+    </div> -->
     <h3>
       Boas Vindas, 
       <?php 

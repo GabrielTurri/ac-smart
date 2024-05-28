@@ -71,7 +71,7 @@
     <button class="aba" onclick="mostrarReprovadas()">Reprovadas</button> -->
     <button id="aba-aprovadas" class="aba ativo" onclick="">Aprovadas</button>
     <button id="aba-pendentes" class="aba" onclick="">Pendentes</button>
-    <button id="aba-reprovadas" class="aba" onclick="">Reprovadas</button>
+    <button id="aba-reprovadas" class="aba novas-reprovadas" onclick="">Reprovadas</button>
   </div>  
   
   <div class="lista-atividades" id="aprovadas">

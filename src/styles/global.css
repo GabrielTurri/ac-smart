@@ -80,7 +80,9 @@ body, input, textarea, button {
   color: #fff;
   background-color: #043565;
 }
-
+.user-data {
+  margin-top: 16px;
+}
 .user-photo-container {
   position: relative;
   margin: 1rem auto;
@@ -181,7 +183,7 @@ body, input, textarea, button {
 
 .chart-container{
   min-width: 20rem;
-  width: 40%;
+  max-width: 70%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -265,4 +267,7 @@ align-items: center;
   height: 16px;
   width: 16px;
   margin: 0 8px;
+}
+.gap-8 {
+  gap: 8px;
 }

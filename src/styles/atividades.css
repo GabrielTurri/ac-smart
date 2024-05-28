@@ -127,3 +127,6 @@ span.texto-reprovada, strong.texto-reprovada {
   margin-right: 42px;
 }
 
+button.novas-reprovadas {
+  color: #de3e3e;
+}

@@ -136,7 +136,7 @@ foreach($result as $row){
             <form action="../server/server.php" method="post">
               <input type="hidden" value="'.$_GET["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
               <button class="btn vermelho" type="submit" name="deletar" id="deletar" class="btn laranja">
-                Cancelar Entrega  
+                Excluir  
               </button>
             </form>
 
