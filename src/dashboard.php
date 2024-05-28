@@ -98,7 +98,7 @@
             </div>
           </div>
         
-          <div class="row gap-8">
+          <div class="btn-row row gap-8">
             <a href="atividades.php" class="button">
               <button>
                 <img 
@@ -115,7 +115,7 @@
                   src="assets/icons/file-plus.svg" 
                   alt="Atividades Complementares"
                 >
-                Entregar Atividade Complementar
+                Nova Atividade Complementar
               </button>
             </a>
           </div>

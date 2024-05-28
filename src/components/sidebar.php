@@ -39,19 +39,19 @@
     <hr>
     <div class="column gap-8 menu-buttons">
       
-        <button class="row">
-          <a href="atividades.php">
+        <a href="atividades.php" class="row">
+          <button >
             <img src=".\assets\icons\file-text.svg" alt="">
             Minhas AC's
-          </a>
-        </button>
+          </button>
+        </a>
       
-        <button class="row">
-          <a href="entrega.php">
+        <a href="entrega.php" class="row">
+            <button>
             <img src="./assets/icons/file-plus.svg" alt="">
             Entregar nova AC
-          </a>
-        </button>
+          </button>
+        </a>
     </div>
 
   </div>

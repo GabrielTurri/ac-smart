@@ -159,13 +159,11 @@ body, input, textarea, button {
 }
 
 .menu-buttons .row a {
-  gap: 8px;
-}
-.menu-buttons .row a {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #F7FBFF;
+  gap: 8px;
 }
 
 .sidebar .btn-logoff {
@@ -213,7 +211,7 @@ body, input, textarea, button {
   justify-content: center;
   align-items: center;
 
-  padding: 40px;
+  padding: 24px;
   gap: 8px;
   
   border: 0.5px solid #476988;
@@ -225,9 +223,15 @@ body, input, textarea, button {
   flex-direction: row;
 }
 
+.btn-row {
+  width: 100%;
+  height: 100%;
+}
 .button {
   width: 100%;
+  height: 100%;
   text-decoration: none;
+  /* text-align: left; */
 }
 
 .button button {
@@ -242,16 +246,16 @@ body, input, textarea, button {
   border: none;
   border-radius: 12px;
   padding: 16px;
-  background-color: #476988;
+  background-color: #043565;
   font-weight: bold;
   color: #fff;
   font-size: 18px;
-
+  
   cursor: pointer;
 }
 .button button:hover {
-  background: #043565;
-  transition: 0.6s;
+  background-color: #476988;
+  transition: .6s;
 }
 
 .chart-content {
