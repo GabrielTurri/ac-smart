@@ -237,6 +237,11 @@ function editar_atividade(){
     if($mudancas > 0){
         $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE cod_atividade = $cod_atividade;";
         mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+        $_SESSION['message'] = 'Edição feita com sucesso!';
+        $_SESSION['message_type'] = 'success';
+    } else {
+        $_SESSION['message'] = 'Nenhuma alteração realizada!';
+        $_SESSION['message_type'] = 'secondary';
     }
     header("Location: ../src/dashboard.php");
 

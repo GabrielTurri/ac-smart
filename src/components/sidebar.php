@@ -39,7 +39,9 @@
     <hr>
     <div class="column gap-8 menu-buttons">
       
-        <a href="dashboard.php" class="row">
+    <?php 
+  if (isset($_SESSION['ra_aluno'])){
+    echo '<a href="dashboard.php" class="row">
             <button >
               <img src=".\assets\icons\file-text.svg" alt="">
              Meu DashBoard
@@ -49,7 +51,7 @@
         <a href="atividades.php" class="row">
           <button >
             <img src=".\assets\icons\file-text.svg" alt="">
-            Minhas AC's
+            Minhas ACs
           </button>
         </a>
       
@@ -58,7 +60,29 @@
             <img src="./assets/icons/file-plus.svg" alt="">
             Entregar nova AC
           </button>
+        </a>' ;       
+  } else {
+    echo '
+      <div class="user-info">
+      <a href="dash_coordenador.php" class="row">
+            <button >
+              <img src=".\assets\icons\file-text.svg" alt="">
+             Meu DashBoard
+            </button>
         </a>
+        <p><b>Seus cursos:</b></p>';
+        foreach($_SESSION['cursos'] as $curso =>$quantidade){
+          echo '
+          <form class="activityContainer button" action="../server/server.php" method="post">
+            <input type="hidden" value="'.$curso.'" name="nome_curso" id="cod_atividade">
+            <button type="submit" name="atividades_coord">
+             <p>'.$curso.': '.$quantidade.'</p>
+            </button>
+          </form>'; 
+        };
+    echo"</div>";
+  }       
+?>
     </div>
 
   </div>
@@ -70,3 +94,6 @@
     </button>
   </form>
 </aside>
+
+
+
