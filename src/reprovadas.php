@@ -4,7 +4,7 @@
   if(!($_SESSION['ra_aluno']))
     header("Location: login.php");
   
-  $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+  $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
 
   
   // $sql = "SELECT DISTINCT(titulo), cod_atividade FROM atividade_complementar JOIN observacao_atividade ON atividade_complementar.cod_atividade = observacao_atividade.cod_atividade WHERE RA_aluno = '".$_SESSION['ra_aluno']."' AND status = 'Reprovado';";

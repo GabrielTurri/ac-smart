@@ -4,7 +4,7 @@
   if(!($_SESSION['ra_aluno']))
     header("Location: login.php");
   
-  $strcon = mysqli_connect ("ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+  $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
 
   // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo

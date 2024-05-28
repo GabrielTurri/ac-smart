@@ -6,7 +6,7 @@ session_start();
 include_once("usuario.php");
 
 // PARA USAR AS SEGUINTES VARIAVEIS GLOBAIS, É NECESSARIO USAR $GLOBALS['x']
-$server = "ac-smart-database.cha6yq8iwxxu.sa-east-1.rds.amazonaws.com";
+$server = "137.184.66.198";
 $usuario = "felipe";
 $senha = "abcd=1234";   
 $banco = "humanitae_db";
