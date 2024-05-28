@@ -54,6 +54,7 @@ CREATE TABLE `atividade_complementar` (
   `status` enum('Aprovado','Reprovado','Pendente','Arquivado') DEFAULT 'Pendente',
   `horas_aprovadas` int(11) DEFAULT 0,
   `RA_aluno` int(11) DEFAULT NULL,
+  `atividade_complementar_timestamp` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`cod_atividade`),
   KEY `RA_aluno` (`RA_aluno`),
   CONSTRAINT `atividade_complementar_ibfk_1` FOREIGN KEY (`RA_aluno`) REFERENCES `aluno` (`RA_aluno`)
@@ -158,6 +159,7 @@ CREATE TABLE `observacao_atividade` (
   `cod_observacao` int(11) NOT NULL AUTO_INCREMENT,
   `observacao` text DEFAULT NULL,
   `cod_atividade` int(11) DEFAULT NULL,
+  `observacao_atividade_timestamp` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`cod_observacao`),
   KEY `cod_atividade` (`cod_atividade`),
   CONSTRAINT `observacao_atividade_ibfk_1` FOREIGN KEY (`cod_atividade`) REFERENCES `atividade_complementar` (`cod_atividade`)
