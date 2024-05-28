@@ -72,20 +72,14 @@
 }
 
 #abas-login {
-  /* display: inline-block; */
-  /* border: 1px solid #043565; */
-  /* border-bottom: 0.5px solid #043565; */
-  
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
   
-  /* margin: 16px auto; */
+  margin: 8px 0;
   height: 3rem;
-  line-height: 30px;
-  /* width: 27rem; */
-  background-color: #fff;
+  line-height: 30px;  
   border-bottom: .5px solid #043565;
 }
 
