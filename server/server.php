@@ -43,10 +43,10 @@ function insertDb(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
-    // criação do timestamp atual
-    date_default_timezone_set('America/Sao_Paulo');
-    $timestamp = date("Y-m-d H:i:s");
-    // echo $timestamp;
+    // // criação do timestamp atual
+    // date_default_timezone_set('America/Sao_Paulo');
+    // $timestamp = date("Y-m-d H:i:s");
+    // // echo $timestamp;
 
     // validação para checar se tem algum arquivo enviado
     if($_FILES["anexo"]["size"] == 0){
@@ -56,7 +56,7 @@ function insertDb(){
 
         header("Location: ../src/entrega.php");
 
-        // caso tenha sido enviado algum arquivo
+        
     } 
     
     else {
@@ -165,9 +165,9 @@ function editar_atividade(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
-    // criação do timestamp atual
-    date_default_timezone_set('America/Sao_Paulo');
-    $timestamp = date("Y-m-d H:i:s");
+    // // criação do timestamp atual
+    // date_default_timezone_set('America/Sao_Paulo');
+    // $timestamp = date("Y-m-d H:i:s");
 
     // validar se a atividade pretence ao aluno logado, se não for dele, vai ser redirecionado para o dashboard novamente
     if(!in_array($cod_atividade, $_SESSION['atividades_aluno']) or !$cod_atividade){
@@ -276,20 +276,26 @@ function deletar_ativ(){
     $cod_atividade = $_POST['cod_atividade'];
 
     // PRECISA FAZER AS VALIDAÇÕES DOS DADOS DE ENTRADA, PRECISA VERIFICAR SE O VALOR DO $cod_atividade PERTENCE AO USUARIO QUE ESTA LOGADO, O FELIPE FEZ ESSE TIPO DE VALIDAÇÃO NO OUTRO PROJETO INTEGRADOR, BASTA COPIAR A LÓGICA
+    if(!$cod_atividade or !is_numeric($cod_atividade) or !in_array($cod_atividade, $_SESSION['atividades_aluno'])) {
+        $_SESSION['message'] = 'Erro!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: ../src/dashboard.php");
+    } else {
+        // conexão com o DB
+        $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
-    // conexão com o DB
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-
-    // query SQL para deletar da tabela atividade_complementar a linha que tiver o cod_atividade recebida do frontend
-    // $sql = "DELETE FROM atividade_complementar WHERE cod_atividade = '".$cod_atividade."'";
-
-    // arquivar atividade, não deletar do banco
-    $sql = "UPDATE atividade_complementar SET status = 'Arquivado', horas_aprovadas = 0 WHERE cod_atividade = '".$cod_atividade."';"; 
+        // arquivar atividade, não deletar do banco
+        $sql = "UPDATE atividade_complementar SET status = 'Arquivado', horas_aprovadas = 0 WHERE cod_atividade = '".$cod_atividade."';"; 
 
 
-    // executar query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-    header("Location: ../src/dashboard.php");
+        // executar query sql
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+        $_SESSION['message'] = 'Atividade excluída com sucesso!';
+        $_SESSION['message_type'] = 'secondary';
+        header("Location: ../src/dashboard.php");
+    }
+
+    
 }
 
 // somente o COORDENADOR pode aprovar
