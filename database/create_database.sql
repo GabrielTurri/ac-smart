@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS `atividade_complementar`;
 CREATE TABLE `atividade_complementar` (
   `cod_atividade` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(150) DEFAULT NULL,
-  `descricao` tinytext DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
   `caminho_anexo` varchar(255) DEFAULT NULL,
   `horas_solicitadas` smallint(5) unsigned DEFAULT NULL,
   `data` date DEFAULT NULL,
@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `disciplina`;
 CREATE TABLE `disciplina` (
   `cod_disciplina` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(150) DEFAULT NULL,
-  `descricao` tinytext DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
   `cod_curso` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_disciplina`),
   KEY `cod_curso` (`cod_curso`),
