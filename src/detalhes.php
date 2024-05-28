@@ -133,12 +133,8 @@ foreach($result as $row){
               </button>
             </form>
 
-            <form action="../server/server.php" method="post">
-              <input type="hidden" value="'.$_GET["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
-              <button class="btn vermelho" type="submit" name="deletar" id="deletar" class="btn laranja">
-                Excluir  
-              </button>
-            </form>
+            
+            <button class="btn vermelho delete" value="'.$_GET["cod_atividade"].'">Excluir</button>
 
           </div>
         ';
@@ -167,6 +163,18 @@ foreach($result as $row){
       ?>
     </div>        
   </div>
+  <dialog>
+    <h1>Tem certeza que deseja <br/> excluir a atividade?</h1>
+    <div>
+      <button class="dl-btn close" id="close">Cancelar</button>
+      <form action="../server/server.php" method="post">
+          <input name="modal_id" type="hidden" value="0" id="modal_id">
+          <button class="btn vermelho" type="submit" name="deletar" id="deletar">Confirmar!</button>
+      </form>
+
+    </div>
+  </dialog>
 </body>
+<script src="main.js"></script>
 </html>
 
