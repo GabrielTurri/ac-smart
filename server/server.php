@@ -273,7 +273,7 @@ function sair(){
 // no front mostrar o botão de APAGAR SOMENTE SE ELA FOR REPROVADA
 function deletar_ativ(){
     // pegar código da atividade pelo frontend
-    $cod_atividade = $_POST['cod_atividade'];
+    $cod_atividade = $_POST['modal_id'];
 
     // PRECISA FAZER AS VALIDAÇÕES DOS DADOS DE ENTRADA, PRECISA VERIFICAR SE O VALOR DO $cod_atividade PERTENCE AO USUARIO QUE ESTA LOGADO, O FELIPE FEZ ESSE TIPO DE VALIDAÇÃO NO OUTRO PROJETO INTEGRADOR, BASTA COPIAR A LÓGICA
     if(!$cod_atividade or !is_numeric($cod_atividade) or !in_array($cod_atividade, $_SESSION['atividades_aluno'])) {

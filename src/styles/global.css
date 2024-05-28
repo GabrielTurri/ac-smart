@@ -75,6 +75,7 @@ body, input, textarea, button {
 }
 .secondary {
   background-color: #aaa;
+  color: black;
 }
 
 /* SIDEBAR */
@@ -310,3 +311,39 @@ align-items: center;
   gap: 8px;
 }
 
+/* DIALOG MODAL */
+dialog::backdrop {
+  background-color: rgb(0, 0,0, .5);
+}
+
+dialog {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid #043565;
+  padding: 1rem;
+  margin: auto auto;
+}
+
+dialog > div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+dialog > p, h1 {
+  text-align: center;
+}
+
+.close {
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  border: 0px;
+  color: #fff;
+  background: #043565;
+  width: 8rem;
+}
+
+.close:hover {
+  opacity: 0.8;
+}

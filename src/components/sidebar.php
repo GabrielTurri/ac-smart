@@ -39,6 +39,13 @@
     <hr>
     <div class="column gap-8 menu-buttons">
       
+        <a href="dashboard.php" class="row">
+            <button >
+              <img src=".\assets\icons\file-text.svg" alt="">
+             Meu DashBoard
+            </button>
+        </a>
+
         <a href="atividades.php" class="row">
           <button >
             <img src=".\assets\icons\file-text.svg" alt="">

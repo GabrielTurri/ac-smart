@@ -172,7 +172,7 @@
                     <input type="hidden" value="'.$row["horas_aprovadas"].'" name="horas_aprovadas" id="horas_aprovadas">
                     <button type="submit" class="container-atividade">
                       <span>'.$row["titulo"].'</span>
-                      <strong>"'.$row["horas_aprovadas"].'"H</strong>
+                      <strong>'.$row["horas_aprovadas"].'H</strong>
                     </button>
                   </form>
                 </div>';
