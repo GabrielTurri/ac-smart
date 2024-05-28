@@ -83,6 +83,7 @@ body, input, textarea, button {
 .user-data {
   margin-top: 16px;
 }
+
 .user-photo-container {
   position: relative;
   margin: 1rem auto;
@@ -124,9 +125,15 @@ body, input, textarea, button {
   text-align: center;
 }
 .user-info {
-  padding: 1rem;
+  padding: 16px;
   text-align: left;
   margin: 16px 0;
+}
+.info-container {
+  margin-bottom: 32px;
+}
+.sidebar .user-data hr {
+  margin: 16px;
 }
 
 .sidebar button {
@@ -144,8 +151,23 @@ body, input, textarea, button {
 
   width: 100%;
   padding: 16px;
-  bottom: 0;
+  gap: 8px;
 }
+
+.sidebar .menu-buttons button {
+  justify-content: left;
+}
+
+.menu-buttons .row a {
+  gap: 8px;
+}
+.menu-buttons .row a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #F7FBFF;
+}
+
 .sidebar .btn-logoff {
   color: #ff9432;
 
@@ -167,7 +189,7 @@ body, input, textarea, button {
 /* DASHBOARD */
 .dashboard-content {
   margin-left: 20rem;
-  padding: 1rem;
+  padding: 16px;
 }
 
 .dashboard-container{

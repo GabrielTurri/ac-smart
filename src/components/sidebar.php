@@ -1,5 +1,5 @@
 <aside class="sidebar">
-  <div class="user-data text-center">
+  <div class="user-data">
     <!-- <div class="user-photo-container">
       <img class="user-photo" src="https://avatars.githubusercontent.com/u/90584577?v=4" alt="">
       <div class="overlay">
@@ -8,24 +8,26 @@
         </a>
       </div>
     </div> -->
-    <h3>
-      Boas Vindas, 
-      <?php 
-      // Se existir o RA do aluno, exibe o nome dele, senão, o nome completo do coordenador
-      echo isset($_SESSION['ra_aluno']) ? ucfirst($_SESSION['nome_aluno']) : ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']);
-      ?>
-    </h3>
-    
-      <?php 
-      // Se existir o RA do aluno, exibe o RA dele
-      if (isset($_SESSION['ra_aluno']))
-        echo "<h4>RA: ".$_SESSION['ra_aluno']."</h4>";
-      ?>
     <div class="user-info">
+      <div class="info-container">
+        <h3>
+          Boas Vindas, 
+          <?php 
+          // Se existir o RA do aluno, exibe o nome dele, senão, o nome completo do coordenador
+          echo isset($_SESSION['ra_aluno']) ? ucfirst($_SESSION['nome_aluno']) : ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']);
+          ?>
+        </h3>
+        
+        <?php 
+          // Se existir o RA do aluno, exibe o RA dele
+          if (isset($_SESSION['ra_aluno']))
+          echo "<h4>RA: ".$_SESSION['ra_aluno']."</h4>";
+        ?>
+      </div>
       <?php 
-       if (isset($_SESSION['ra_aluno'])){
-         echo "<h3>Nome do curso:</h3>";
-         echo "<span>{$_SESSION['nome_curso']}</span>";
+      if (isset($_SESSION['ra_aluno'])){
+        echo "<p><b>Nome do curso:</b></p>";
+        echo "<span>{$_SESSION['nome_curso']}</span>";
         echo "<p><b>Nome do coordenador (a):</b></p> <p>".ucfirst($_SESSION['nome_coordenador'])." " .ucfirst($_SESSION['sobrenome_coordenador']). "</p>";
         echo "<p><b>Email do coordenador (a):</b></p>";        
       } else {
@@ -34,13 +36,22 @@
       echo "<p> {$_SESSION['email_coordenador']}</p>";
       ?>
     </div>
-    <div class="column gap-8">
-      <a href="atividades.php">
-        <button>Minhas AC's</button>
-      </a>
-      <a href="entrega.php">
-        <button>Entregar nova AC</button>
-      </a>
+    <hr>
+    <div class="column gap-8 menu-buttons">
+      
+        <button class="row">
+          <a href="atividades.php">
+            <img src=".\assets\icons\file-text.svg" alt="">
+            Minhas AC's
+          </a>
+        </button>
+      
+        <button class="row">
+          <a href="entrega.php">
+            <img src="./assets/icons/file-plus.svg" alt="">
+            Entregar nova AC
+          </a>
+        </button>
     </div>
 
   </div>
