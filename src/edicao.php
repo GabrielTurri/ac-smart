@@ -53,7 +53,7 @@
         <div class="data-horas-container">
           <div class="column">
             <label for="horas_solicitadas">Horas solicitadas</label>
-            <input name="horas_solicitadas" id="horas_solicitadas" type="number" placeholder="<?php echo $_GET["horas_solicitadas"];?>">
+            <input name="horas_solicitadas" id="horas_solicitadas" type="number" placeholder="<?php echo $_GET["horas_solicitadas"];?>" min="1">
           </div>
     
           <div class="column">

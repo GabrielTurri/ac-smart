@@ -48,7 +48,7 @@
       <div class="data-horas-container ">
         <div class="column">
           <label for="horas_solicitadas">Horas solicitadas</label>
-          <input name="horas_solicitadas" id="horas_solicitadas" type="number">
+          <input name="horas_solicitadas" id="horas_solicitadas" type="number" min="1" value="1">
         </div>
   
         <div class="column">

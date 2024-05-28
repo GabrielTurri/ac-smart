@@ -62,7 +62,7 @@ foreach($result as $row){
       <div class='column campo'>
         <strong>Anexo:</strong>
         <div class='anexo'>
-          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Link para o anexo</a>"; ?>
+          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Baixar anexo</a>"; ?>
         </div>
       </div>
       <div class='column campo'>
@@ -81,8 +81,12 @@ foreach($result as $row){
           </div>
           <div class="column">
             <strong>Data de conclusão da atividade:</strong>
-            <?php echo "
-              <input type='text' value='{$_GET["data"]}' disabled>
+            <?php 
+            $date = date_create($_GET["data"]);
+            $newDate = date_format($date, "d/m/Y");
+            
+            echo "
+              <input type='text' value='{$newDate}' disabled>
             ";?>
           </div>
         </div>

@@ -43,7 +43,7 @@
   if (isset($_SESSION['ra_aluno'])){
     echo '<a href="dashboard.php" class="row">
             <button >
-              <img src=".\assets\icons\file-text.svg" alt="">
+              <img src=".\assets\icons\home.svg" alt="">
              Meu DashBoard
             </button>
         </a>

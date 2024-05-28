@@ -37,7 +37,7 @@
     }else if($row['status'] == "Pendente"){
       $_SESSION['pendentes'] += 1;
     } else if($row['status'] == "Arquivado"){
-      $_SESSION['aprovadas'] += 1;
+      $_SESSION['arquivadas'] += 1;
     }
   }  
 
@@ -87,8 +87,8 @@
             <div id="specificChart" class="donut-size">
               <div class="pie-wrapper">
                 <span class="label">
-                    <span class="num"><?php echo $porcentagem_completa ?></span><span class="smaller">%</span>
-                    <input type="hidden" id="percent" value="<?php $porcentagem_completa?>">
+                    <span class="num" id="porcentagem_completa"><?php echo $porcentagem_completa ?></span><span class="smaller">%</span>
+                    <input type="hidden" name="percent" value="<?php $porcentagem_completa?>">
                 </span>
                 <div class="pie">
                   <div class="left-side half-circle"></div>
@@ -139,9 +139,8 @@
       </div>
       
       <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
-      <?php
-      flash();?>
       <div class='lista-atividades full'>
+        <?php flash();?>
         <?php
           if ($result ->num_rows > 0){
             echo "<h2>Atividades Recentes</h2>
@@ -233,7 +232,7 @@
  * @param  {number}  percent Passing in 22.3 will make the chart show 22%
  * @param  {boolean} donut   True shows donut, false shows pie
  */
-    var porcentagem_total = document.getElementById('percent');
+    var porcentagem_total = document.getElementById('porcentagem_completa').innerHTML;
 
     function updateDonutChart (el, percent, donut) {
       percent = Math.round(percent);
@@ -265,6 +264,6 @@
     }
 
     // Pass in a number for the percent
-    updateDonutChart('#specificChart', porcentagem_total.value, true);
+    updateDonutChart('#specificChart', porcentagem_total, true);
   </script>
 </html>

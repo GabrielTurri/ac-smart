@@ -68,7 +68,7 @@
 .enviar-container strong {
   font-size: 14px;
 }
-input[type="file"] {
+/* input[type="file"] {
   display: none;
 }
 
@@ -84,5 +84,5 @@ input[type="file"] {
 
   display: inline-block;
   cursor: pointer;
-}
+} */
 

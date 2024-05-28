@@ -130,3 +130,7 @@ span.texto-reprovada, strong.texto-reprovada {
 button.novas-reprovadas {
   color: #de3e3e;
 }
+
+.flash_message {
+  width: 100%;
+}

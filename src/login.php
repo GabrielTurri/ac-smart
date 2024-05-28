@@ -38,8 +38,8 @@
         <input type="submit" name="login" class="botao-login" id="login" value="Entrar">       
     
         <div class="login-footer">
-          <a class="forget" href="">Esqueci minha senha</a>
-          <span class="aviso">Não tem uma conta? Entre em contato com a universidade.</span>
+          <!-- <a class="forget" href="">Esqueci minha senha</a> -->
+          <span class="aviso">Não tem uma conta ou precisa mudar a senha? Entre em contato com a universidade.</span>
         </div>    
       
       </form>
@@ -53,8 +53,8 @@
           <input type="submit" name="login_coordenador" class="botao-login" id="login_coordenador" value="Entrar">       
       
           <div class="login-footer">
-            <a class="forget" href="">Esqueci minha senha</a>
-            <span class="aviso">Não tem uma conta? Entre em contato com a universidade.</span>
+            <!-- <a class="forget" href="">Esqueci minha senha</a>   -->
+            <span class="aviso">Não tem uma conta ou precisa mudar a senha? Entre em contato com a universidade.</span>
           </div>    
         </div>
       </form>
