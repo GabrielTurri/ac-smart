@@ -29,7 +29,7 @@
   <h2 class="text-center">Enviar nova AC</h2>
   <?php
         flash();?>
-  <div class="form-container column">
+  <div class="form-container">
     <form action="../server/server.php" method="post" class="full" enctype="multipart/form-data">
       <div class="column">
         <label for="titulo">Título</label>
