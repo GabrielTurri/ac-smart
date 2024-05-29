@@ -201,7 +201,7 @@ function editar_atividade(){
         }
         
         if($_FILES["anexo"]["name"]){
-             // Replace any characters not \w- in the original filename
+            // Replace any characters not \w- in the original filename
             $pathinfo = pathinfo($_FILES["anexo"]["name"]);
             $base = $pathinfo["filename"];
             $base = preg_replace("/[^\w-]/", "_", $base);

@@ -43,8 +43,10 @@
         
 
         <div class="column">
-          <label for="file-upload" class="custom-file-upload"><?php echo $_GET["caminho_anexo"] ?></label>
-          <input id="file-upload" type="file" value="<?php echo $caminho ?>" />
+        <?php
+        $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);?>
+          <label for="file-upload" class="custom-file-upload">Anexo antigo: <?php echo $nome_arquivo[2]?></label>
+          <input id="file-upload" name="anexo" type="file" value="<?php echo $_GET["caminho_anexo"] ?>" />
           <!-- <label for="anexo">Novo anexo</label>
           <input name="anexo" id="anexo" type="file" value="<?php echo $caminho ?>" download> -->
         </div>
