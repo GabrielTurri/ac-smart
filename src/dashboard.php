@@ -150,7 +150,7 @@
                     <strong>Título</strong>
                   </div>
                   <div class='legenda'>
-                    <strong>Horas Aprovadas</strong>
+                    <strong>Horas Aprovadas/ Solicitadas</strong>
                   </div>
                 </div>";
             } else {
@@ -209,7 +209,9 @@
                             else
                               echo '<span class="texto-vermelho"> ('.$row["status"].')</span>';
                           echo '</div>
-                          <strong></strong>
+                          <strong ';
+                          echo ($row['status'] == 'Pendente') ? 'class="texto-laranja"' : 'class="texto-vermelho"';
+                          echo '>'.$row["horas_solicitadas"].'H</strong>
                         </button>
                       </form>
                     </div>
