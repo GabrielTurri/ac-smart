@@ -17,6 +17,8 @@ $observacao = '';
 foreach($result as $row){
   $observacao = $row['observacao'];
 }
+
+$nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +64,7 @@ foreach($result as $row){
       <div class='column campo'>
         <strong>Anexo:</strong>
         <div class='anexo'>
-          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Baixar anexo</a>"; ?>
+          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>{$nome_arquivo[2]}</a>"; ?>
         </div>
       </div>
       <div class='column campo'>

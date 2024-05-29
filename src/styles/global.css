@@ -65,7 +65,7 @@ opacity: 0.7;}
   padding: 12px;
   align-items: center;
 
-  width: 70%;
+  width: 100%;
 }
 
 .warning {
@@ -294,6 +294,10 @@ dialog {
   border: 1px solid #043565;
   padding: 1rem;
   margin: auto auto;
+}
+
+dialog h1 {
+  color: #043565;
 }
 
 dialog > div {
