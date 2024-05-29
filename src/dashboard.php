@@ -173,14 +173,14 @@
               echo '
                 <div id="aprovadas" class="full">
                   <form class="'.$row['status'].'" action="detalhes.php" method="get">
-                    <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                    <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
-                    <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
-                    <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
-                    <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
-                    <input type="hidden" value='.$row["data"].' name="data" id="data">
-                    <input type="hidden" value='.$row["status"].' name="status" id="status">
-                    <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
+                    <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+                    <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
+                    <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
+                    <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+                    <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+                    <input type="hidden" value="'.$row["data"].'" name="data" id="data">
+                    <input type="hidden" value="'.$row["status"].'" name="status" id="status">
+                    <input type="hidden" value="'.$row["horas_aprovadas"].'" name="horas_aprovadas" id="horas_aprovadas">
                     <button type="submit" class="container-atividade">
                       <span>'.$row["titulo"].'</span>
                       <strong>'.$row["horas_aprovadas"].'H</strong>
@@ -192,14 +192,14 @@
                 echo '
                   <div class="row atividade-pendente">
                     <form class="'.$row["status"].' full" action="detalhes.php" method="get">
-                      <input type="hidden" value='.$row["cod_atividade"].' name="cod_atividade" id="cod_atividade">
-                      <input type="hidden" value='.$row["titulo"].' name="titulo" id="titulo">
-                      <input type="hidden" value='.$row["descricao"].' name="descricao" id="descricao">
-                      <input type="hidden" value='.$row["caminho_anexo"].' name="caminho_anexo" id="caminho_anexo">
-                      <input type="hidden" value='.$row["horas_solicitadas"].' name="horas_solicitadas" id="horas_solicitadas">
-                      <input type="hidden" value='.$row["data"].' name="data" id="data">
-                      <input type="hidden" value='.$row["status"].' name="status" id="status">
-                      <input type="hidden" value='.$row["horas_aprovadas"].' name="horas_aprovadas" id="horas_aprovadas">
+                      <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
+                      <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
+                      <input type="hidden" value="'.$row["descricao"].'" name="descricao" id="descricao">
+                      <input type="hidden" value="'.$row["caminho_anexo"].'" name="caminho_anexo" id="caminho_anexo">
+                      <input type="hidden" value="'.$row["horas_solicitadas"].'" name="horas_solicitadas" id="horas_solicitadas">
+                      <input type="hidden" value="'.$row["data"].'" name="data" id="data">
+                      <input type="hidden" value="'.$row["status"].'" name="status" id="status">
+                      <input type="hidden" value="'.$row["horas_aprovadas"].'" name="horas_aprovadas" id="horas_aprovadas">
                       <button type="submit" class="container-atividade">
                         <div>
                           <span>'.$row["titulo"].'</span>';
