@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="styles/global.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
   <title>Editar Atividade</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
     <h2 class="text-center">Editar AC</h2>
 
     <div class="form-container column">
-      <form action="../server/server.php" method="post" enctype="multipart/form-data">
+      <form action="../server/server.php" method="post" class="full" enctype="multipart/form-data">
         <div class="column">
           <label for="titulo">Título</label>
           <input name="titulo" id="titulo" type="text" autofocus value="<?php echo $_GET["titulo"];?>">
@@ -76,7 +77,7 @@
             Atenção: As informações serão enviadas para o 
             professor/orientador responsável. Preencha com responsabilidade.
           </strong>
-          <button class="btn editar" type="submit" name="editar">EDITAR</button>
+          <button class="btn editar" type="submit" name="editar">Salvar Alterações</button>
         </div>
 
   </div>

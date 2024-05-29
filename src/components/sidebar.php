@@ -63,20 +63,27 @@
         </a>' ;       
   } else {
     echo '
-      <div class="user-info">
       <a href="dash_coordenador.php" class="row">
             <button >
               <img src=".\assets\icons\file-text.svg" alt="">
              Meu DashBoard
             </button>
         </a>
-        <p><b>Seus cursos:</b></p>';
+      <div class="cursos">
+
+        <p class="seus-cursos"><b>Seus cursos:</b></p>';
         foreach($_SESSION['cursos'] as $curso =>$quantidade){
           echo '
-          <form class="activityContainer button" action="../server/server.php" method="post">
+          <form class="activityContainer" action="../server/server.php" method="post">
             <input type="hidden" value="'.$curso.'" name="nome_curso" id="cod_atividade">
-            <button type="submit" name="atividades_coord">
-             <p>'.$curso.': '.$quantidade.'</p>
+            <button type="submit" name="atividades_coord">';
+              if ($quantidade == 0 ) 
+                echo '<p>'.$curso.': Nenhuma atividade pendente</p>';
+              else if ($quantidade == 1)
+                echo '<p>'.$curso.': '.$quantidade.' atividade pendente</p>';
+              else 
+                echo '<p>'.$curso.': '.$quantidade.' atividades pendentes</p>';
+            echo '
             </button>
           </form>'; 
         };

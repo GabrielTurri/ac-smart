@@ -106,9 +106,6 @@ span.texto-reprovada, strong.texto-reprovada {
 #pendentes, #reprovadas {
   display: none;
 }
-.lista-nao-aprovadas .legenda-lista-atividades .legenda:last-child {
-  margin-right: 42px;
-}
 
 button.novas-reprovadas {
   color: #de3e3e;
