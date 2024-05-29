@@ -113,7 +113,7 @@
 
     </div>    
     
-    <div class="lista-atividades lista-nao-aprovadas" id="pendentes">
+    <div class="lista-atividades" id="pendentes">
       <h2>
         Atividades Pendentes: 
         <?php echo $_SESSION['pendentes'] ?>
@@ -133,7 +133,7 @@
           echo '
           <div class="row">
 
-            <form class="'.$row['status'].' atividade-pendente full" action="detalhes.php" method="get">
+            <form class="'.$row['status'].' full" action="detalhes.php" method="get">
             
               <button type="submit" class="container-atividade">
                 <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
@@ -149,14 +149,11 @@
               </button>
             
             </form>
-            <button class="more" onclick="abrirOpcoes()">
-              <img src="assets/icons/more-vertical.svg" alt="">
-            </button>
           </div>';
       }}?>
     </div>
 
-    <div class="lista-atividades lista-nao-aprovadas" id="reprovadas">
+    <div class="lista-atividades" id="reprovadas">
       <h2>
         Atividades Reprovadas: 
         <?php echo $_SESSION['reprovadas'] ?>
@@ -191,9 +188,6 @@
               </button>
             
             </form>
-            <button class="more" onclick="abrirOpcoes()">
-              <img src="assets/icons/more-vertical.svg" alt="">
-            </button>
           </div>';
       }}?>
     </div>

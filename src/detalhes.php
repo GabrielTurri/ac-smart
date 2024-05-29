@@ -57,7 +57,7 @@ foreach($result as $row){
       </div>
       <div class='column campo'>
         <strong>Descrição:</strong>
-        <textarea disabled><?php echo $_GET["descricao"];?></textarea>
+        <textarea disabled rows='5'><?php echo $_GET["descricao"];?></textarea>
       </div>
       <div class='column campo'>
         <strong>Anexo:</strong>
@@ -116,7 +116,7 @@ foreach($result as $row){
             </div>
             <label for='obs-coord'>Observação do coordenador ".ucfirst($_SESSION['nome_coordenador']).":</label>
             
-            <textarea name='obs-coord' disabled>{$observacao}</textarea>
+            <textarea name='obs-coord' disabled style='resize:none'>{$observacao}</textarea>
             ";
           }
           echo '

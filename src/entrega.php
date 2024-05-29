@@ -11,8 +11,10 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles/entrega.css">
   <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/entrega.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrega de AC's</title>
@@ -28,7 +30,7 @@
   <?php
         flash();?>
   <div class="form-container column">
-    <form action="../server/server.php" method="post" enctype="multipart/form-data">
+    <form action="../server/server.php" method="post" class="full" enctype="multipart/form-data">
       <div class="column">
         <label for="titulo">Título</label>
         <input name="titulo" id="titulo" type="text" autofocus>
@@ -45,13 +47,13 @@
       </div>
 
 
-      <div class="data-horas-container ">
-        <div class="column">
+      <div class="row gap-8 full">
+        <div class="column full">
           <label for="horas_solicitadas">Horas solicitadas</label>
           <input name="horas_solicitadas" id="horas_solicitadas" type="number" min="1" value="1">
         </div>
   
-        <div class="column">
+        <div class="column full">
           <label for="data_conclusao">Data da atividade</label>
           <input name="data_conclusao" id="data_conclusao" type="date">
         </div>

@@ -347,3 +347,9 @@ dialog > p, h1 {
 .close:hover {
   opacity: 0.8;
 }
+.w-80{
+  width: 80%;
+}
+.max-w-80{
+  max-width: 80%;
+}

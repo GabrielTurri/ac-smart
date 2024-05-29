@@ -190,7 +190,7 @@
               }
               else if($row['status'] == 'Pendente' or $row['status'] == 'Reprovado'){                        
                 echo '
-                  <div class="row atividade-pendente">
+                  <div class="row">
                     <form class="'.$row["status"].' full" action="detalhes.php" method="get">
                       <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
                       <input type="hidden" value="'.$row["titulo"].'" name="titulo" id="titulo">
@@ -211,9 +211,6 @@
                         <strong></strong>
                       </button>
                     </form>
-                    <button class="more" onclick="abrirOpcoes()">
-                      <img src="assets/icons/more-vertical.svg" alt="">
-                    </button>
                   </div>
                 ';
                 // $_SESSION['atividade_atual'] = $row["cod_atividade"];
