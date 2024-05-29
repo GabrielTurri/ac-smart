@@ -35,6 +35,7 @@ body, input, textarea, button {
   flex-direction: row;
   margin: 0 32px;
   gap: 8px;
+  margin-left: 158px;
 }
 
 .breadcrumb a {
@@ -44,6 +45,9 @@ body, input, textarea, button {
 .invalido {
   border: 2px solid #de3e3e !important;
 }
+
+.breadcrumb a:hover {
+opacity: 0.7;}
 
 /* FLASH MESSAGES */
 /* center flash message */
@@ -64,7 +68,7 @@ body, input, textarea, button {
   padding: 12px;
   align-items: center;
 
-  width: 70%;
+  width: 100%;
 }
 
 .warning {
@@ -293,6 +297,10 @@ dialog {
   border: 1px solid #043565;
   padding: 1rem;
   margin: auto auto;
+}
+
+dialog h1 {
+  color: #043565;
 }
 
 dialog > div {
