@@ -26,7 +26,7 @@
     <div class="column-container">
       <div id="abas-login">
         <div class="aba aba-aluno ativo" onclick="loginAluno()">Aluno</div>
-        <div class="aba aba-professor" onclick="loginProfessor()">Professor</div>
+        <div class="aba aba-professor" onclick="loginProfessor()">Coordenador</div>
       </div>
       <form action="../server/server.php" method="post" id="aluno" class="column-container"> 
         <h1>Fazer Login</h1>
@@ -47,7 +47,7 @@
       <form action="../server/server.php" method="post" id="professor" class="column-container">
         <div class="column-container">
           <h1>Fazer Login</h1>
-          <input class="login-input" placeholder='E-mail do professor' type="text" name="email" autofocus/>
+          <input class="login-input" placeholder='E-mail do coordenador' type="text" name="email" autofocus/>
           <input class="login-input" placeholder='Senha' type="password" name="senha"/>
           
           <input type="submit" name="login_coordenador" class="botao-login" id="login_coordenador" value="Entrar">       

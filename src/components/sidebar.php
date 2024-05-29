@@ -43,7 +43,7 @@
   if (isset($_SESSION['ra_aluno'])){
     echo '<a href="dashboard.php" class="row">
             <button >
-              <img src=".\assets\icons\home.svg" alt="">
+              <img src=".\assets\icons\pie-chart.svg" alt="">
              Meu DashBoard
             </button>
         </a>
@@ -51,21 +51,21 @@
         <a href="atividades.php" class="row">
           <button >
             <img src=".\assets\icons\file-text.svg" alt="">
-            Minhas ACs
+            Minhas Atividades
           </button>
         </a>
       
         <a href="entrega.php" class="row">
             <button>
             <img src="./assets/icons/file-plus.svg" alt="">
-            Entregar nova AC
+            Entregar nova Atividade
           </button>
         </a>' ;       
   } else {
     echo '
       <a href="dash_coordenador.php" class="row">
             <button >
-              <img src=".\assets\icons\file-text.svg" alt="">
+              <img src=".\assets\icons\list.svg" alt="">
              Meu DashBoard
             </button>
         </a>
