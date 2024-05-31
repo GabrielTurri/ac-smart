@@ -43,20 +43,13 @@ function insertDb(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
-    // // criação do timestamp atual
-    // date_default_timezone_set('America/Sao_Paulo');
-    // $timestamp = date("Y-m-d H:i:s");
-    // // echo $timestamp;
-
     // validação para checar se tem algum arquivo enviado
     if($_FILES["anexo"]["size"] == 0){
         // mostrar mensagem de erro caso não tenha arquivo
         $_SESSION['message'] = 'Campo "anexo" obrigatório!';
         $_SESSION['message_type'] = 'warning';
 
-        header("Location: ../src/entrega.php");
-
-        
+        header("Location: ../src/entrega.php");      
     } 
     
     else {
@@ -99,64 +92,8 @@ function insertDb(){
         
 }
 
-// o aluno só pode editar a atividade que estiver como REPROVADA
+// o aluno só pode editar a atividade que estiver como REPROVADA ou PENDENTE
 // quando ele editar ela, o status vai mudar para PENDENTE, e o coordenador pode avaliar ela novamente
-function inserir_aluno(){
-    // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
-    
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
-    $email = $_POST['email'];
-    $cod_curso = $_POST['cod_curso'];
-    $password = $_POST['password'];
-
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
-
-    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
-
-    // conexao com o DB
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-
-    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
-    $sql = "INSERT INTO aluno (nome_aluno, sobrenome_aluno, email_aluno, cod_curso, senha_aluno) VALUES ('".$nome."' , '".$sobrenome."' , '".$email."' ,'".$cod_curso."' ,'".$hash."');"; 
-
-    // Executar a query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-
-    // redirecionar para a página principal
-    header("Location: inserir_aluno.html");
-}
-
-function inserir_coordenador(){
-    // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
-    
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
-    $email = $_POST['email'];
-    // $cod_curso = $_POST['cod_curso'];
-    $password = $_POST['password'];
-
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // FAZER TODAS AS VALIDAÇÕES DOS DADOS ANTES DE ABRIR CONEXÃO COM O DB
-
-    // SE TODOS OS DADOS ESTIVEREM DE ACORDO, FAZER CONEXÃO COM DB E INSERIR
-
-    // conexao com o DB
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-
-    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
-    $sql = "INSERT INTO coordenador (nome_coordenador, sobrenome_coordenador, email_coordenador, senha_coordenador) VALUES ('".$nome."' , '".$sobrenome."' , '".$email."' ,'".$hash."');"; 
-
-    // Executar a query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-
-    // redirecionar para a página principal
-    header("Location: inserir_coordenador.html");
-}
-
 function editar_atividade(){
     // vai pegar essas infos do INPUTS, apenas o RA do aluno que deve ser pego pelas infos da SESSION de quando fez o login do aluno
     $cod_atividade = $_POST["cod_atividade"];
@@ -165,13 +102,14 @@ function editar_atividade(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
-    // // criação do timestamp atual
-    // date_default_timezone_set('America/Sao_Paulo');
-    // $timestamp = date("Y-m-d H:i:s");
 
     // validar se a atividade pretence ao aluno logado, se não for dele, vai ser redirecionado para o dashboard novamente
-    if(!in_array($cod_atividade, $_SESSION['atividades_aluno']) or !$cod_atividade){
+    if(!$cod_atividade or !is_numeric($cod_atividade) or !in_array($cod_atividade, $_SESSION['atividades_aluno']))
+    {
+        $_SESSION['message'] = "Error!";
+        $_SESSION['message_type'] = 'danger';
         header("Location: ../src/dashboard.php");
+
     } else {
         $mudancas = 0;
         // atualizar os campos no banco de dados caso eles existam
@@ -190,7 +128,6 @@ function editar_atividade(){
         }
         if($horas_solicitadas){
             $sql = "UPDATE atividade_complementar SET horas_solicitadas = ".$horas_solicitadas." WHERE cod_atividade = '".$cod_atividade."';"; 
-            // die($sql);
             mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
             $mudancas +=1;
         }
@@ -267,15 +204,8 @@ function sair(){
     // função para sair da sessão, ou seja, sair do login e sair do app
     $usuario = new Usuario($_SESSION['email_aluno'], $_SESSION['senha']);
     $usuario->sair();
-    // session_unset();
-    // session_destroy();
-
-    // // redirecionar para a página inicial sem os dados do usuario que estava logado    
-    // header("Location: ../src/login.php");
 }
 
-// só o aluno pode deletar a atividade dele mesmo, e só pode fazer isso se o status estiver REPROVADA
-// no front mostrar o botão de APAGAR SOMENTE SE ELA FOR REPROVADA
 function deletar_ativ(){
     // pegar código da atividade pelo frontend
     $cod_atividade = $_POST['modal_id'];
@@ -294,7 +224,7 @@ function deletar_ativ(){
 
 
         // executar query sql
-        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar deletar atividade");
         $_SESSION['message'] = 'Atividade excluída com sucesso!';
         $_SESSION['message_type'] = 'secondary';
         header("Location: ../src/dashboard.php");
@@ -316,7 +246,7 @@ function aprovar(){
     $sql = "UPDATE atividade_complementar SET status = 'Aprovado', horas_aprovadas = '".$horas_solicitadas."' WHERE cod_atividade = '".$cod_atividade."'";
 
     // executar query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+    mysqli_query($strcon, $sql) or die ("Erro ao tentar aprovar atividade");
     $_SESSION['message'] = 'Atividade aprovada com sucesso!';
     $_SESSION['message_type'] = 'success';
 
@@ -339,14 +269,14 @@ function reprovar(){
         $sql = "UPDATE atividade_complementar SET status = 'Reprovado' WHERE cod_atividade = '".$cod_atividade."'";
 
         // executar query sql
-        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar reprovar atividade");
 
         // query SQL para adicionar uma observação na tabela observacao_atividade
         $sql = "INSERT INTO observacao_atividade (observacao, cod_atividade) VALUES ('".$observacao."', '".$cod_atividade."');";
            
 
         // executar query sql
-        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir observação");
         $_SESSION['message'] = 'Atividade reprovada com sucesso!';
         $_SESSION['message_type'] = 'success';
 
@@ -362,9 +292,6 @@ function reprovar(){
     }
 
 }
-
-
-
 
 function atualizar(){
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
@@ -385,6 +312,7 @@ function atualizar(){
     // redirecionar para a página principal
     header("Location: inserir_coordenador.html");
 }
+
 function atividades_coord(){
     $nome_curso = $_POST['nome_curso'];
     $_SESSION['nome_curso'] = $nome_curso;
@@ -408,10 +336,6 @@ if(isset($_POST['inserir'])){
     login(2);
 } else if (isset($_POST['deletar'])){
     deletar_ativ();
-} else if (isset($_POST['inserir_aluno'])){
-    inserir_aluno();
-} else if (isset($_POST['inserir_coordenador'])){
-    inserir_coordenador();
 } else if (isset($_POST['atualizar'])){
     atualizar();
 } else if (isset($_POST['atividades_coord'])){
@@ -420,9 +344,7 @@ if(isset($_POST['inserir'])){
     aprovar();
 } else if (isset($_POST['reprovar'])){
     reprovar();
-} else if (isset($_POST['reprovar'])){
-    reprovar();
-}
+} 
 
 
 
