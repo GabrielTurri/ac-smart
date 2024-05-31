@@ -16,6 +16,9 @@
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
   $horas_totais_entregues = 0;
   $horas_totais_aprovadas = 0;
+  $horas_totais_reprovadas = 0;
+  $horas_totais_arquivadas = 0;
+  $horas_totais_pendentes = 0;
 
   
   $_SESSION['aprovadas'] = 0;
@@ -33,11 +36,14 @@
     if($row['status'] == "Aprovado"){
       $_SESSION['aprovadas'] +=1;
     } else if($row['status'] == "Reprovado"){
+      $horas_totais_reprovadas += $row['horas_solicitadas'];
       $_SESSION['reprovadas'] += 1;
     }else if($row['status'] == "Pendente"){
+      $horas_totais_pendentes += $row['horas_solicitadas'];
       $_SESSION['pendentes'] += 1;
     } else if($row['status'] == "Arquivado"){
       $_SESSION['arquivadas'] += 1;
+      $horas_totais_arquivadas += $row['horas_solicitadas'];
     }
   }  
 
@@ -51,6 +57,12 @@
   $_SESSION["nome_coordenador"] = $linha["nome_coordenador"];
   $_SESSION["sobrenome_coordenador"] = $linha['sobrenome_coordenador'];
   $_SESSION["email_coordenador"] = $linha['email_coordenador'];
+
+  $_SESSION["horas_aprovadas"] = $horas_totais_aprovadas;
+  $_SESSION["horas_reprovadas"] = $horas_totais_reprovadas;
+  $_SESSION["horas_arquivadas"] = $horas_totais_arquivadas;
+  $_SESSION["horas_pendentes"] = $horas_totais_pendentes;
+
 
   $porcentagem_completa = ($horas_totais_aprovadas/$_SESSION['horas_complementares'])*100;  
 ?>

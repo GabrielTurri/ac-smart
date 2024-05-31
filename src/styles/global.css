@@ -329,3 +329,8 @@ dialog > p, h1 {
 .max-w-80{
   max-width: 80%;
 }
+
+
+#registro {
+  width: 320px;
+}

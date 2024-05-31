@@ -60,7 +60,17 @@
             <img src="./assets/icons/file-plus.svg" alt="">
             Entregar nova Atividade
           </button>
-        </a>' ;       
+        </a>
+
+        
+        <a href="../server/print_pdf.php" class="row" target="_blank">
+            <button>
+            <img src="./assets/icons/download.svg" alt="">
+            Baixar seu histórico de atividades
+          </button>
+        </a>
+
+        ' ;       
   } else {
     echo '
       <a href="dash_coordenador.php" class="row">
