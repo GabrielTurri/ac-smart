@@ -170,13 +170,15 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
     </div>        
   </div>
   <dialog>
-    <h1>Tem certeza que deseja <br/> excluir a atividade?</h1>
+    <h2>Tem certeza que deseja excluir a atividade?</h2>
     <div>
-      <button class="dl-btn close" id="close">Cancelar</button>
-      <form action="../server/server.php" method="post">
-          <input name="modal_id" type="hidden" value="0" id="modal_id">
-          <button class="btn vermelho" type="submit" name="deletar" id="deletar">Confirmar!</button>
-      </form>
+      <div class="row gap-8 full">
+        <button class="dl-btn close" id="close">Cancelar</button>
+          <form action="../server/server.php" method="post" class="full">
+            <input name="modal_id" type="hidden" value="0" id="modal_id">
+            <button class="dl-btn vermelho" type="submit" name="deletar" id="deletar">Confirmar!</button>
+          </div>
+        </form>
 
     </div>
   </dialog>
