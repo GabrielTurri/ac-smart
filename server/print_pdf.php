@@ -68,91 +68,137 @@ foreach($result as $row){
     $html .= "<p>{$row['nome']}: {$row['descricao']}</p>";
 }
 
-$html .= "
-</div>
-<hr>
-<h3>Atividades Aprovadas</h3>
-<table>
-    <tr>
-        <th>Código</th>
-        <th>Título</th>
-        <th>Descrição</th>
-        <th>Caminho do anexo</th>
-        <th>Horas Aprovadas</th>
-        <th>Data de conclusão</th>
-        <th>Data e hora de envio</th>
-    </tr>
-";
+$html .= "</div><hr>";
 
-$sql2 = "SELECT * FROM atividade_complementar WHERE RA_aluno = '".$_SESSION['ra_aluno']."'";
-$result2 = mysqli_query($strcon, $sql2) or die ("Erro ao tentar encontrar o aluno no banco!");
-// impprimir no pdf todas as atividades encontradas
-foreach($result2 as $row){
-    if($row['status'] == "Aprovado")
+// mostrar atividades aprovadas se tiver alguma
+if($_SESSION['aprovadas'] > 0) {
     $html .= "
-    <tr>
-        <td>{$row['cod_atividade']}</td>
-        <td>{$row['titulo']}</td>
-        <td>{$row['descricao']}</td>
-        <td>{$row['caminho_anexo']}</td>
-        <td>{$row['horas_aprovadas']}</td>
-        <td>{$row['data']}</td>
-        <td>{$row['atividade_complementar_timestamp']}</td>
-    </tr>";
-}
-
-$html .= "
-    </table>
-    <hr>
-    <h3>Atividades Pendentes</h3>
+    <h3>Atividades Aprovadas</h3>
     <table>
         <tr>
             <th>Código</th>
             <th>Título</th>
             <th>Descrição</th>
-            <th>Horas Solicitadas</th>
+            <th>Caminho do anexo</th>
+            <th>Horas Aprovadas</th>
             <th>Data de conclusão</th>
             <th>Data e hora de envio</th>
-        </tr>";
+        </tr>
+    ";
 
-foreach($result2 as $row){
-    if($row['status'] == "Pendente")
-    $html .= "
-    <tr>
-        <td>{$row['cod_atividade']}</td>
-        <td>{$row['titulo']}</td>
-        <td>{$row['descricao']}</td>
-        <td>{$row['horas_solicitadas']}</td>
-        <td>{$row['data']}</td>
-        <td>{$row['atividade_complementar_timestamp']}</td>
-    </tr>";
+    $sql2 = "SELECT * FROM atividade_complementar WHERE RA_aluno = '".$_SESSION['ra_aluno']."'";
+    $result2 = mysqli_query($strcon, $sql2) or die ("Erro ao tentar encontrar o aluno no banco!");
+    // impprimir no pdf todas as atividades encontradas
+    foreach($result2 as $row){
+        if($row['status'] == "Aprovado")
+        $html .= "
+        <tr>
+            <td>{$row['cod_atividade']}</td>
+            <td>{$row['titulo']}</td>
+            <td>{$row['descricao']}</td>
+            <td>{$row['caminho_anexo']}</td>
+            <td>{$row['horas_aprovadas']}</td>
+            <td>{$row['data']}</td>
+            <td>{$row['atividade_complementar_timestamp']}</td>
+        </tr>";
+    }
+    $html .= "</table>";
 }
 
-$html .= "
-    </table>
-    <hr>
-    <h3>Atividades Arquivadas</h3>
-    <table>
-        <tr>
-            <th>Código</th>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Horas Solicitadas</th>
-            <th>Data de conclusão</th>
-            <th>Data e hora de envio</th>
-        </tr>";
-
-foreach($result2 as $row){
-    if($row['status'] == "Arquivado")
+// mostrar atividades pendentes se ele tiver alguma
+if($_SESSION['pendentes'] >0) {
     $html .= "
-    <tr>
-        <td>{$row['cod_atividade']}</td>
-        <td>{$row['titulo']}</td>
-        <td>{$row['descricao']}</td>
-        <td>{$row['horas_solicitadas']}</td>
-        <td>{$row['data']}</td>
-        <td>{$row['atividade_complementar_timestamp']}</td>
-    </tr>";
+        <hr>
+        <h3>Atividades Pendentes</h3>
+        <table>
+            <tr>
+                <th>Código</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Caminho do anexo</th>
+                <th>Horas Solicitadas</th>
+                <th>Data de conclusão</th>
+                <th>Data e hora de envio</th>
+            </tr>";
+
+    foreach($result2 as $row){
+        if($row['status'] == "Pendente")
+        $html .= "
+        <tr>
+            <td>{$row['cod_atividade']}</td>
+            <td>{$row['titulo']}</td>
+            <td>{$row['descricao']}</td>
+            <td>{$row['caminho_anexo']}</td>
+            <td>{$row['horas_solicitadas']}</td>
+            <td>{$row['data']}</td>
+            <td>{$row['atividade_complementar_timestamp']}</td>
+        </tr>";
+    }
+    $html .= "</table>";
+}
+
+// mostrar se o aluno tem atividades arquivadas
+if($_SESSION['arquivadas'] > 0) {
+    $html .= "
+        <hr>
+        <h3>Atividades Excluídas</h3>
+        <table>
+            <tr>
+                <th>Código</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Caminho do anexo</th>
+                <th>Horas Solicitadas</th>
+                <th>Data de conclusão</th>
+                <th>Data e hora de envio</th>
+            </tr>";
+
+    foreach($result2 as $row){
+        if($row['status'] == "Arquivado")
+        $html .= "
+        <tr>
+            <td>{$row['cod_atividade']}</td>
+            <td>{$row['titulo']}</td>
+            <td>{$row['descricao']}</td>
+            <td>{$row['caminho_anexo']}</td>
+            <td>{$row['horas_solicitadas']}</td>
+            <td>{$row['data']}</td>
+            <td>{$row['atividade_complementar_timestamp']}</td>
+        </tr>";
+    }
+    $html .= "</table>";
+}
+
+// mostrar se o aluno tem atividades reprovadas no momento
+if($_SESSION['reprovadas'] > 0) {
+    $html .= "
+        <hr>
+        <h3>Atividades Reprovadas Atuais</h3>
+        <table>
+            <tr>
+                <th>Código</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Caminho do anexo</th>
+                <th>Horas Solicitadas</th>
+                <th>Data de conclusão</th>
+                <th>Data e hora de envio</th>
+            </tr>";
+
+    foreach($result2 as $row){
+        if($row['status'] == "Reprovado")
+        $html .= "
+        <tr>
+            <td>{$row['cod_atividade']}</td>
+            <td>{$row['titulo']}</td>
+            <td>{$row['descricao']}</td>
+            <td>{$row['caminho_anexo']}</td>
+            <td>{$row['horas_solicitadas']}</td>
+            <td>{$row['data']}</td>
+            <td>{$row['atividade_complementar_timestamp']}</td>
+        </tr>";
+    }
+    $html .= "</table>";
 }
 
 // // carregar página HTML para converter em PDF

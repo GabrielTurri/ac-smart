@@ -344,7 +344,4 @@ if(isset($_POST['inserir'])){
     aprovar();
 } else if (isset($_POST['reprovar'])){
     reprovar();
-} 
-
-
-
+}

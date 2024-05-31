@@ -35,12 +35,15 @@
 
     if($row['status'] == "Aprovado"){
       $_SESSION['aprovadas'] +=1;
+      
     } else if($row['status'] == "Reprovado"){
       $horas_totais_reprovadas += $row['horas_solicitadas'];
       $_SESSION['reprovadas'] += 1;
-    }else if($row['status'] == "Pendente"){
+    
+    } else if($row['status'] == "Pendente"){
       $horas_totais_pendentes += $row['horas_solicitadas'];
       $_SESSION['pendentes'] += 1;
+    
     } else if($row['status'] == "Arquivado"){
       $_SESSION['arquivadas'] += 1;
       $horas_totais_arquivadas += $row['horas_solicitadas'];
