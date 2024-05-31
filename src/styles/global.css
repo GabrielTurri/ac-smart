@@ -42,6 +42,9 @@ body, input, textarea, button {
   color: #043565;
   text-decoration: underline;
 }
+.invalido {
+  border: 2px solid #de3e3e !important;
+}
 
 .breadcrumb a:hover {
 opacity: 0.7;}

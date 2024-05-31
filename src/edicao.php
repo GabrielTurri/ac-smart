@@ -4,7 +4,7 @@
   if($_SESSION['ra_aluno']){
     $caminho = '../server/'.$_GET["caminho_anexo"];
   } else {
-    header("Location: login.html");
+    header("Location: login.php");
   }
 
 ?>
@@ -68,8 +68,10 @@
         <?php 
         if ($_GET["status"] == "Reprovado") {
           echo "
-            <label for='obs-coord'>Observação do coordenador ".ucfirst($_SESSION['nome_coordenador']).":</label>
-            <textarea name='obs-coord' disabled>{$_GET['observacao']}</textarea>
+            <div class='column'>
+              <label for='obs-coord'>Observação do coordenador ".ucfirst($_SESSION['nome_coordenador']).":</label>
+              <textarea name='obs-coord' disabled>{$_GET['observacao']}</textarea>
+            </div>
           ";
         }?>
         <div class="enviar-container column">
