@@ -177,7 +177,12 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
           <form action="../server/server.php" method="post" class="full">
             <input name="modal_id" type="hidden" value="0" id="modal_id">
             <?php if (isset($_SESSION['cod_coordenador'])) {echo '
+              <input type="hidden" value="'.$_GET["RA_aluno"].'" id="RA_aluno" name="RA_aluno">
+              <input type="hidden" value="'.$_GET["titulo"].'" id="titulo" name="titulo">
+              <input type="hidden" value="'.$_GET["caminho_anexo"].'" id="caminho_anexo" name="caminho_anexo">
               <input type="hidden" value="'.$_GET["horas_solicitadas"].'" id="horas_solicitadas" name="horas_solicitadas">
+              <input type="hidden" value="'.$_GET["data"].'" id="data" name="data">
+
               ';}?>
             <button class="dl-btn vermelho" type="submit" <?php if (isset($_SESSION['ra_aluno'])) {echo 'name="deletar" id="deletar"';} else {echo 'name="aprovar" id="aprovar"';}?>>Confirmar!</button>
           </div>
@@ -188,4 +193,3 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
 </body>
 <script src="main.js"></script>
 </html>
-

@@ -12,25 +12,6 @@
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
 
 
-  // $_SESSION['aprovadas'] = 0;
-  // $_SESSION['arquivadas'] = 0;
-  // $_SESSION['reprovadas'] = 0;
-  // $_SESSION['pendentes'] = 0;
-
-  // // contagem para saber quantas atividades de cada status o usuário tem
-  // foreach($result as $row){
-
-  //   if($row['status'] == "Aprovado"){
-  //     $_SESSION['aprovadas'] +=1;
-  //   } else if($row['status'] == "Reprovado"){
-  //     $_SESSION['reprovadas'] += 1;
-  //   }else if($row['status'] == "Pendente"){
-  //     $_SESSION['pendentes'] += 1;
-  //   } else if($row['status'] == "Arquivado"){
-  //     $_SESSION['aprovadas'] += 1;
-  //   }
-  // }  
-
   // buscar no banco as informações do curso que o aluno faz, como coordenador, email dele, horas complementares necessarias, nome do curso
   $sql = "SELECT nome_curso, horas_complementares, nome_coordenador, sobrenome_coordenador, email_coordenador FROM curso JOIN coordenador ON curso.coordenador_curso = coordenador.cod_coordenador WHERE cod_curso = '".$_SESSION['curso']."'";
   $result2 = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");

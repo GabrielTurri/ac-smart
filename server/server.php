@@ -235,22 +235,39 @@ function deletar_ativ(){
 
 // somente o COORDENADOR pode aprovar
 function aprovar(){
-    // pegar código da atividade pelo frontend
+    // pegar infos da atividade pelo frontend
     $cod_atividade = $_POST['modal_id'];
+    $RA_aluno = $_POST['RA_aluno'];
+    $titulo = $_POST['titulo'];
+    $caminho_anexo = $_POST['caminho_anexo'];
     $horas_solicitadas = $_POST['horas_solicitadas'];
+    $data = $_POST['data'];
   
     // conexão com o DB
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
-    // query SQL para deletar da tabela atividade_complementar a linha que tiver o cod_atividade recebida do frontend
-    $sql = "UPDATE atividade_complementar SET status = 'Aprovado', horas_aprovadas = '".$horas_solicitadas."' WHERE cod_atividade = '".$cod_atividade."'";
-
+    $sql = "SELECT cod_atividade FROM atividade_complementar WHERE RA_aluno = '".$RA_aluno."' AND titulo = '".$titulo."' AND caminho_anexo = '".$caminho_anexo."' AND horas_solicitadas = '".$horas_solicitadas."' AND data = '".$data."' AND status = 'Pendente'"; 
+    
     // executar query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar aprovar atividade");
-    $_SESSION['message'] = 'Atividade aprovada com sucesso!';
-    $_SESSION['message_type'] = 'success';
+    $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar aprovar atividade");
+    $linha = mysqli_fetch_array($result);
 
-    header("Location: ../src/atividades_coord.php");
+    if ($result -> num_rows == 0) {
+        // se não achar, vai retornar para a página de atividades do coordenador
+        $_SESSION['message'] = 'Erro!';
+        $_SESSION['message_type'] = 'danger';
+
+        header("Location: ../src/atividades_coord.php");
+    } else if($cod_atividade == $linha[0]) {
+        // query SQL para aprovar atividade 
+        $sql = "UPDATE atividade_complementar SET status = 'Aprovado', horas_aprovadas = '".$horas_solicitadas."' WHERE cod_atividade = '".$cod_atividade."'";
+        mysqli_query($strcon, $sql) or die ("Erro ao tentar aprovar atividade");
+
+        $_SESSION['message'] = 'Atividade aprovada com sucesso!';
+        $_SESSION['message_type'] = 'success';
+        
+        header("Location: ../src/atividades_coord.php");
+    }
 }
 
 // somente o COORDENADOR pode reprovar
