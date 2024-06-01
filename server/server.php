@@ -236,9 +236,9 @@ function deletar_ativ(){
 // somente o COORDENADOR pode aprovar
 function aprovar(){
     // pegar código da atividade pelo frontend
-    $cod_atividade = $_POST['cod_atividade'];
+    $cod_atividade = $_POST['modal_id'];
     $horas_solicitadas = $_POST['horas_solicitadas'];
-    
+  
     // conexão com o DB
     $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 

@@ -155,13 +155,13 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
               <div class="row-reverse btn-row gap-8">
                 <button type="submit" name="reprovar" id="reprovar" class="btn vermelho">Reprovar</button>
                 <input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">
-                </form>
-                <form action="../server/server.php" method="post" class="full">
-                  <input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">
-                  <input type="hidden" name="horas_solicitadas" value="'.$_GET["horas_solicitadas"].'"> 
-                  <button type="submit" name="aprovar" id="aprovar" class="btn azul">Aprovar</button>
-                </div>
-              </div>
+          </form>
+          
+          </div>
+          </div>
+          <button class="btn azul delete" value="'.$_GET["cod_atividade"].'">Aprovar</button>
+
+        
         ';
       }
 
@@ -170,16 +170,19 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
     </div>        
   </div>
   <dialog>
-    <h2>Tem certeza que deseja excluir a atividade?</h2>
+    <h2>Tem certeza que deseja <?php if (isset($_SESSION['ra_aluno'])) {echo "excluir";} else {echo "aprovar";}?>  a atividade?</h2>
     <div>
       <div class="row gap-8 full">
         <button class="dl-btn close" id="close">Cancelar</button>
           <form action="../server/server.php" method="post" class="full">
             <input name="modal_id" type="hidden" value="0" id="modal_id">
-            <button class="dl-btn vermelho" type="submit" name="deletar" id="deletar">Confirmar!</button>
+            <?php if (isset($_SESSION['cod_coordenador'])) {echo '
+              <input type="hidden" value="'.$_GET["horas_solicitadas"].'" id="horas_solicitadas" name="horas_solicitadas">
+              ';}?>
+            <button class="dl-btn vermelho" type="submit" <?php if (isset($_SESSION['ra_aluno'])) {echo 'name="deletar" id="deletar"';} else {echo 'name="aprovar" id="aprovar"';}?>>Confirmar!</button>
           </div>
         </form>
-
+        
     </div>
   </dialog>
 </body>

@@ -39,7 +39,7 @@ td, th {
     <p>E-mail: {$_SESSION['email_aluno']}</p>
     <p>RA: {$_SESSION['ra_aluno']}</p>
     <p>Horas complementares atuais REPROVADAS: {$_SESSION['horas_reprovadas']}</p>
-    <p>Horas complementares atuais ARQUIVADAS: {$_SESSION['horas_arquivadas']}</p>
+    <p>Horas complementares atuais EXCLUÍDAS: {$_SESSION['horas_arquivadas']}</p>
     <p>Horas complementares atuais PENDENTES DE AVALIAÇÃO: {$_SESSION['horas_pendentes']}</p>
 </div>
 
