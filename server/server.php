@@ -275,30 +275,52 @@ function reprovar(){
     // pegar observação digitada pelo coordenador
     $observacao = ucfirst(trim($_POST['observacao']));
     $cod_atividade = $_POST['cod_atividade'];
+    $RA_aluno = $_POST['RA_aluno'];
+    $titulo = $_POST['titulo'];
+    $caminho_anexo = $_POST['caminho_anexo'];
+    $horas_solicitadas = $_POST['horas_solicitadas'];
+    $data = $_POST['data'];
 
     $min_ob = 15;
     // caso o campo esteja preenchido, o status da atividade será alterada para "Reprovado", e a observação será salva na tabela observacao_atividade
     if (strlen($observacao) > $min_ob){
+
         // conexão com o DB
         $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
-        // query SQL para mudar status da atividade para REPROVADO da tabela atividade_complementar
-        $sql = "UPDATE atividade_complementar SET status = 'Reprovado' WHERE cod_atividade = '".$cod_atividade."'";
-
+        $sql = "SELECT cod_atividade FROM atividade_complementar WHERE cod_atividade = '".$cod_atividade."' AND RA_aluno = '".$RA_aluno."' AND titulo = '".$titulo."' AND caminho_anexo = '".$caminho_anexo."' AND horas_solicitadas = '".$horas_solicitadas."' AND data = '".$data."' AND status = 'Pendente'"; 
+        
         // executar query sql
-        mysqli_query($strcon, $sql) or die ("Erro ao tentar reprovar atividade");
+        $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar aprovar atividade");
+        // die(print_r($result));
+        $linha = mysqli_fetch_array($result);
+        // die($linha[0]);
 
-        // query SQL para adicionar uma observação na tabela observacao_atividade
-        $sql = "INSERT INTO observacao_atividade (observacao, cod_atividade) VALUES ('".$observacao."', '".$cod_atividade."');";
-           
+        if ($result -> num_rows == 0) {
+            // se não achar, vai retornar para a página de atividades do coordenador
+            $_SESSION['message'] = 'Erro!';
+            $_SESSION['message_type'] = 'danger';
 
-        // executar query sql
-        mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir observação");
-        $_SESSION['message'] = 'Atividade reprovada com sucesso!';
-        $_SESSION['message_type'] = 'success';
+            header("Location: ../src/atividades_coord.php");
 
 
-        header("Location: ../src/atividades_coord.php");
+        } else if($cod_atividade == $linha[0]) {
+            // query SQL para mudar status da atividade para REPROVADO da tabela atividade_complementar
+            $sql = "UPDATE atividade_complementar SET status = 'Reprovado' WHERE cod_atividade = '".$cod_atividade."'";
+            mysqli_query($strcon, $sql) or die ("Erro ao tentar reprovar atividade");
+
+            // query SQL para adicionar uma observação na tabela observacao_atividade
+            $sql = "INSERT INTO observacao_atividade (observacao, cod_atividade) VALUES ('".$observacao."', '".$cod_atividade."');";
+         
+            // executar query sql
+            mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir observação");
+
+            $_SESSION['message'] = 'Atividade aprovada com sucesso!';
+            $_SESSION['message_type'] = 'success';
+            
+            header("Location: ../src/atividades_coord.php");
+        }
+
 
     } else {
         // será redirecionado para a página de atividades para ele avaliar novamente, já que essa avaliação não deu certo pois não inserir nenhum comentário para o aluno

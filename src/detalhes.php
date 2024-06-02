@@ -9,7 +9,7 @@ header("Location: login.php");
 $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
 
 // pegar a ultima observação feita pelo professor 
-$sql = "SELECT * FROM observacao_atividade WHERE cod_atividade = ".$_GET['cod_atividade']." ORDER BY observacao DESC
+$sql = "SELECT * FROM observacao_atividade WHERE cod_atividade = ".$_GET['cod_atividade']." ORDER BY cod_observacao DESC
 LIMIT 1;";
 
 $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
@@ -155,6 +155,12 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
               <div class="row-reverse btn-row gap-8">
                 <button type="submit" name="reprovar" id="reprovar" class="btn vermelho">Reprovar</button>
                 <input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">
+                <input type="hidden" value="'.$_GET["RA_aluno"].'" id="RA_aluno" name="RA_aluno">
+                <input type="hidden" value="'.$_GET["titulo"].'" id="titulo" name="titulo">
+                <input type="hidden" value="'.$_GET["caminho_anexo"].'" id="caminho_anexo" name="caminho_anexo">
+                <input type="hidden" value="'.$_GET["horas_solicitadas"].'" id="horas_solicitadas" name="horas_solicitadas">
+                <input type="hidden" value="'.$_GET["data"].'" id="data" name="data">
+
           </form>
           
           </div>

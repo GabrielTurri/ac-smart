@@ -39,16 +39,15 @@ td, th {
     <p>E-mail: {$_SESSION['email_aluno']}</p>
     <p>RA: {$_SESSION['ra_aluno']}</p>
     <p>Horas complementares atuais REPROVADAS: {$_SESSION['horas_reprovadas']}</p>
-    <p>Horas complementares atuais EXCLUÍDAS: {$_SESSION['horas_arquivadas']}</p>
+    <p>Horas complementares EXCLUÍDAS por você: {$_SESSION['horas_arquivadas']}</p>
     <p>Horas complementares atuais PENDENTES DE AVALIAÇÃO: {$_SESSION['horas_pendentes']}</p>
 </div>
 
 <hr>
 
 <div class='info_curso'>
-<h3>Informações do curso:</h3>
-    <h4>Nome do curso: {$_SESSION['nome_curso']}</h4>
-    <h4>Nome do coordenador (a): {$_SESSION['nome_coordenador']} {$_SESSION['sobrenome_coordenador']}</h4>
+<h3>Informações do curso: {$_SESSION['nome_curso']}</h3>
+    <p>Nome do coordenador (a): {$_SESSION['nome_coordenador']} {$_SESSION['sobrenome_coordenador']}</p>
     <p>E-mail do coordenador (a): {$_SESSION['email_coordenador']}</p>
     <p>Horas complementares atuais APROVADAS: {$_SESSION['horas_aprovadas']}</p>
     <p>Horas complementares NECESSÁRIAS: {$_SESSION['horas_complementares']}</p>
