@@ -113,7 +113,7 @@
               </div>
             </div>
             <h1><?php 
-              if($horas_totais_aprovadas > 200){$horas_totais_aprovadas = 200;};
+              if($horas_totais_aprovadas > $_SESSION["horas_complementares"]){$horas_totais_aprovadas = $_SESSION["horas_complementares"];};
               echo "{$horas_totais_aprovadas}/{$_SESSION['horas_complementares']}";
             ?> Horas</h1>
             <div>
