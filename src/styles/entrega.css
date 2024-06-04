@@ -85,3 +85,17 @@
 #anexo {
   cursor: pointer;
 }
+
+.row-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.row-label span {
+  visibility: hidden;
+  color: #de3e3e;
+  font-weight: 500;
+  margin-right: 8px;
+}

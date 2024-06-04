@@ -33,29 +33,44 @@
   <div class="form-container">
     <form action="../server/server.php" method="post" class="full" enctype="multipart/form-data">
       <div class="column">
-        <label for="titulo">Título</label>
+        <div class="row-label">
+          <label for="titulo">Título</label>
+          <span>Esse campo é obrigatório.</span>
+        </div>
         <input name="titulo" id="titulo" type="text" autofocus>
       </div>
 
       <div class="column">
-        <label for="descricao">Descrição</label>
+        <div class="row-label">
+          <label for="descricao">Descrição</label>
+          <span>Esse campo é obrigatório.</span>
+        </div>
         <textarea name="descricao" itemid="descricao" id="descricao" cols="30" rows="5"></textarea>
       </div>
 
       <div class="column">
-        <label for="anexo">Anexo</label>
+        <div class="row-label">
+          <label for="anexo">Anexo</label>
+          <span>Esse campo é obrigatório.</span>
+        </div>
         <input name="anexo" id="anexo" type="file">
       </div>
 
 
       <div class="row gap-8 full">
         <div class="column full">
-          <label for="horas_solicitadas">Horas solicitadas</label>
+          <div class="row-label">
+            <label for="horas_solicitadas">Horas solicitadas</label>
+            <span>Valor inválido.</span>
+          </div>
           <input name="horas_solicitadas" id="horas_solicitadas" type="number" min="1" value="1">
         </div>
   
         <div class="column full">
-          <label for="data_conclusao">Data da atividade</label>
+          <div class="row-label">
+            <label for="data_conclusao">Data da atividade</label>
+            <span>Data inválida.</span>
+          </div>
           <input name="data_conclusao" id="data_conclusao" type="date">
         </div>
       </div>
@@ -73,4 +88,5 @@
 
 </body>
 <script src="preloader.js"></script>
+<script></script>
 </html>
