@@ -91,6 +91,9 @@
   <title>Dashboard</title>
 </head>
 <body>
+
+<div id="preloader"></div>
+
   <?php include './components/sidebar.php' ?>
   
     <div class="dashboard-content column">
@@ -152,7 +155,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- IF para mostrar as atividades do aluno caso ele tenha alguma atividade entregue, SENÃO VAI MOSTRAR UMA FRASE E O BOTÃO PARA ENTREGAR ATIVIDADE-->
       <div class="full">
         <div class='lista-atividades'>
@@ -240,6 +243,7 @@
       </div>
     </div>
   </body>
+  <script src="preloader.js"></script>
   <script>
     /**
  * Updates the donut chart's percent number and the CSS positioning of the progress bar.

@@ -44,6 +44,7 @@
 </head>
 <body>
   <?php include "./components/sidebar.php" ?>
+  <div id="preloader"></div>
 
   <div class="dashboard-content">
     <div class="breadcrumb">
@@ -99,4 +100,5 @@
     </div>
   </div>    
 </body>
+<script src="preloader.js"></script>
 </html>

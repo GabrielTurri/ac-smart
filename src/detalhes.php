@@ -38,6 +38,7 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
 
 <body>
   <?php include('components/sidebar.php') ?>
+  <div id="preloader"></div>
 
   <div class="dashboard-content">
     <div class="breadcrumb">
@@ -198,4 +199,5 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
   </dialog>
 </body>
 <script src="main.js"></script>
+<script src="preloader.js"></script>
 </html>

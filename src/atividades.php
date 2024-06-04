@@ -39,6 +39,7 @@
 </head>
 <body>
   <?php include './components/sidebar.php' ?>
+  <div id="preloader"></div>
 
 
 <div class="dashboard-content">
@@ -176,7 +177,7 @@
 
   </div>
 </body>
-
+<script src="preloader.js"></script>
 <script>
   // Aplicando a classe ativa na aba de atividade
   var header = document.getElementById("abas-atividades");

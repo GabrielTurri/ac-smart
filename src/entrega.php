@@ -21,6 +21,7 @@
 </head>
 <body>
   <?php include './components/sidebar.php'; ?>
+  <div id="preloader"></div>
   <div class="dashboard-content">
     <div class="breadcrumb">
       <a href="dashboard.php">Voltar para dashboard</a>
@@ -71,4 +72,5 @@
   </div>
 
 </body>
+<script src="preloader.js"></script>
 </html>
