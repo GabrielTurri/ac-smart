@@ -122,7 +122,7 @@
             <div>
               <div>
                 <div class="chartLegendOrange"></div>
-                <span>Entregues</span>
+                <span>Aprovadas</span>
               </div>
   
               <div>

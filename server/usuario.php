@@ -161,5 +161,3 @@ class Coordenador extends Usuario{
     }
 
 }
-
-// $usuario = new Usuario(trim($_POST ['email']), $_POST ['senha']);

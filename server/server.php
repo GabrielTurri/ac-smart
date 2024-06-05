@@ -11,13 +11,22 @@ $usuario = "felipe";
 $senha = "abcd=1234";   
 $banco = "humanitae_db";
 
+// criação do timestamp atual
+date_default_timezone_set('America/Sao_Paulo');
+$teste = date("Y-m-d H:i:s");
+$pattern = "/[-\s:]/";
+$components = preg_split($pattern, $teste);
+
+$dia_atual = $components[0]."-"."$components[1]"."-"."$components[2]";
+$_SESSION['dia_atual'] = $dia_atual;
+
 // definição dos tipos de flash messages
 function flash() {
     if(isset($_SESSION["message"])){
         echo "<span class={$_SESSION['message_type']}>{$_SESSION['message']}</span>";
         unset($_SESSION["message"]);
         unset($_SESSION["message_type"]);
-      }
+    }
 }
 
 
@@ -43,6 +52,36 @@ function insertDb(){
     $horas_solicitadas = $_POST['horas_solicitadas'];
     $data_conclusao = $_POST['data_conclusao'];
 
+    if(!$titulo) {
+        // mostrar mensagem de erro caso não tenha titulo
+        $_SESSION['message'] = 'Campo "Título" obrigatório!';
+        $_SESSION['message_type'] = 'warning';
+
+        header("Location: ../src/entrega.php"); 
+
+    } else if(!$descricao) {
+        // mostrar mensagem de erro caso não tenha descricao
+        $_SESSION['message'] = 'Campo "Descrição" obrigatório!';
+        $_SESSION['message_type'] = 'warning';
+
+        header("Location: ../src/entrega.php"); 
+
+    } else if(!$horas_solicitadas or $horas_solicitadas < 1 or !is_numeric($horas_solicitadas)) {
+        // mostrar mensagem de erro caso não tenha horas_solicitadas
+        $_SESSION['message'] = 'Campo "Horas Solicitadas" obrigatório! E deve ser positivo!';
+        $_SESSION['message_type'] = 'warning';
+
+        header("Location: ../src/entrega.php"); 
+
+    } else if(!$data_conclusao or $data_conclusao > $_SESSION['data_atual']) {
+        // mostrar mensagem de erro caso não tenha data_conclusao
+        $_SESSION['message'] = 'Campo "Data da atividade" obrigatório!';
+        $_SESSION['message_type'] = 'warning';
+
+        header("Location: ../src/entrega.php"); 
+
+
+    } else 
     // validação para checar se tem algum arquivo enviado
     if($_FILES["anexo"]["size"] == 0){
         // mostrar mensagem de erro caso não tenha arquivo
@@ -50,8 +89,9 @@ function insertDb(){
         $_SESSION['message_type'] = 'warning';
 
         header("Location: ../src/entrega.php");      
-    } 
-    
+    }
+
+
     else {
         // Replace any characters not \w- in the original filename
         $pathinfo = pathinfo($_FILES["anexo"]["name"]);
@@ -332,25 +372,6 @@ function reprovar(){
 
 }
 
-function atualizar(){
-    $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
-
-    // query para inserir tais dados no DB, vai pegar as infos dos inputs e o RA da SESSION
-    // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES ('Engenharia de Software', 200, 4);"; 
-    // $sql = "INSERT INTO curso (nome_curso, horas_complementares, coordenador_curso) VALUES('Análise e Desenvolvimento de Sistemas', 200, 5)"; 
-    // $sql = "UPDATE atividade_complementar SET status = 'Aprovado' WHERE cod_atividade = 21;"; 
-    // $sql = "UPDATE atividade_complementar SET status = 'Pendente' WHERE cod_atividade = 44;"; 
-    // $sql = "UPDATE atividade_complementar SET status = 'Pendente';"; 
-    $sql = "UPDATE atividade_complementar SET status = 'Arquivado', horas_aprovadas = 0 WHERE cod_atividade = 42;"; 
-    // $sql = "UPDATE atividade_complementar SET horas_aprovadas = 0;"; 
-
-
-    // Executar a query sql
-    mysqli_query($strcon, $sql) or die ("Erro ao tentar inserir atividade");
-
-    // redirecionar para a página principal
-    header("Location: inserir_coordenador.html");
-}
 
 function atividades_coord(){
     $nome_curso = $_POST['nome_curso'];
@@ -375,8 +396,6 @@ if(isset($_POST['inserir'])){
     login(2);
 } else if (isset($_POST['deletar'])){
     deletar_ativ();
-} else if (isset($_POST['atualizar'])){
-    atualizar();
 } else if (isset($_POST['atividades_coord'])){
     atividades_coord();
 } else if (isset($_POST['aprovar'])){

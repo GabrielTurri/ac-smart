@@ -28,8 +28,7 @@
     </div>
 
   <h2 class="text-center">Enviar nova AC</h2>
-  <?php
-        flash();?>
+  <?php flash();?>
   <div class="form-container">
     <form action="../server/server.php" method="post" class="full" enctype="multipart/form-data">
       <div class="column">
@@ -71,7 +70,7 @@
             <label for="data_conclusao">Data da atividade</label>
             <span>Data inválida.</span>
           </div>
-          <input name="data_conclusao" id="data_conclusao" type="date">
+          <input name="data_conclusao" id="data_conclusao" type="date" min="2020-01-01" <?php echo "max='".$_SESSION['dia_atual']."'"?>>
         </div>
       </div>
       <div class="enviar-container column">
