@@ -30,13 +30,13 @@
   <h2 class="text-center">Enviar nova AC</h2>
   <?php flash();?>
   <div class="form-container">
-    <form action="../server/server.php" method="post" class="full" enctype="multipart/form-data">
+    <form action="../server/server.php" id="form" method="post" class="full" enctype="multipart/form-data">
       <div class="column">
         <div class="row-label">
           <label for="titulo">Título</label>
           <span>Esse campo é obrigatório.</span>
         </div>
-        <input name="titulo" id="titulo" type="text" autofocus>
+        <input name="titulo" id="titulo" type="text" onChange="validateInputs()" autofocus>
       </div>
 
       <div class="column">
@@ -87,5 +87,49 @@
 
 </body>
 <script src="preloader.js"></script>
-<script></script>
+<script>
+  const form = document.getElementById('form');
+  const titulo = document.getElementById('titulo');
+  const descricao = document.getElementById('descricao');
+  const anexo = document.getElementById('anexo');
+  const horas_solicitadas = document.getElementById('horas_solicitadas');
+  const data_conclusao = document.getElementById('data_conclusao');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    console.log(data_conclusao.value)
+    validateInputs();
+  });
+
+  const setError = (element, message) => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.invalido');
+
+    // errorDisplay.innerText = message;
+    inputControl.classList.add('invalido');
+    // inputControl.classList.remove('success');
+  }
+
+  const setSuccess = element => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.invalido');
+    // errorDisplay.innerText = '';
+    // inputControl.classList.add('success');
+    inputControl.classList.remove('invalido');
+  };
+
+  const validateInputs = () => {
+    const tituloValue = titulo.value.trim();
+    const descricaoValue = descricao.value.trim();
+    const anexoValue = anexo.value.trim();
+    const horas_solicitadasValue = horas_solicitadas.value.trim();
+    const data_conclusaoValue = data_conclusao.value.trim();
+
+    (tituloValue === '') ? setError(titulo, 'Esse campo é obrigatório.') : setSuccess(titulo);
+    (descricaoValue === '') ? setError(descricao, 'Esse campo é obrigatório.') : setSuccess(descricao);
+    (horas_solicitadasValue <= 0 || '') ? setError(horas_solicitadas, 'Esse campo é obrigatório.') : setSuccess(horas_solicitadas);
+    (data_conclusaoValue === '') ? setError(data_conclusao, 'Esse campo é obrigatório.') : setSuccess(data_conclusao);
+  }
+
+</script>
 </html>

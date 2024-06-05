@@ -8,7 +8,7 @@ include_once("usuario.php");
 // PARA USAR AS SEGUINTES VARIAVEIS GLOBAIS, É NECESSARIO USAR $GLOBALS['x']
 $server = "137.184.66.198";
 $usuario = "felipe";
-$senha = "abcd=1234";   
+$senha = "abcd=1234";
 $banco = "humanitae_db";
 
 // criação do timestamp atual
