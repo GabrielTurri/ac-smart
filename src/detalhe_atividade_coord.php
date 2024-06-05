@@ -1,8 +1,8 @@
 <?php
-  // session_start();
-    // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
-    if(!($_SESSION['cod_coordenador']))
-    header("Location: login.php");
+  include("../server/server.php");
+  // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
+  if(!($_SESSION['cod_coordenador']))
+  header("Location: login.php");
 
   // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
   $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
@@ -11,14 +11,6 @@
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
   $sql = "SELECT * FROM coordenador JOIN curso ON coordenador.cod_coordenador = curso.coordenador_curso WHERE cod_coordenador = '".$_SESSION['cod_coordenador']."'";
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
-  // $rows = mysqli_fetch_array($result);
-
-  // $sql2 = "SELECT * FROM atividade_complementar INNER JOIN aluno ON atividade_complementar.RA_aluno = aluno.RA_aluno INNER JOIN curso ON aluno.cod_curso = curso.cod_curso WHERE nome_curso = '".$_SESSION['nome_curso']."' AND status = 'Pendente';"; 
-
-  // // Executar a query sql2
-  // mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
-  // $result = mysqli_query($strcon, $sql2) or die ("Erro ao tentar inserir atividade");
-
 ?>
 
 <!DOCTYPE html>

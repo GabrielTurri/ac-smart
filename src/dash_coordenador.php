@@ -1,11 +1,12 @@
 <?php
-  session_start();
+  require_once("../server/server.php");
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if(!($_SESSION['cod_coordenador']))
     header("Location: login.php");
 
   // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
-  $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+
+  $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
   // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
@@ -27,8 +28,7 @@
       }
     }
     $_SESSION['cursos'][$curso] = $quantidade;
-    // $cuso[$quantidade] = ;
-    // echo $curso . ": " . $quantidade . "<br>";
+
   }
   
 ?>
@@ -54,7 +54,7 @@
     <div class="column">
       <div class="dashboard-container">
         <div class="chart-container">
-          <h2>Cursos ministrados:</h2>
+          <h2>Cursos coordenados:</h2>
             
           <!-- foreach para imprimir todos os cursos que o coordenador ministra, e as quantidades de atividades a serem avaliadas naquele curso -->
           <?php
@@ -67,7 +67,6 @@
                   <p>'.$curso.': '.$quantidade.'</p>
                 </button>
               </form>'; 
-              // echo $curso . ": " . $quantidade . "<br>";
             }
           ?>
         </div>	

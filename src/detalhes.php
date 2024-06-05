@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("../server/server.php");
 // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
 if(isset($_SESSION['ra_aluno']) || isset($_SESSION['cod_coordenador'])){
 } else {
