@@ -27,7 +27,7 @@
       <a href="dashboard.php">Voltar para dashboard</a>
     </div>
 
-  <h2 class="text-center">Enviar nova AC</h2>
+  <h2 class="text-center">Enviar nova Atividade Complementar</h2>
   <?php flash();?>
   <div class="form-container">
     <form action="../server/server.php" id="form" method="post" class="full" enctype="multipart/form-data">

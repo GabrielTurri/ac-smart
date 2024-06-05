@@ -6,13 +6,13 @@
     header("Location: login.php");
 
   // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
-  $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+
+  $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
   // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
   $sql = "SELECT * FROM coordenador JOIN curso ON coordenador.cod_coordenador = curso.coordenador_curso WHERE cod_coordenador = '".$_SESSION['cod_coordenador']."'";
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
-  // $rows = mysqli_fetch_array($result);
 
 
   // query para buscar as atividades que o coordenador deve avaliar

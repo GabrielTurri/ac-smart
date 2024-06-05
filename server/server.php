@@ -73,7 +73,7 @@ function insertDb(){
 
         header("Location: ../src/entrega.php"); 
 
-    } else if(!$data_conclusao or $data_conclusao > $_SESSION['data_atual']) {
+    } else if(!$data_conclusao or $data_conclusao > $_SESSION['dia_atual']) {
         // mostrar mensagem de erro caso não tenha data_conclusao
         $_SESSION['message'] = 'Campo "Data da atividade" obrigatório!';
         $_SESSION['message_type'] = 'warning';

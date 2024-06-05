@@ -1,5 +1,4 @@
 <?php
-  // session_start();
   include("../server/server.php");
     // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if(!($_SESSION['ra_aluno']))
@@ -8,7 +7,8 @@
   $_SESSION['atividades_aluno'] = [];
 
   // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
-  $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+
+  $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
   // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
