@@ -51,6 +51,22 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
 
     <div class='detalhes-container'>
       <h2 class="text-center">Detalhes da Atividade</h2>
+      <?php 
+      if (isset($_SESSION['cod_coordenador'])){
+        echo '
+          <div class="row gap-8">
+            <div class="column campo">
+              <strong>Nome do Aluno</strong>
+              <input type="text" value='.$_GET["nome_aluno"].' disabled>
+            </div>
+            <div class="column campo">
+              <strong>RA do aluno:</strong>
+              <input type="text" value='.$_GET["RA_aluno"].' disabled>
+            </div>
+          </div>
+        ';
+      }
+      ?>
       <div class='column campo'>
         <strong>Título:</strong>
         <?php echo "
@@ -161,14 +177,10 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
                 <input type="hidden" value="'.$_GET["caminho_anexo"].'" id="caminho_anexo" name="caminho_anexo">
                 <input type="hidden" value="'.$_GET["horas_solicitadas"].'" id="horas_solicitadas" name="horas_solicitadas">
                 <input type="hidden" value="'.$_GET["data"].'" id="data" name="data">
-
           </form>
-          
-          </div>
-          </div>
-          <button class="btn azul delete" value="'.$_GET["cod_atividade"].'">Aprovar</button>
-
-        
+                <button class="btn azul delete" value="'.$_GET["cod_atividade"].'">Aprovar</button>          
+              </div>
+            </div>        
         ';
       }
 
