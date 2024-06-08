@@ -1,10 +1,10 @@
 <?php
-  session_start();
+  include("../server/server.php");
   // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if($_SESSION['ra_aluno']){
     $caminho = '../server/'.$_GET["caminho_anexo"];
   } else {
-    header("Location: login.html");
+    header("Location: login.php");
   }
 
 ?>
@@ -18,10 +18,12 @@
   <link rel="stylesheet" href="styles/global.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
   <title>Editar Atividade</title>
 </head>
 <body>
 <?php include './components/sidebar.php';  ?>
+<div id="preloader"></div>
   <div class="dashboard-content">
     <div class="breadcrumb">
       <a href="dashboard.php">Voltar para dashboard</a>
@@ -29,7 +31,7 @@
     <h2 class="text-center">Editar AC</h2>
 
     <div class="form-container column">
-      <form action="../server/server.php" method="post" enctype="multipart/form-data">
+      <form action="../server/server.php" method="post" class="full" enctype="multipart/form-data">
         <div class="column">
           <label for="titulo">Título</label>
           <input name="titulo" id="titulo" type="text" autofocus value="<?php echo $_GET["titulo"];?>">
@@ -43,17 +45,18 @@
         
 
         <div class="column">
-          <label for="file-upload" class="custom-file-upload"><?php echo $_GET["caminho_anexo"] ?></label>
-          <input id="file-upload" type="file" value="<?php echo $caminho ?>" />
-          <!-- <label for="anexo">Novo anexo</label>
-          <input name="anexo" id="anexo" type="file" value="<?php echo $caminho ?>" download> -->
+        <?php
+        $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);?>
+          <label for="file-upload" class="custom-file-upload">Anexo antigo: <?php echo $nome_arquivo[2]?></label>
+          <input id="file-upload" name="anexo" type="file" value="<?php echo $_GET["caminho_anexo"] ?>" />
+          
         </div>
 
 
         <div class="data-horas-container">
           <div class="column">
             <label for="horas_solicitadas">Horas solicitadas</label>
-            <input name="horas_solicitadas" id="horas_solicitadas" type="number" placeholder="<?php echo $_GET["horas_solicitadas"];?>">
+            <input name="horas_solicitadas" id="horas_solicitadas" type="number" placeholder="<?php echo $_GET["horas_solicitadas"];?>" min="1">
           </div>
     
           <div class="column">
@@ -65,8 +68,10 @@
         <?php 
         if ($_GET["status"] == "Reprovado") {
           echo "
-            <label for='obs-coord'>Observação do coordenador ".ucfirst($_SESSION['nome_coordenador']).":</label>
-            <textarea name='obs-coord' disabled>{$_GET['observacao']}</textarea>
+            <div class='column'>
+              <label for='obs-coord'>Observação do coordenador ".ucfirst($_SESSION['nome_coordenador']).":</label>
+              <textarea name='obs-coord' disabled>{$_GET['observacao']}</textarea>
+            </div>
           ";
         }?>
         <div class="enviar-container column">
@@ -74,11 +79,12 @@
             Atenção: As informações serão enviadas para o 
             professor/orientador responsável. Preencha com responsabilidade.
           </strong>
-          <button class="btn editar" type="submit" name="editar">EDITAR</button>
+          <button class="btn editar" type="submit" name="editar">Salvar Alterações</button>
         </div>
 
   </div>
     </form>
   </div>
 </body>
+<script src="preloader.js"></script>
 </html>

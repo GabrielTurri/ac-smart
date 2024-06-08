@@ -35,14 +35,43 @@ body, input, textarea, button {
   flex-direction: row;
   margin: 0 32px;
   gap: 8px;
+  margin-left: 158px;
 }
 
 .breadcrumb a {
   color: #043565;
   text-decoration: underline;
 }
+.invalido input, .invalido textarea{
+  border: 2px solid #de3e3e !important;
+}
+
+.invalido .row-label span {
+  visibility: visible;
+}
+
+.breadcrumb a:hover {
+opacity: 0.7;}
+
+#preloader {
+  background: #F7FBFF url(../assets/preloader.gif) no-repeat center center;
+  opacity: 0.8;
+  background-size: 128px;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
 
 /* FLASH MESSAGES */
+/* center flash message */
+.flash_message{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  
+}
+
 .warning, .danger, .success, .secondary{
   color: #F7FBFF;
   font-weight: 600;
@@ -51,6 +80,9 @@ body, input, textarea, button {
   margin: 8px 0;
   border-radius: 12px;
   padding: 12px;
+  align-items: center;
+
+  width: 100%;
 }
 
 .warning {
@@ -64,7 +96,9 @@ body, input, textarea, button {
 }
 .secondary {
   background-color: #aaa;
+  color: black;
 }
+
 /* SIDEBAR */
 .sidebar {
   display: flex;
@@ -80,56 +114,26 @@ body, input, textarea, button {
   color: #fff;
   background-color: #043565;
 }
-
-.user-photo-container {
-  position: relative;
-  margin: 1rem auto;
-  width: 150px;
+.user-data {
+  margin-top: 16px;
 }
 
-.user-photo {
-  display: block;
-  border-radius: 100%;
-  border: 2px solid #fff;
-  width: 100%;
-  height: auto;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 100%;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .4s ease;
-  background-color: #fff;
-  cursor: pointer;
-}
-.user-photo-container:hover .overlay {
-  opacity: 0.6;
-}
-.overlay img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
 .user-info {
-  padding: 1rem;
+  padding: 16px;
   text-align: left;
   margin: 16px 0;
+}
+.info-container {
+  margin-bottom: 32px;
+}
+.sidebar .user-data hr {
+  margin: 16px;
 }
 
 .sidebar button {
   display: flex;
   align-items: center;
+  text-align: left;
   justify-content: center;
   
   border: none;
@@ -142,8 +146,21 @@ body, input, textarea, button {
 
   width: 100%;
   padding: 16px;
-  bottom: 0;
+  gap: 8px;
 }
+
+.sidebar .menu-buttons button {
+  justify-content: left;
+}
+
+.menu-buttons .row a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #F7FBFF;
+  gap: 8px;
+}
+
 .sidebar .btn-logoff {
   color: #ff9432;
 
@@ -161,11 +178,24 @@ body, input, textarea, button {
 .sidebar a{
   text-decoration: none;
 }
+.cursos {
+  padding: 16px;
+  text-align: left;
+  margin: 8px 0;
+}
+
+p.seus-cursos {
+  margin-bottom: 8px;
+}
+.cursos button {
+  font-size: 16px;
+  border-radius: 8px;
+}
 
 /* DASHBOARD */
 .dashboard-content {
   margin-left: 20rem;
-  padding: 1rem;
+  padding: 16px;
 }
 
 .dashboard-container{
@@ -181,7 +211,7 @@ body, input, textarea, button {
 
 .chart-container{
   min-width: 20rem;
-  width: 40%;
+  max-width: 70%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -189,11 +219,11 @@ body, input, textarea, button {
   justify-content: center;
   align-items: center;
 
-  padding: 40px;
+  padding: 24px;
   gap: 8px;
   
   border: 0.5px solid #476988;
-  border-radius: 24px;
+  border-radius: 12px;
 }
 
 .chart-info{
@@ -201,9 +231,15 @@ body, input, textarea, button {
   flex-direction: row;
 }
 
+.btn-row {
+  width: 100%;
+  height: 100%;
+}
 .button {
   width: 100%;
+  height: 100%;
   text-decoration: none;
+  /* text-align: left; */
 }
 
 .button button {
@@ -218,16 +254,16 @@ body, input, textarea, button {
   border: none;
   border-radius: 12px;
   padding: 16px;
-  background-color: #476988;
+  background-color: #043565;
   font-weight: bold;
   color: #fff;
   font-size: 18px;
-
+  
   cursor: pointer;
 }
 .button button:hover {
-  background: #043565;
-  transition: 0.6s;
+  background-color: #476988;
+  transition: .6s;
 }
 
 .chart-content {
@@ -244,20 +280,13 @@ align-items: center;
   margin: 8px 0;
 }
 
-.chartImg {
-  width: 148px;
-  height: 148px;
-  background-color: #fff;
-  border: 0.5px solid #476988;
-  border-radius: 100%;
-}
 .chartLegend {
   border-radius: 3px;
   height: 16px;
   width: 16px;
   margin: 0 8px;
-  background-color: #fff;
-  border: 0.5px solid #043565;
+  background-color: #BDC3C7;
+  /* border: 0.5px solid #043565; */
 }
 .chartLegendOrange {
   background-color: #FF9432;
@@ -265,4 +294,59 @@ align-items: center;
   height: 16px;
   width: 16px;
   margin: 0 8px;
+}
+.gap-8 {
+  gap: 8px;
+}
+
+
+/* DIALOG MODAL */
+dialog::backdrop {
+  background-color: rgb(0, 0,0, .5);
+}
+
+dialog {
+  background-color: white;
+  border-radius: 1rem;
+  /* border: 1px solid #043565; */
+  border: none;
+  padding: 32px;
+  margin: auto;
+  width: 32rem;
+}
+
+dialog h2 {
+  color: #043565;
+  text-align: center;
+  min-width: 24rem;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.dl-btn {
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 1rem 0;
+  border: none;
+  color: #fff;
+  width: 100%;
+}
+
+.close {
+  background: #043565;
+}
+
+.close:hover {
+  background-color: #476988;
+}
+.w-80{
+  width: 80%;
+}
+.max-w-80{
+  max-width: 80%;
+}
+
+
+#registro {
+  width: 320px;
 }

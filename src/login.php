@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <link rel="stylesheet" href="styles/global.css">
-  <link rel="stylesheet" href="styles/styles-login.css">
+  <link rel="stylesheet" href="styles/login.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -26,7 +26,7 @@
     <div class="column-container">
       <div id="abas-login">
         <div class="aba aba-aluno ativo" onclick="loginAluno()">Aluno</div>
-        <div class="aba aba-professor" onclick="loginProfessor()">Professor</div>
+        <div class="aba aba-professor" onclick="loginProfessor()">Coordenador</div>
       </div>
       <form action="../server/server.php" method="post" id="aluno" class="column-container"> 
         <h1>Fazer Login</h1>
@@ -38,8 +38,8 @@
         <input type="submit" name="login" class="botao-login" id="login" value="Entrar">       
     
         <div class="login-footer">
-          <a class="forget" href="">Esqueci minha senha</a>
-          <span class="aviso">Não tem uma conta? Entre em contato com a universidade.</span>
+          <!-- <a class="forget" href="">Esqueci minha senha</a> -->
+          <span class="aviso">Não tem uma conta ou precisa mudar a senha? Entre em contato com a universidade.</span>
         </div>    
       
       </form>
@@ -47,14 +47,14 @@
       <form action="../server/server.php" method="post" id="professor" class="column-container">
         <div class="column-container">
           <h1>Fazer Login</h1>
-          <input class="login-input" placeholder='E-mail do professor' type="text" name="email" autofocus/>
+          <input class="login-input" placeholder='E-mail do coordenador' type="text" name="email" autofocus/>
           <input class="login-input" placeholder='Senha' type="password" name="senha"/>
           
           <input type="submit" name="login_coordenador" class="botao-login" id="login_coordenador" value="Entrar">       
       
           <div class="login-footer">
-            <a class="forget" href="">Esqueci minha senha</a>
-            <span class="aviso">Não tem uma conta? Entre em contato com a universidade.</span>
+            <!-- <a class="forget" href="">Esqueci minha senha</a>   -->
+            <span class="aviso">Não tem uma conta ou precisa mudar a senha? Entre em contato com a universidade.</span>
           </div>    
         </div>
       </form>

@@ -10,9 +10,10 @@
 }
 
 .campo input, textarea, .anexo {
+  resize: vertical;
   background-color: #fff;
-  border: 1px solid #043565;
-  border-radius: 4px;
+  border: 1px solid #476988;
+  border-radius: 8px;
 
   padding: 16px;
 }
@@ -44,7 +45,8 @@
 }
 .aviso {
   color: #de3e3e;
-  font-size: 14px;
+  font-size: 16px;
+  margin-top: 8px;
 }
 .btn {
   min-width: 10rem;

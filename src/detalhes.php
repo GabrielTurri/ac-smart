@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("../server/server.php");
 // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
 if(isset($_SESSION['ra_aluno']) || isset($_SESSION['cod_coordenador'])){
 } else {
@@ -9,7 +9,7 @@ header("Location: login.php");
 $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
 
 // pegar a ultima observação feita pelo professor 
-$sql = "SELECT * FROM observacao_atividade WHERE cod_atividade = ".$_GET['cod_atividade']." ORDER BY observacao DESC
+$sql = "SELECT * FROM observacao_atividade WHERE cod_atividade = ".$_GET['cod_atividade']." ORDER BY cod_observacao DESC
 LIMIT 1;";
 
 $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
@@ -17,6 +17,8 @@ $observacao = '';
 foreach($result as $row){
   $observacao = $row['observacao'];
 }
+
+$nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +38,7 @@ foreach($result as $row){
 
 <body>
   <?php include('components/sidebar.php') ?>
+  <div id="preloader"></div>
 
   <div class="dashboard-content">
     <div class="breadcrumb">
@@ -48,6 +51,22 @@ foreach($result as $row){
 
     <div class='detalhes-container'>
       <h2 class="text-center">Detalhes da Atividade</h2>
+      <?php 
+      if (isset($_SESSION['cod_coordenador'])){
+        echo '
+          <div class="row gap-8">
+            <div class="column campo">
+              <strong>Nome do Aluno</strong>
+              <input type="text" value='.$_GET["nome_aluno"].' disabled>
+            </div>
+            <div class="column campo">
+              <strong>RA do aluno:</strong>
+              <input type="text" value='.$_GET["RA_aluno"].' disabled>
+            </div>
+          </div>
+        ';
+      }
+      ?>
       <div class='column campo'>
         <strong>Título:</strong>
         <?php echo "
@@ -57,12 +76,12 @@ foreach($result as $row){
       </div>
       <div class='column campo'>
         <strong>Descrição:</strong>
-        <textarea disabled><?php echo $_GET["descricao"];?></textarea>
+        <textarea disabled rows='5'><?php echo $_GET["descricao"];?></textarea>
       </div>
       <div class='column campo'>
         <strong>Anexo:</strong>
         <div class='anexo'>
-          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>Link para o anexo</a>"; ?>
+          <?php echo "<a href='../server{$_GET["caminho_anexo"]}' download>{$nome_arquivo[2]}</a>"; ?>
         </div>
       </div>
       <div class='column campo'>
@@ -81,8 +100,12 @@ foreach($result as $row){
           </div>
           <div class="column">
             <strong>Data de conclusão da atividade:</strong>
-            <?php echo "
-              <input type='text' value='{$_GET["data"]}' disabled>
+            <?php 
+            $date = date_create($_GET["data"]);
+            $newDate = date_format($date, "d/m/Y");
+            
+            echo "
+              <input type='text' value='{$newDate}' disabled>
             ";?>
           </div>
         </div>
@@ -112,7 +135,7 @@ foreach($result as $row){
             </div>
             <label for='obs-coord'>Observação do coordenador ".ucfirst($_SESSION['nome_coordenador']).":</label>
             
-            <textarea name='obs-coord' disabled>{$observacao}</textarea>
+            <textarea name='obs-coord' disabled style='resize:none'>{$observacao}</textarea>
             ";
           }
           echo '
@@ -133,12 +156,8 @@ foreach($result as $row){
               </button>
             </form>
 
-            <form action="../server/server.php" method="post">
-              <input type="hidden" value="'.$_GET["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
-              <button class="btn vermelho" type="submit" name="deletar" id="deletar" class="btn laranja">
-                Cancelar Entrega  
-              </button>
-            </form>
+            
+            <button class="btn vermelho delete" value="'.$_GET["cod_atividade"].'">Excluir</button>
 
           </div>
         ';
@@ -147,19 +166,21 @@ foreach($result as $row){
           <form action="../server/server.php" method="post" enctype="multipart/form-data">
             <div class="column gap-8">
               <strong class="aviso">
-                ATENÇÃO: Para reprovar a entrega da atividade, será necessário informar o que precisa ser corrigido
+                ATENÇÃO: Para reprovar a entrega da atividade, é necessário informar o que precisa ser corrigido
               </strong>
               <textarea name="observacao" id="observacao" cols="30" rows="10" placeholder="Informe aqui o que precisa ser corrigido"></textarea>
               <div class="row-reverse btn-row gap-8">
                 <button type="submit" name="reprovar" id="reprovar" class="btn vermelho">Reprovar</button>
                 <input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">
-                </form>
-                <form action="../server/server.php" method="post" class="full">
-                  <input type="hidden" name="cod_atividade" value="'.$_GET["cod_atividade"].'">
-                  <input type="hidden" name="horas_solicitadas" value="'.$_GET["horas_solicitadas"].'"> 
-                  <button type="submit" name="aprovar" id="aprovar" class="btn azul">Aprovar</button>
-                </div>
+                <input type="hidden" value="'.$_GET["RA_aluno"].'" id="RA_aluno" name="RA_aluno">
+                <input type="hidden" value="'.$_GET["titulo"].'" id="titulo" name="titulo">
+                <input type="hidden" value="'.$_GET["caminho_anexo"].'" id="caminho_anexo" name="caminho_anexo">
+                <input type="hidden" value="'.$_GET["horas_solicitadas"].'" id="horas_solicitadas" name="horas_solicitadas">
+                <input type="hidden" value="'.$_GET["data"].'" id="data" name="data">
+          </form>
+                <button class="btn azul delete" value="'.$_GET["cod_atividade"].'">Aprovar</button>          
               </div>
+            </div>        
         ';
       }
 
@@ -167,6 +188,28 @@ foreach($result as $row){
       ?>
     </div>        
   </div>
-</body>
-</html>
+  <dialog>
+    <h2>Tem certeza que deseja <?php if (isset($_SESSION['ra_aluno'])) {echo "excluir";} else {echo "aprovar";}?>  a atividade?</h2>
+    <div>
+      <div class="row gap-8 full">
+        <button class="dl-btn close" id="close">Cancelar</button>
+          <form action="../server/server.php" method="post" class="full">
+            <input name="modal_id" type="hidden" value="0" id="modal_id">
+            <?php if (isset($_SESSION['cod_coordenador'])) {echo '
+              <input type="hidden" value="'.$_GET["RA_aluno"].'" id="RA_aluno" name="RA_aluno">
+              <input type="hidden" value="'.$_GET["titulo"].'" id="titulo" name="titulo">
+              <input type="hidden" value="'.$_GET["caminho_anexo"].'" id="caminho_anexo" name="caminho_anexo">
+              <input type="hidden" value="'.$_GET["horas_solicitadas"].'" id="horas_solicitadas" name="horas_solicitadas">
+              <input type="hidden" value="'.$_GET["data"].'" id="data" name="data">
 
+              ';}?>
+            <button class="dl-btn vermelho" type="submit" <?php if (isset($_SESSION['ra_aluno'])) {echo 'name="deletar" id="deletar"';} else {echo 'name="aprovar" id="aprovar"';}?>>Confirmar!</button>
+          </div>
+        </form>
+        
+    </div>
+  </dialog>
+</body>
+<script src="main.js"></script>
+<script src="preloader.js"></script>
+</html>

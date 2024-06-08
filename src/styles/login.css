@@ -1,0 +1,106 @@
+.column-container{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 20rem;
+  text-align: center;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-logo {
+  height: 160px;
+  width: 160px;
+  margin-bottom: 32px;
+}
+
+.login-footer {
+  text-align: center;
+  margin: 16px 0;
+}
+
+.aviso {
+  display: block;
+  margin-top: 16px;
+}
+
+.login-input{
+  /* line-height: 2rem; */
+  min-width: 20rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 0.5px solid #476988;
+}
+
+.botao-login {
+  cursor: pointer;
+  background-color: #043565;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+
+  border: none;
+  border-radius: 12px;
+
+  width: 100%;
+  padding: 16px;
+}
+.botao-login:hover{
+  background-color: #001D39;
+  transition: 0.6s;
+}
+
+.forget {
+  font-size: 16px;
+  color: #043565;
+}
+
+#professor {
+  display: none;
+}
+
+#abas-login {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  
+  margin: 8px 0;
+  height: 3rem;
+  line-height: 30px;  
+  border-bottom: .5px solid #043565;
+}
+
+#abas-login .aba {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  color: #043565;
+
+  font-size: 18px;
+  padding: 16px 16px 0 16px;
+  font-weight: bold;
+}
+
+#abas-login .aba:hover {
+  color: #FF9432;
+  transition: 0.4s ease;
+}
+
+.column-container #abas-login .ativo {
+  color: #FF9432;
+  border-bottom: 5px solid #FF9432;
+  transition: 0.4s ease;
+}

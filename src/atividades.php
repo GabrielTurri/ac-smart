@@ -1,35 +1,16 @@
 <?php
-  session_start();
+  require_once("../server/server.php");
   // CÓDIGO PARA PREVINIR ENTRAR NESSA PÁGINA SEM ESTAR LOGADO
   if(!($_SESSION['ra_aluno']))
     header("Location: login.php");
   
-  $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+  $strcon = mysqli_connect ($GLOBALS['server'], $GLOBALS['usuario'], $GLOBALS['senha'], $GLOBALS['banco']) or die ("Erro ao conectar com o banco");
 
   // para buscar as atividades daquele usuario logado e printar o titulo de todas as atividades que ele possui
   // da para fazer ifs para mostrar coisas que quiser, exemplo abaixo
   $sql = "SELECT * FROM atividade_complementar WHERE RA_aluno = '".$_SESSION['ra_aluno']."'";
   $result = mysqli_query($strcon, $sql) or die ("Erro ao tentar encontrar o aluno no banco!");
 
-
-  // $_SESSION['aprovadas'] = 0;
-  // $_SESSION['arquivadas'] = 0;
-  // $_SESSION['reprovadas'] = 0;
-  // $_SESSION['pendentes'] = 0;
-
-  // // contagem para saber quantas atividades de cada status o usuário tem
-  // foreach($result as $row){
-
-  //   if($row['status'] == "Aprovado"){
-  //     $_SESSION['aprovadas'] +=1;
-  //   } else if($row['status'] == "Reprovado"){
-  //     $_SESSION['reprovadas'] += 1;
-  //   }else if($row['status'] == "Pendente"){
-  //     $_SESSION['pendentes'] += 1;
-  //   } else if($row['status'] == "Arquivado"){
-  //     $_SESSION['aprovadas'] += 1;
-  //   }
-  // }  
 
   // buscar no banco as informações do curso que o aluno faz, como coordenador, email dele, horas complementares necessarias, nome do curso
   $sql = "SELECT nome_curso, horas_complementares, nome_coordenador, sobrenome_coordenador, email_coordenador FROM curso JOIN coordenador ON curso.coordenador_curso = coordenador.cod_coordenador WHERE cod_curso = '".$_SESSION['curso']."'";
@@ -58,6 +39,7 @@
 </head>
 <body>
   <?php include './components/sidebar.php' ?>
+  <div id="preloader"></div>
 
 
 <div class="dashboard-content">
@@ -71,7 +53,7 @@
     <button class="aba" onclick="mostrarReprovadas()">Reprovadas</button> -->
     <button id="aba-aprovadas" class="aba ativo" onclick="">Aprovadas</button>
     <button id="aba-pendentes" class="aba" onclick="">Pendentes</button>
-    <button id="aba-reprovadas" class="aba" onclick="">Reprovadas</button>
+    <button id="aba-reprovadas" class="aba novas-reprovadas" onclick="">Reprovadas</button>
   </div>  
   
   <div class="lista-atividades" id="aprovadas">
@@ -113,7 +95,7 @@
 
     </div>    
     
-    <div class="lista-atividades lista-nao-aprovadas" id="pendentes">
+    <div class="lista-atividades" id="pendentes">
       <h2>
         Atividades Pendentes: 
         <?php echo $_SESSION['pendentes'] ?>
@@ -133,7 +115,7 @@
           echo '
           <div class="row">
 
-            <form class="'.$row['status'].' atividade-pendente full" action="detalhes.php" method="get">
+            <form class="'.$row['status'].' full" action="detalhes.php" method="get">
             
               <button type="submit" class="container-atividade">
                 <input type="hidden" value="'.$row["cod_atividade"].'" name="cod_atividade" id="cod_atividade">
@@ -149,14 +131,11 @@
               </button>
             
             </form>
-            <button class="more" onclick="abrirOpcoes()">
-              <img src="assets/icons/more-vertical.svg" alt="">
-            </button>
           </div>';
       }}?>
     </div>
 
-    <div class="lista-atividades lista-nao-aprovadas" id="reprovadas">
+    <div class="lista-atividades" id="reprovadas">
       <h2>
         Atividades Reprovadas: 
         <?php echo $_SESSION['reprovadas'] ?>
@@ -191,9 +170,6 @@
               </button>
             
             </form>
-            <button class="more" onclick="abrirOpcoes()">
-              <img src="assets/icons/more-vertical.svg" alt="">
-            </button>
           </div>';
       }}?>
     </div>
@@ -201,7 +177,7 @@
 
   </div>
 </body>
-
+<script src="preloader.js"></script>
 <script>
   // Aplicando a classe ativa na aba de atividade
   var header = document.getElementById("abas-atividades");
