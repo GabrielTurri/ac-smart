@@ -11,7 +11,7 @@
     <div class="user-info">
       <div class="info-container">
         <h3>
-          Boas Vindas, 
+          Seja bem-vindo (a), 
           <?php 
           // Se existir o RA do aluno, exibe o nome dele, senão, o nome completo do coordenador
           echo isset($_SESSION['ra_aluno']) ? ucfirst($_SESSION['nome_aluno']) : ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']);

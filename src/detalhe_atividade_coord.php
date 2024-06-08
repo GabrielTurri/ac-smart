@@ -36,7 +36,7 @@
   <aside class="sidebar">
     <div class="user-data text-center">
       <div class="user-photo"></div>
-      <h3>Boas Vindas, <?php echo ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']) ?></h3>
+      <h3>Seja bem-vindo (a), <?php echo ucfirst($_SESSION['nome_coordenador']). " " .ucfirst($_SESSION['sobrenome_coordenador']) ?></h3>
     </div>
     <!-- para imprimir as informações do curso do aluno cadastrado -->
     <div class="user-info">

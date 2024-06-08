@@ -166,7 +166,7 @@ $nome_arquivo = preg_split("/\//", $_GET["caminho_anexo"]);
           <form action="../server/server.php" method="post" enctype="multipart/form-data">
             <div class="column gap-8">
               <strong class="aviso">
-                ATENÇÃO: Para reprovar a entrega da atividade, será necessário informar o que precisa ser corrigido
+                ATENÇÃO: Para reprovar a entrega da atividade, é necessário informar o que precisa ser corrigido
               </strong>
               <textarea name="observacao" id="observacao" cols="30" rows="10" placeholder="Informe aqui o que precisa ser corrigido"></textarea>
               <div class="row-reverse btn-row gap-8">
