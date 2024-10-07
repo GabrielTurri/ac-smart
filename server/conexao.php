@@ -1,10 +1,10 @@
 <?php
- $user = "felipe";
- $password = "abcd=1234";
+ $user = "root";
+ $password = "";
  $database = "humanitae_db";
  
  try {
-   $db = new PDO("mysql:host=137.184.66.198;dbname=$database", $user, $password);
+   $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
    echo "Conectado com sucesso";
  } catch (PDOException $e) {
    echo "Conexão falhou: ". $e->getMessage();

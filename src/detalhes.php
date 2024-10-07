@@ -6,7 +6,7 @@ if(isset($_SESSION['ra_aluno']) || isset($_SESSION['cod_coordenador'])){
 header("Location: login.php");
 } 
 
-$strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+$strcon = mysqli_connect ("localhost", "root", "", "humanitae_db") or die ("Erro ao conectar com o banco");
 
 // pegar a ultima observação feita pelo professor 
 $sql = "SELECT * FROM observacao_atividade WHERE cod_atividade = ".$_GET['cod_atividade']." ORDER BY cod_observacao DESC

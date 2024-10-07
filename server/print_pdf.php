@@ -56,7 +56,8 @@ td, th {
 ";
 
 // conexao com o banco de dados usando as credenciais do Felipe, qualquer integrante do grupo pode usar seu primeiro nome em minusculo como usuario, o resto mantém
-$strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+// $strcon = mysqli_connect ("137.184.66.198", "felipe", "abcd=1234", "humanitae_db") or die ("Erro ao conectar com o banco");
+$strcon = mysqli_connect ("localhost", "root", "", "humanitae_db") or die ("Erro ao conectar com o banco");
 
 // buscar todas as disciplinas do curso da pessoa
 $sql = "SELECT * FROM disciplina WHERE cod_curso = '".$_SESSION['curso']."'";
